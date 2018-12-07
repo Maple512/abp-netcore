@@ -1,4 +1,4 @@
-namespace AbpLearning.Sessions.Dto
+namespace AbpLearning.Application.Sessions.Dto
 {
     public class GetCurrentLoginInformationsOutput
     {

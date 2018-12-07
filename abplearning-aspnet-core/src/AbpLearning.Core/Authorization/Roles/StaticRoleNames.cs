@@ -1,4 +1,4 @@
-namespace AbpLearning.Authorization.Roles
+namespace AbpLearning.Core.Authorization.Roles
 {
     public static class StaticRoleNames
     {

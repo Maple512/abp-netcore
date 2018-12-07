@@ -11,6 +11,8 @@ using Abp.Zero.Configuration;
 using Abp.Zero.EntityFrameworkCore;
 using AbpLearning.EntityFrameworkCore;
 using AbpLearning.Tests.DependencyInjection;
+using AbpLearning.Application;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
 
 namespace AbpLearning.Tests
 {

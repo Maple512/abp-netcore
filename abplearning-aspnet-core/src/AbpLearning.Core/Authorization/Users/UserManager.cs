@@ -10,9 +10,9 @@ using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Abp.Organizations;
 using Abp.Runtime.Caching;
-using AbpLearning.Authorization.Roles;
+using AbpLearning.Core.Authorization.Roles;
 
-namespace AbpLearning.Authorization.Users
+namespace AbpLearning.Core.Authorization.Users
 {
     public class UserManager : AbpUserManager<Role, User>
     {

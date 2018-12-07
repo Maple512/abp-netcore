@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Abp.Authorization;
-using AbpLearning.Authorization.Roles;
+using AbpLearning.Core.Authorization.Roles;
 
-namespace AbpLearning.Authorization.Users
+namespace AbpLearning.Core.Authorization.Users
 {
     public class UserClaimsPrincipalFactory : AbpUserClaimsPrincipalFactory<User, Role>
     {

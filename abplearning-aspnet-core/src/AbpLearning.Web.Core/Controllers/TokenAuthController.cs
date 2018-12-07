@@ -4,21 +4,23 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Abp.Authorization;
 using Abp.Authorization.Users;
 using Abp.MultiTenancy;
 using Abp.Runtime.Security;
 using Abp.UI;
-using AbpLearning.Authentication.External;
-using AbpLearning.Authentication.JwtBearer;
-using AbpLearning.Authorization;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Models.TokenAuth;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Application;
+using AbpLearning.Application.Authorization;
+using AbpLearning.Core.Authorization;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.MultiTenancy;
+using AbpLearning.Web.Core.Authentication.External;
+using AbpLearning.Web.Core.Authentication.JwtBearer;
+using AbpLearning.Web.Core.Models.TokenAuth;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AbpLearning.Controllers
+namespace AbpLearning.Web.Core.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class TokenAuthController : AbpLearningControllerBase
@@ -140,7 +142,7 @@ namespace AbpLearning.Controllers
                 externalUser.Surname,
                 externalUser.EmailAddress,
                 externalUser.EmailAddress,
-                Authorization.Users.User.CreateRandomPassword(),
+                AbpLearning.Core.Authorization.Users.User.CreateRandomPassword(),
                 true
             );
 

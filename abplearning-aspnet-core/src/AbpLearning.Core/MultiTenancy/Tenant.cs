@@ -1,7 +1,7 @@
 using Abp.MultiTenancy;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.MultiTenancy
+namespace AbpLearning.Core.MultiTenancy
 {
     public class Tenant : AbpTenant<User>
     {

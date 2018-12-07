@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AbpLearning.Sessions.Dto
+namespace AbpLearning.Application.Sessions.Dto
 {
     public class ApplicationInfoDto
     {

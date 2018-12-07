@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 
-namespace AbpLearning.Authentication.JwtBearer
+namespace AbpLearning.Web.Core.Authentication.JwtBearer
 {
     public static class JwtTokenMiddleware
     {

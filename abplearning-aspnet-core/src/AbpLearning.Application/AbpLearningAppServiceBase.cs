@@ -1,14 +1,15 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Abp.Application.Services;
-using Abp.IdentityFramework;
-using Abp.Runtime.Session;
-using AbpLearning.Authorization.Users;
-using AbpLearning.MultiTenancy;
-
-namespace AbpLearning
+namespace AbpLearning.Application
 {
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
+    using Abp.Application.Services;
+    using Abp.IdentityFramework;
+    using Abp.Runtime.Session;
+    using AbpLearning.Core.Authorization.Users;
+    using AbpLearning.Core.MultiTenancy;
+    using AbpLearning.Core;
+
     /// <summary>
     /// Derive your application services from this class.
     /// </summary>
@@ -20,7 +21,7 @@ namespace AbpLearning
 
         protected AbpLearningAppServiceBase()
         {
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName_Application;
         }
 
         protected virtual Task<User> GetCurrentUserAsync()

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Abp;
 using Abp.Authorization.Users;
 using Abp.Events.Bus;
@@ -9,11 +8,12 @@ using Abp.Events.Bus.Entities;
 using Abp.MultiTenancy;
 using Abp.Runtime.Session;
 using Abp.TestBase;
-using AbpLearning.Authorization.Users;
-using AbpLearning.EntityFrameworkCore;
-using AbpLearning.EntityFrameworkCore.Seed.Host;
-using AbpLearning.EntityFrameworkCore.Seed.Tenants;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.MultiTenancy;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbpLearning.Tests
 {

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Roles;
 using Abp.AutoMapper;
-using AbpLearning.Authorization.Roles;
+using AbpLearning.Core.Authorization.Roles;
 
-namespace AbpLearning.Roles.Dto
+namespace AbpLearning.Application.Roles.Dto
 {
     [AutoMapTo(typeof(Role))]
     public class CreateRoleDto

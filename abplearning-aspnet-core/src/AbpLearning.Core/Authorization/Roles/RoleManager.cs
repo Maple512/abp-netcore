@@ -6,9 +6,9 @@ using Abp.Authorization.Roles;
 using Abp.Domain.Uow;
 using Abp.Runtime.Caching;
 using Abp.Zero.Configuration;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Authorization.Roles
+namespace AbpLearning.Core.Authorization.Roles
 {
     public class RoleManager : AbpRoleManager<Role, User>
     {

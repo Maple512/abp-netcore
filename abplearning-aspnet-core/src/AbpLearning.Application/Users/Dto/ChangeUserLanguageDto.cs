@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AbpLearning.Users.Dto
+namespace AbpLearning.Application.Users.Dto
 {
     public class ChangeUserLanguageDto
     {

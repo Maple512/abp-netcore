@@ -4,7 +4,7 @@ using Abp.Configuration;
 using Abp.Localization;
 using Abp.Net.Mail;
 
-namespace AbpLearning.EntityFrameworkCore.Seed.Host
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
 {
     public class DefaultSettingsCreator
     {

@@ -1,5 +1,5 @@
+using AbpLearning.Web.Core.Controllers;
 using Microsoft.AspNetCore.Antiforgery;
-using AbpLearning.Controllers;
 
 namespace AbpLearning.Web.Host.Controllers
 {

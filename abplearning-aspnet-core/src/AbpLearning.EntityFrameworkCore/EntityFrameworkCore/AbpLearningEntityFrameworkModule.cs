@@ -2,9 +2,10 @@ using Abp.EntityFrameworkCore.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.EntityFrameworkCore;
-using AbpLearning.EntityFrameworkCore.Seed;
+using AbpLearning.Core;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed;
 
-namespace AbpLearning.EntityFrameworkCore
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 {
     [DependsOn(
         typeof(AbpLearningCoreModule), 

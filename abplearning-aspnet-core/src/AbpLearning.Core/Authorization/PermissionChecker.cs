@@ -1,8 +1,8 @@
 using Abp.Authorization;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Authorization
+namespace AbpLearning.Core.Authorization
 {
     public class PermissionChecker : PermissionChecker<Role, User>
     {

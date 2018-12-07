@@ -1,20 +1,22 @@
 using System;
 using System.Text;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Configuration;
 using Abp.AspNetCore.SignalR;
+using Abp.Configuration.Startup;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.Configuration;
-using AbpLearning.Authentication.JwtBearer;
-using AbpLearning.Configuration;
-using AbpLearning.EntityFrameworkCore;
-using Abp.Configuration.Startup;
+using AbpLearning.Application;
+using AbpLearning.Core;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
+using AbpLearning.Web.Core.Authentication.JwtBearer;
+using AbpLearning.Web.Core.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
-namespace AbpLearning
+namespace AbpLearning.Web.Core
 {
     [DependsOn(
          typeof(AbpLearningApplicationModule),

@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Users.Dto
+namespace AbpLearning.Application.Users.Dto
 {
     [AutoMapFrom(typeof(User))]
     public class UserDto : EntityDto<long>

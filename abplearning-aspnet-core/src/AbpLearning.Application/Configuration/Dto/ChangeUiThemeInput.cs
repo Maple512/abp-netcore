@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AbpLearning.Configuration.Dto
+namespace AbpLearning.Application.Configuration.Dto
 {
     public class ChangeUiThemeInput
     {

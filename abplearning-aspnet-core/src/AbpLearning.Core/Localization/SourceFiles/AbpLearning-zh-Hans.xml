@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="zh-Hans">
   <texts>
+
+    <!--权限-->
+    <text name="Roles" value="角色" />
+    <text name="Users" value="用户" />
+    <text name="Pages" value="页面" />
+    <text name="Tenants" value="租户" />
+    <text name="Administrator" value="管理员" />
+
+    <!--云书单-->
+    <text name="CloudBookList" value="云书单" />
+
+    <!--权限 书籍-->
+    <text name="Book" value="书籍" />
+    <text name="BookQuery" value="查询书籍" />
+    <text name="BookCreate" value="创建书籍" />
+    <text name="BookEdit" value="编辑书籍" />
+    <text name="BookDelete" value="删除书籍" />
+    <text name="BookBatchDelete" value="批量删除书籍" />
+    <text name="BookExportExcel" value="导出书籍" />
+
+    <!--权限 书签-->
+    <text name="BookTag" value="书签" />
+    <text name="BookTagQuery" value="查询书签" />
+    <text name="BookTagCreate" value="创建书签" />
+    <text name="BookTagEdit" value="编辑书签" />
+    <text name="BookTagDelete" value="删除书签" />
+    <text name="BookTagBatchDelete" value="批量删除书签" />
+    <text name="BookTagExportExcel" value="导出书签" />
+    
     <!--<text name="HomePage" value="主页" />
     <text name="About" value="关于我们" />
     <text name="WellcomeMessage" value="欢迎使用 YoyoCmsTemplate!" />
@@ -40,10 +69,7 @@
  
 
     <text name="LoginFailed" value="登录失败!" />
-    <text name="Roles" value="角色" />
-    <text name="Users" value="用户" />
-
-    <text name="Pages" value="页面" />
+    
     <text name="RoleName" value="角色名称" />
     <text name="EditRole" value="修改角色" />
     <text name="CreateNewRole" value="添加角色" />
@@ -224,16 +250,17 @@
     <text name="CustomRange" value="自定义范围" />
     
     <text name="PermissionManagement" value="权限管理" />-->
-    
+
     <!--通用-->
     <!--<text name="Save" value="保存" />
     <text name="Cancel" value="取消" />
-    <text name="Tenants" value="租户" />
     <text name="PleaseWait" value="请稍等..." />
     <text name="Submit" value="提交" />
     <text name="SignUp" value="登录" />
     
-    --><!--登陆--><!--
+    -->
+    <!--登陆-->
+    <!--
     <text name="CreateAnAccount" value="创建一个用户" />
     <text name="CurrentTenant" value="当前租户" />
     <text name="NotSelected" value="未选择" />
@@ -250,7 +277,9 @@
     <text name="TenantRegister" value="租户注册" />
     <text name="ForgotPassword" value="忘记密码" />
 
-    --><!--租户注册--><!--
+    -->
+    <!--租户注册-->
+    <!--
     <text name="UserName" value="用户名" />
     <text name="AdminEmailAddress" value="管理员邮箱" />
     <text name="Register" value="注册" />

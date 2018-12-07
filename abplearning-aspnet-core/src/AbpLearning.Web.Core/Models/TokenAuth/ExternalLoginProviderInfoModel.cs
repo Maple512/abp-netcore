@@ -1,7 +1,7 @@
 using Abp.AutoMapper;
-using AbpLearning.Authentication.External;
+using AbpLearning.Web.Core.Authentication.External;
 
-namespace AbpLearning.Models.TokenAuth
+namespace AbpLearning.Web.Core.Models.TokenAuth
 {
     [AutoMapFrom(typeof(ExternalLoginProviderInfo))]
     public class ExternalLoginProviderInfoModel

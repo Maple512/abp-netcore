@@ -1,4 +1,4 @@
-namespace AbpLearning.Models.TokenAuth
+namespace AbpLearning.Web.Core.Models.TokenAuth
 {
     public class ExternalAuthenticateResultModel
     {

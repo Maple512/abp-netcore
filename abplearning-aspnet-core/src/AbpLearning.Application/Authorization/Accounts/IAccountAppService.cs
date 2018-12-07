@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using AbpLearning.Authorization.Accounts.Dto;
+using AbpLearning.Application.Authorization.Accounts.Dto;
 
-namespace AbpLearning.Authorization.Accounts
+namespace AbpLearning.Application.Authorization.Accounts
 {
     public interface IAccountAppService : IApplicationService
     {

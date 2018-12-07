@@ -2,15 +2,16 @@ using Abp.AutoMapper;
 using Abp.Extensions;
 using Abp.MultiTenancy;
 using Abp.Runtime.Security;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Editions;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.Editions;
+using AbpLearning.Core.MultiTenancy;
 using AbpLearning.MultiTenancy.Dto;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AbpLearning.MultiTenancy
+namespace AbpLearning.Application.MultiTenancy
 {
     public class TenantRegistrationAppService : AbpLearningAppServiceBase, ITenantRegistrationAppService
     {

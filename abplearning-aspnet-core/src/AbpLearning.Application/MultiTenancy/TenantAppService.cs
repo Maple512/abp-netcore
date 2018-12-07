@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
@@ -9,15 +8,17 @@ using Abp.Extensions;
 using Abp.IdentityFramework;
 using Abp.MultiTenancy;
 using Abp.Runtime.Security;
-using AbpLearning.Authorization;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Editions;
+using AbpLearning.Core;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.Editions;
+using AbpLearning.Core.MultiTenancy;
 using AbpLearning.MultiTenancy.Dto;
+using Microsoft.AspNetCore.Identity;
 
-namespace AbpLearning.MultiTenancy
+namespace AbpLearning.Application.MultiTenancy
 {
-    [AbpAuthorize(PermissionNames.Pages_Tenants)]
+    [AbpAuthorize(AbpLearningPermissions.TENANTS)]
     public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
     {
         private readonly TenantManager _tenantManager;

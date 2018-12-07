@@ -1,3 +1,4 @@
+using AbpLearning.Core;
 using Xunit;
 
 namespace AbpLearning.Tests

@@ -3,10 +3,10 @@ using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Abp.MultiTenancy;
 using Abp.Runtime.Caching;
-using AbpLearning.Authorization.Users;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.MultiTenancy;
 
-namespace AbpLearning.Features
+namespace AbpLearning.Core.Features
 {
     public class FeatureValueStore : AbpFeatureValueStore<Tenant, User>
     {

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using AbpLearning.Roles.Dto;
+using AbpLearning.Application.Roles.Dto;
 
-namespace AbpLearning.Roles
+namespace AbpLearning.Application.Roles
 {
     public interface IRoleAppService : IAsyncCrudAppService<RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>
     {

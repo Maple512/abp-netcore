@@ -1,10 +1,13 @@
-using Abp.AutoMapper;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using AbpLearning.Authorization;
-
-namespace AbpLearning
+namespace AbpLearning.Application
 {
+    using Abp.AutoMapper;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using AbpLearning.Core;
+    using AbpLearning.Core.Authorization;
+    using AbpLearning.Core.CloudBookList.Book.Authorization;
+    using AbpLearning.Core.CloudBookList.BookTags.Authorization;
+
     [DependsOn(
         typeof(AbpLearningCoreModule),
         typeof(AbpAutoMapperModule))]
@@ -13,6 +16,14 @@ namespace AbpLearning
         public override void PreInitialize()
         {
             Configuration.Authorization.Providers.Add<AbpLearningAuthorizationProvider>();
+
+            #region 云书单权限
+
+            Configuration.Authorization.Providers.Add<BookAuthorizationProvider>();
+
+            Configuration.Authorization.Providers.Add<BookTagAuthorizationProvider>();
+
+            #endregion
 
             // 自定义类型映射
             Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>

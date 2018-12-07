@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Roles;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Authorization.Roles
+namespace AbpLearning.Core.Authorization.Roles
 {
     public class Role : AbpRole<User>
     {

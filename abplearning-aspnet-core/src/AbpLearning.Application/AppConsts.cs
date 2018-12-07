@@ -1,4 +1,4 @@
-namespace AbpLearning
+namespace AbpLearning.Application
 {
     public class AppConsts
     {

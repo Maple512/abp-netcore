@@ -7,11 +7,11 @@ using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Abp.Zero.Configuration;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.MultiTenancy;
 
-namespace AbpLearning.Authorization
+namespace AbpLearning.Core.Authorization
 {
     public class LogInManager : AbpLogInManager<Tenant, Role, User>
     {

@@ -1,9 +1,9 @@
 using Abp.Authorization.Roles;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Authorization.Roles
+namespace AbpLearning.Core.Authorization.Roles
 {
     public class RoleStore : AbpRoleStore<Role, User>
     {

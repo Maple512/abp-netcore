@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Auditing;
-using AbpLearning.Sessions.Dto;
+using AbpLearning.Application.Sessions.Dto;
+using AbpLearning.Core;
 
-namespace AbpLearning.Sessions
+namespace AbpLearning.Application.Sessions
 {
     public class SessionAppService : AbpLearningAppServiceBase, ISessionAppService
     {

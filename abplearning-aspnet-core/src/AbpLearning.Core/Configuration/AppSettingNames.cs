@@ -1,4 +1,4 @@
-namespace AbpLearning.Configuration
+namespace AbpLearning.Core.Configuration
 {
     public static class AppSettingNames
     {

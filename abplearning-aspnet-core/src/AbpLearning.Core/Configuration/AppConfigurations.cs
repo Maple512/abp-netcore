@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Abp.Extensions;
 using Abp.Reflection.Extensions;
 
-namespace AbpLearning.Configuration
+namespace AbpLearning.Core.Configuration
 {
     public static class AppConfigurations
     {

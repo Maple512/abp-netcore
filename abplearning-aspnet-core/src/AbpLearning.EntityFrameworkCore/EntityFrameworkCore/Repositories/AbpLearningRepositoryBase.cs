@@ -2,7 +2,7 @@ using Abp.Domain.Entities;
 using Abp.EntityFrameworkCore;
 using Abp.EntityFrameworkCore.Repositories;
 
-namespace AbpLearning.EntityFrameworkCore.Repositories
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Repositories
 {
     /// <summary>
     /// Base class for custom repositories of the application.

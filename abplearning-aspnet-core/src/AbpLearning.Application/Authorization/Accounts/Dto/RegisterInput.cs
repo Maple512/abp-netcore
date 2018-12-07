@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
 using Abp.Extensions;
-using AbpLearning.Validation;
+using AbpLearning.Core.Validation;
 
-namespace AbpLearning.Authorization.Accounts.Dto
+namespace AbpLearning.Application.Authorization.Accounts.Dto
 {
     public class RegisterInput : IValidatableObject
     {

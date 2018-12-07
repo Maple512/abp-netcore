@@ -1,16 +1,16 @@
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Abp.Authorization;
 using Abp.Authorization.Roles;
 using Abp.Authorization.Users;
 using Abp.MultiTenancy;
-using AbpLearning.Authorization;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Core.Authorization;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
-namespace AbpLearning.EntityFrameworkCore.Seed.Tenants
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants
 {
     public class TenantRoleAndUserBuilder
     {

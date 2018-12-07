@@ -1,9 +1,9 @@
-using System;
-using System.IO;
-using Abp.Reflection.Extensions;
-
-namespace AbpLearning
+namespace AbpLearning.Core
 {
+    using System;
+    using System.IO;
+    using Abp.Reflection.Extensions;
+
     /// <summary>
     /// Central point for application version.
     /// </summary>

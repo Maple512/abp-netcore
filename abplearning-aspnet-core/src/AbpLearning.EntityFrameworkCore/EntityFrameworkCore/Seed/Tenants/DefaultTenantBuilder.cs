@@ -1,10 +1,10 @@
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Abp.MultiTenancy;
-using AbpLearning.Editions;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Editions;
+using AbpLearning.Core.MultiTenancy;
+using Microsoft.EntityFrameworkCore;
 
-namespace AbpLearning.EntityFrameworkCore.Seed.Tenants
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants
 {
     public class DefaultTenantBuilder
     {

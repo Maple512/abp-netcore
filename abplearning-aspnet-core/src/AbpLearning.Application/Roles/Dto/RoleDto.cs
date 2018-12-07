@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.Authorization.Roles;
 using Abp.AutoMapper;
-using AbpLearning.Authorization.Roles;
+using AbpLearning.Core.Authorization.Roles;
 
-namespace AbpLearning.Roles.Dto
+namespace AbpLearning.Application.Roles.Dto
 {
     [AutoMap(typeof(Role))]
     public class RoleDto : EntityDto<int>

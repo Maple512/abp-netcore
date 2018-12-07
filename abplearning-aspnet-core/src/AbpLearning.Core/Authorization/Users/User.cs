@@ -2,7 +2,7 @@ using System;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 
-namespace AbpLearning.Authorization.Users
+namespace AbpLearning.Core.Authorization.Users
 {
     public class User : AbpUser<User>
     {

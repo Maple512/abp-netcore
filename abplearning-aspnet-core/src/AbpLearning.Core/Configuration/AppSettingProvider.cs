@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Abp.Configuration;
 
-namespace AbpLearning.Configuration
+namespace AbpLearning.Core.Configuration
 {
     public class AppSettingProvider : SettingProvider
     {

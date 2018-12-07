@@ -1,6 +1,6 @@
 using System;
 
-namespace AbpLearning.Authentication.External
+namespace AbpLearning.Web.Core.Authentication.External
 {
     public class ExternalLoginProviderInfo
     {

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using AbpLearning.Sessions.Dto;
+using AbpLearning.Application.Sessions.Dto;
 
-namespace AbpLearning.Sessions
+namespace AbpLearning.Application.Sessions
 {
     public interface ISessionAppService : IApplicationService
     {

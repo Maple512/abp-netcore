@@ -1,7 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
-using Castle.Windsor.MsDependencyInjection;
 using Abp.Dependency;
-using AbpLearning.Identity;
+using AbpLearning.Core.Identity;
+using Castle.Windsor.MsDependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AbpLearning.Migrator.DependencyInjection
 {

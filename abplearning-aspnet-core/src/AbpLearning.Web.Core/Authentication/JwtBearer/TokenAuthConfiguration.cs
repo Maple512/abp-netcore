@@ -1,7 +1,7 @@
 using System;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AbpLearning.Authentication.JwtBearer
+namespace AbpLearning.Web.Core.Authentication.JwtBearer
 {
     public class TokenAuthConfiguration
     {

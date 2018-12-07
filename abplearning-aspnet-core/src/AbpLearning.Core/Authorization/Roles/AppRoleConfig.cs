@@ -1,7 +1,7 @@
 using Abp.MultiTenancy;
 using Abp.Zero.Configuration;
 
-namespace AbpLearning.Authorization.Roles
+namespace AbpLearning.Core.Authorization.Roles
 {
     public static class AppRoleConfig
     {

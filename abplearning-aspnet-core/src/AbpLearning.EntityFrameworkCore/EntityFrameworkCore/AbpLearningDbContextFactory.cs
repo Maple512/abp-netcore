@@ -1,10 +1,11 @@
+using AbpLearning.Core;
+using AbpLearning.Core.Configuration;
+using AbpLearning.Core.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using AbpLearning.Configuration;
-using AbpLearning.Web;
 
-namespace AbpLearning.EntityFrameworkCore
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 {
     /* This class is needed to run "dotnet ef ..." commands from command line on development. Not used anywhere else */
     public class AbpLearningDbContextFactory : IDesignTimeDbContextFactory<AbpLearningDbContext>

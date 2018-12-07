@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
@@ -11,15 +9,17 @@ using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
 using Abp.Localization;
 using Abp.Runtime.Session;
-using AbpLearning.Authorization;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Roles.Dto;
-using AbpLearning.Users.Dto;
+using AbpLearning.Application.Roles.Dto;
+using AbpLearning.Application.Users.Dto;
+using AbpLearning.Core;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace AbpLearning.Users
+namespace AbpLearning.Application.Users
 {
-    [AbpAuthorize(PermissionNames.Pages_Users)]
+    [AbpAuthorize(AbpLearningPermissions.USERS)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
         private readonly UserManager _userManager;

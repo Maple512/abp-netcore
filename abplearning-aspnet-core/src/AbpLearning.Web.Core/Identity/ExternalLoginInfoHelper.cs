@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 using Abp.Extensions;
 
-namespace AbpLearning.Identity
+namespace AbpLearning.Web.Core.Identity
 {
     public class ExternalLoginInfoHelper
     {

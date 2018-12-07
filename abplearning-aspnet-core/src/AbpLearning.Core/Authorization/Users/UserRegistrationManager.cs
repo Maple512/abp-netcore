@@ -9,10 +9,10 @@ using Abp.Domain.Services;
 using Abp.IdentityFramework;
 using Abp.Runtime.Session;
 using Abp.UI;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.MultiTenancy;
 
-namespace AbpLearning.Authorization.Users
+namespace AbpLearning.Core.Authorization.Users
 {
     public class UserRegistrationManager : DomainService
     {

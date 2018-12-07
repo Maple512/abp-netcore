@@ -2,7 +2,7 @@ using Abp.Application.Editions;
 using Abp.Application.Features;
 using Abp.Domain.Repositories;
 
-namespace AbpLearning.Editions
+namespace AbpLearning.Core.Editions
 {
     public class EditionManager : AbpEditionManager
     {

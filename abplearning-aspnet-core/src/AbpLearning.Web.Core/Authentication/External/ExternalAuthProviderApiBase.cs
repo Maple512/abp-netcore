@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Dependency;
 
-namespace AbpLearning.Authentication.External
+namespace AbpLearning.Web.Core.Authentication.External
 {
     public abstract class ExternalAuthProviderApiBase : IExternalAuthProviderApi, ITransientDependency
     {

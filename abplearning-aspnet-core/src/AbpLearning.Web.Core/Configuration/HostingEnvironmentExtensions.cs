@@ -1,7 +1,8 @@
+using AbpLearning.Core.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace AbpLearning.Configuration
+namespace AbpLearning.Web.Core.Configuration
 {
     public static class HostingEnvironmentExtensions
     {

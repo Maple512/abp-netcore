@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using AbpLearning.Configuration.Dto;
+using AbpLearning.Application.Configuration.Dto;
 
-namespace AbpLearning.Configuration
+namespace AbpLearning.Application.Configuration
 {
     public interface IConfigurationAppService
     {

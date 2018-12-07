@@ -1,4 +1,4 @@
-namespace AbpLearning.EntityFrameworkCore.Seed.Host
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
 {
     public class InitialHostDbBuilder
     {

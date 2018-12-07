@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Abp.Reflection.Extensions;
 
-namespace AbpLearning.Web
+namespace AbpLearning.Core.Web
 {
     /// <summary>
     /// This class is used to find root path of the web project in;

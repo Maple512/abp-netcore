@@ -1,7 +1,7 @@
 using System;
 using Abp.Dependency;
 
-namespace AbpLearning.Timing
+namespace AbpLearning.Core.Timing
 {
     public class AppTimes : ISingletonDependency
     {

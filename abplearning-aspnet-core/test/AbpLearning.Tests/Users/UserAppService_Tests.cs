@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
+using AbpLearning.Application.Users;
+using AbpLearning.Application.Users.Dto;
 using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using Xunit;
-using Abp.Application.Services.Dto;
-using AbpLearning.Users;
-using AbpLearning.Users.Dto;
 
 namespace AbpLearning.Tests.Users
 {

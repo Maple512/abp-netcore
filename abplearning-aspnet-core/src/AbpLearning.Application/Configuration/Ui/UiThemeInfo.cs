@@ -1,4 +1,4 @@
-namespace AbpLearning.Configuration.Ui
+namespace AbpLearning.Application.Configuration.Ui
 {
     public class UiThemeInfo
     {

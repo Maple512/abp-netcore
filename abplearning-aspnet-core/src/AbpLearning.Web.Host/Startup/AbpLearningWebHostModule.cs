@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
-using AbpLearning.Configuration;
+using AbpLearning.Web.Core;
+using AbpLearning.Web.Core.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace AbpLearning.Web.Host.Startup
 {

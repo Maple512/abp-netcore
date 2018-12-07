@@ -1,17 +1,17 @@
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using Abp.Timing;
-using Abp.Zero;
-using Abp.Zero.Configuration;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Configuration;
-using AbpLearning.Localization;
-using AbpLearning.MultiTenancy;
-using AbpLearning.Timing;
-
-namespace AbpLearning
+namespace AbpLearning.Core
 {
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using Abp.Timing;
+    using Abp.Zero;
+    using Abp.Zero.Configuration;
+    using AbpLearning.Core.Authorization.Roles;
+    using AbpLearning.Core.Authorization.Users;
+    using AbpLearning.Core.Configuration;
+    using AbpLearning.Core.Localization;
+    using AbpLearning.Core.MultiTenancy;
+    using AbpLearning.Core.Timing;
+
     [DependsOn(typeof(AbpZeroCoreModule))]
     public class AbpLearningCoreModule : AbpModule
     {

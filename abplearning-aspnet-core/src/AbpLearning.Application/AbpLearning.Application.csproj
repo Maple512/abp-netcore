@@ -11,6 +11,10 @@
     <RootNamespace>AbpLearning</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AbpLearning.Core\AbpLearning.Core.csproj" />
   </ItemGroup>
 </Project>

@@ -1,22 +1,20 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Abp.AspNetCore;
+using Abp.AspNetCore.SignalR.Hubs;
+using Abp.Castle.Logging.Log4Net;
+using Abp.Extensions;
+using AbpLearning.Core.Identity;
+using AbpLearning.Web.Core.Configuration;
+using Castle.Facilities.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Castle.Facilities.Logging;
 using Swashbuckle.AspNetCore.Swagger;
-using Abp.AspNetCore;
-using Abp.Castle.Logging.Log4Net;
-using Abp.Extensions;
-using AbpLearning.Authentication.JwtBearer;
-using AbpLearning.Configuration;
-using AbpLearning.Identity;
-
-using Abp.AspNetCore.SignalR.Hubs;
 
 namespace AbpLearning.Web.Host.Startup
 {
@@ -122,7 +120,7 @@ namespace AbpLearning.Web.Host.Startup
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AbpLearning API V1");
-                // options.SwaggerEndpoint(_appConfiguration["App:ServerRootAddress"].EnsureEndsWith('/') + "swagger/v1/swagger.json", "AbpLearning API V1");
+                 //options.SwaggerEndpoint(_appConfiguration["App:ServerRootAddress"].EnsureEndsWith('/') + "swagger/v1/swagger.json", "AbpLearning API V1");
 
                 options.IndexStream = () => Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("AbpLearning.Web.Host.wwwroot.swagger.ui.index.html");

@@ -1,4 +1,4 @@
-namespace AbpLearning.Authorization.Accounts.Dto
+namespace AbpLearning.Application.Authorization.Accounts.Dto
 {
     public enum TenantAvailabilityState
     {

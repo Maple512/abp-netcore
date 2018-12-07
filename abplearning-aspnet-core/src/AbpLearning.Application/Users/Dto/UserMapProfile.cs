@@ -1,7 +1,7 @@
+using AbpLearning.Core.Authorization.Users;
 using AutoMapper;
-using AbpLearning.Authorization.Users;
 
-namespace AbpLearning.Users.Dto
+namespace AbpLearning.Application.Users.Dto
 {
     public class UserMapProfile : Profile
     {

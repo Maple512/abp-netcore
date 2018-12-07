@@ -1,9 +1,9 @@
-using AutoMapper;
 using Abp.Authorization;
 using Abp.Authorization.Roles;
-using AbpLearning.Authorization.Roles;
+using AbpLearning.Core.Authorization.Roles;
+using AutoMapper;
 
-namespace AbpLearning.Roles.Dto
+namespace AbpLearning.Application.Roles.Dto
 {
     public class RoleMapProfile : Profile
     {

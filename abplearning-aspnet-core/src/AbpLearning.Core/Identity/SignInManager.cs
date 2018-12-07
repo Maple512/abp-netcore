@@ -6,11 +6,11 @@ using Microsoft.Extensions.Options;
 using Abp.Authorization;
 using Abp.Configuration;
 using Abp.Domain.Uow;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.MultiTenancy;
 
-namespace AbpLearning.Identity
+namespace AbpLearning.Core.Identity
 {
     public class SignInManager : AbpSignInManager<Tenant, Role, User>
     {

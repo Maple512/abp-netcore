@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.MultiTenancy;
+using AbpLearning.Core.MultiTenancy;
 
 namespace AbpLearning.MultiTenancy.Dto
 {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace AbpLearning.Authentication.External
+namespace AbpLearning.Web.Core.Authentication.External
 {
     public interface IExternalAuthProviderApi
     {

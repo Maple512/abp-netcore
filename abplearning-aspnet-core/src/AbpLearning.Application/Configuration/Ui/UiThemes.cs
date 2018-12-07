@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AbpLearning.Configuration.Ui
+namespace AbpLearning.Application.Configuration.Ui
 {
     public static class UiThemes
     {

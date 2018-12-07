@@ -5,10 +5,10 @@ using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.EntityFrameworkCore.Uow;
 using Abp.MultiTenancy;
-using AbpLearning.EntityFrameworkCore.Seed.Host;
-using AbpLearning.EntityFrameworkCore.Seed.Tenants;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants;
 
-namespace AbpLearning.EntityFrameworkCore.Seed
+namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed
 {
     public static class SeedHelper
     {

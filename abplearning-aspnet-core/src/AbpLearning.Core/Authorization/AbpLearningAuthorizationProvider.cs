@@ -2,24 +2,25 @@ using Abp.Authorization;
 using Abp.Localization;
 using Abp.MultiTenancy;
 
-namespace AbpLearning.Authorization
+namespace AbpLearning.Core.Authorization
 {
     public class AbpLearningAuthorizationProvider : AuthorizationProvider
     {
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
-            context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
-            context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
-            context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
-
             // 管理员 权限
-            context.CreatePermission(PermissionNames.Administrator, L("Administrator"));
+            context.CreatePermission(AbpLearningPermissions.ADMINISTRATOR, L("Administrator"))
+                .CreateChildPermission(AbpLearningPermissions.USERS, L("Users"))
+                .CreateChildPermission(AbpLearningPermissions.ROLES, L("Roles"))
+                .CreateChildPermission(AbpLearningPermissions.TENANTS, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
 
+            // 页面
+            context.CreatePermission(AbpLearningPermissions.PAGES, L("Pages"));
         }
 
         private static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName);
+            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName_Core);
         }
     }
 }

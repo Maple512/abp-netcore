@@ -3,14 +3,15 @@ using Abp;
 using Abp.Authorization;
 using Abp.Dependency;
 using Abp.UI;
+using AbpLearning.Core;
 
-namespace AbpLearning.Authorization
+namespace AbpLearning.Application.Authorization
 {
     public class AbpLoginResultTypeHelper : AbpServiceBase, ITransientDependency
     {
         public AbpLoginResultTypeHelper()
         {
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName_Application;
         }
 
         public Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress, string tenancyName)

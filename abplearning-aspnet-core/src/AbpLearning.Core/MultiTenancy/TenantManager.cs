@@ -1,10 +1,10 @@
 using Abp.Application.Features;
 using Abp.Domain.Repositories;
 using Abp.MultiTenancy;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Editions;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.Editions;
 
-namespace AbpLearning.MultiTenancy
+namespace AbpLearning.Core.MultiTenancy
 {
     public class TenantManager : AbpTenantManager<Tenant, User>
     {

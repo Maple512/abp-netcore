@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using AbpLearning.Authorization;
-using AbpLearning.Authorization.Roles;
-using AbpLearning.Authorization.Users;
-using AbpLearning.Editions;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.Authorization;
+using AbpLearning.Core.Authorization.Roles;
+using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.Editions;
+using AbpLearning.Core.MultiTenancy;
 
-namespace AbpLearning.Identity
+namespace AbpLearning.Core.Identity
 {
     public static class IdentityRegistrar
     {

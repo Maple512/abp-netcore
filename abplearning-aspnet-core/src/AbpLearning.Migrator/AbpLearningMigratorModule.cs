@@ -1,14 +1,15 @@
-using Microsoft.Extensions.Configuration;
-using Castle.MicroKernel.Registration;
-using Abp.Events.Bus;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using AbpLearning.Configuration;
-using AbpLearning.EntityFrameworkCore;
-using AbpLearning.Migrator.DependencyInjection;
-
 namespace AbpLearning.Migrator
 {
+    using Abp.Events.Bus;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using AbpLearning.Core;
+    using AbpLearning.Core.Configuration;
+    using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
+    using AbpLearning.Migrator.DependencyInjection;
+    using Castle.MicroKernel.Registration;
+    using Microsoft.Extensions.Configuration;
+
     [DependsOn(typeof(AbpLearningEntityFrameworkModule))]
     public class AbpLearningMigratorModule : AbpModule
     {

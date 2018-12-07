@@ -8,9 +8,9 @@ using Abp.Domain.Uow;
 using Abp.Extensions;
 using Abp.MultiTenancy;
 using Abp.Runtime.Security;
-using AbpLearning.EntityFrameworkCore;
-using AbpLearning.EntityFrameworkCore.Seed;
-using AbpLearning.MultiTenancy;
+using AbpLearning.Core.MultiTenancy;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
+using AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed;
 
 namespace AbpLearning.Migrator
 {

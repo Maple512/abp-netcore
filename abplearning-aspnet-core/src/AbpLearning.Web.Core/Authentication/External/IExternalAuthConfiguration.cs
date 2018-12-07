@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AbpLearning.Authentication.External
+namespace AbpLearning.Web.Core.Authentication.External
 {
     public interface IExternalAuthConfiguration
     {

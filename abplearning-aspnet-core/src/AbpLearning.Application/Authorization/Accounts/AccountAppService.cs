@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Abp.Configuration;
 using Abp.Zero.Configuration;
-using AbpLearning.Authorization.Accounts.Dto;
-using AbpLearning.Authorization.Users;
+using AbpLearning.Application.Authorization.Accounts.Dto;
+using AbpLearning.Core.Authorization.Users;
 
-namespace AbpLearning.Authorization.Accounts
+namespace AbpLearning.Application.Authorization.Accounts
 {
     public class AccountAppService : AbpLearningAppServiceBase, IAccountAppService
     {

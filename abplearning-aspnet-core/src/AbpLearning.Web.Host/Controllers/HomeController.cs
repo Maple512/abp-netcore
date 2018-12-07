@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Abp;
 using Abp.Extensions;
 using Abp.Notifications;
 using Abp.Timing;
-using AbpLearning.Controllers;
+using AbpLearning.Web.Core.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AbpLearning.Web.Host.Controllers
 {

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using AbpLearning.Application.Sessions;
 using Shouldly;
 using Xunit;
-using AbpLearning.Sessions;
 
 namespace AbpLearning.Tests.Sessions
 {
