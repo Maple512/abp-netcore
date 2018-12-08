@@ -5,12 +5,13 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
     using Abp.Authorization.Roles;
     using Abp.Authorization.Users;
     using Abp.MultiTenancy;
-    using AbpLearning.Core.Authorization;
-    using AbpLearning.Core.Authorization.Roles;
-    using AbpLearning.Core.Authorization.Users;
-    using AbpLearning.Core.CloudBookList.Book.Authorization;
-    using AbpLearning.Core.CloudBookList.BookLists.Authorization;
-    using AbpLearning.Core.CloudBookList.BookTags.Authorization;
+    using Core;
+    using Core.Authorization;
+    using Core.Authorization.Roles;
+    using Core.Authorization.Users;
+    using Core.CloudBookList.Book.Authorization;
+    using Core.CloudBookList.BookLists.Authorization;
+    using Core.CloudBookList.BookTags.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
@@ -56,12 +57,11 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
 
             var permissions = PermissionFinder
                 .GetAllPermissions(
-                new AbpLearningAuthorizationProvider(),
-                new BookAuthorizationProvider(true),
-                new BookTagAuthorizationProvider(true),
-                new BookListAuthorizationProvider(true))
-                .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Host) &&
-                            !grantedPermissions.Contains(p.Name))
+                    new AbpLearningAuthorizationProvider(),
+                    new BookAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
+                    new BookTagAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
+                    new BookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
+                .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Host) && !grantedPermissions.Contains(p.Name))
                 .ToList();
 
             if (permissions.Any())

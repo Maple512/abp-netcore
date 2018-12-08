@@ -26,7 +26,5 @@
         /// 链接
         /// </summary>
         public string Url { get; set; }
-
-        public int TenantDisplayName { get; set; }
     }
 }

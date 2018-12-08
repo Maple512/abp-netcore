@@ -9,7 +9,11 @@
     {
         public long? Id { get; set; }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         [Required]
+        [MaxLength(16)]
         public string Name { get; set; }
     }
 }

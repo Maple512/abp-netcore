@@ -29,6 +29,6 @@
 
         Task DeleteAsync(EntityDto<long> model);
 
-        Task BatchDeleteAsync(IEnumerable<long> bookIds);
+        Task BatchDeleteAsync(List<long> bookIds);
     }
 }

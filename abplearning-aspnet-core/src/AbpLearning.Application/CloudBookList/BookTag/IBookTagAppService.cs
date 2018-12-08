@@ -16,12 +16,10 @@
 
         Task<BookViewModel> GetAsync(EntityDto<long> model);
 
-        Task CreateAsync(BookTagEditModel model);
-
-        Task UpdateAsync(BookTagEditModel model);
+        Task CreateOrUpdateAsync(BookTagEditModel model);
 
         Task DeleteAsync(EntityDto<long> model);
 
-        Task BatchDeleteAsync(IEnumerable<long> bookTagIds);
+        Task BatchDeleteAsync(List<long> bookTagIds);
     }
 }

@@ -2,8 +2,10 @@
 {
     using System;
     using Abp.Application.Services.Dto;
+    using Abp.AutoMapper;
     using Abp.Domain.Entities.Auditing;
 
+    [AutoMapFrom(typeof(Core.CloudBookList.BookTags.BookTag))]
     public class BookTagPagedModel : EntityDto<long>, IHasModificationTime
     {
         public string Name { get; set; }

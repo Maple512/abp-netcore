@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
+namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
     partial class AbpLearningDbContextModelSnapshot : ModelSnapshot
@@ -1014,25 +1014,32 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
-                    b.Property<string>("CoverImgUrl");
+                    b.Property<string>("CoverImgUrl")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<long?>("CreatorUserId");
 
-                    b.Property<string>("Intro");
+                    b.Property<string>("Intro")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("LastModificationTime");
 
                     b.Property<long?>("LastModifierUserId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
-                    b.Property<int>("TenantId");
+                    b.Property<int?>("TenantId");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -1049,15 +1056,18 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
 
                     b.Property<long?>("CreatorUserId");
 
-                    b.Property<string>("Intro");
+                    b.Property<string>("Intro")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("LastModificationTime");
 
                     b.Property<long?>("LastModifierUserId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
-                    b.Property<int>("TenantId");
+                    b.Property<int?>("TenantId");
 
                     b.HasKey("Id");
 
@@ -1078,9 +1088,10 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
 
                     b.Property<long?>("LastModifierUserId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<int>("TenantId");
+                    b.Property<int?>("TenantId");
 
                     b.HasKey("Id");
 
@@ -1105,7 +1116,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
 
                     b.Property<long?>("LastModifierUserId");
 
-                    b.Property<int>("TenantId");
+                    b.Property<int?>("TenantId");
 
                     b.HasKey("Id");
 
@@ -1134,7 +1145,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Migrations
 
                     b.Property<long?>("LastModifierUserId");
 
-                    b.Property<int>("TenantId");
+                    b.Property<int?>("TenantId");
 
                     b.HasKey("Id");
 

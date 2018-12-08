@@ -1,13 +1,15 @@
+
 namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 {
     using Abp.Zero.EntityFrameworkCore;
-    using AbpLearning.Core.Authorization.Roles;
-    using AbpLearning.Core.Authorization.Users;
-    using AbpLearning.Core.CloudBookList.Book;
-    using AbpLearning.Core.CloudBookList.BookLists;
-    using AbpLearning.Core.CloudBookList.BookTags;
-    using AbpLearning.Core.CloudBookList.Relationships;
-    using AbpLearning.Core.MultiTenancy;
+    using Core.CloudBookList.Books;
+    using Core.Authorization.Roles;
+    using Core.Authorization.Users;
+    using Core.CloudBookList.BookLists;
+    using Core.CloudBookList.BookTags;
+    using Core.CloudBookList.Relationships;
+    using Core.MultiTenancy;
+    using EntityConfigurations;
     using Microsoft.EntityFrameworkCore;
 
     public class AbpLearningDbContext : AbpZeroDbContext<Tenant, Role, User, AbpLearningDbContext>
@@ -21,9 +23,9 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 
         #region 云书单
 
-        public DbSet<BookTag> BookTag { get; set; }
-
         public DbSet<Book> Book { get; set; }
+
+        public DbSet<BookTag> BookTag { get; set; }
 
         public DbSet<BookList> BookList { get; set; }
 
@@ -37,6 +39,8 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
         {
             // 清除Abp的默认表前缀
             modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>("");
+
+            modelBuilder.ExecuteConfigurations("Abplearning.Core");
 
             base.OnModelCreating(modelBuilder);
         }

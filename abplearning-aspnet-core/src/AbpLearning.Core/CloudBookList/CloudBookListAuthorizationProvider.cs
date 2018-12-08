@@ -3,15 +3,15 @@
     using System.Linq;
     using Abp.Authorization;
     using Abp.Configuration.Startup;
-    using AbpLearning.Core.Base;
+    using Base;
 
     public abstract class CloudBookListAuthorizationProvider : AuthorizationProviderBase
     {
-        public CloudBookListAuthorizationProvider(IMultiTenancyConfig multiTenancyConfig) : base(multiTenancyConfig)
+        protected CloudBookListAuthorizationProvider(IMultiTenancyConfig multiTenancyConfig) : base(multiTenancyConfig)
         {
         }
 
-        public CloudBookListAuthorizationProvider(bool isMultiTenancyEnabled) : base(isMultiTenancyEnabled)
+        protected CloudBookListAuthorizationProvider(bool isMultiTenancyEnabled) : base(isMultiTenancyEnabled)
         {
         }
 

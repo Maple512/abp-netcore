@@ -1,6 +1,7 @@
-﻿namespace AbpLearning.Application.CloudBookList.BookTag
+﻿using System.ComponentModel;
+
+namespace AbpLearning.Application.CloudBookList.BookTag
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
@@ -10,12 +11,12 @@
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Application.CloudBookList.Book.Model;
-    using AbpLearning.Application.CloudBookList.BookTag.Model;
-    using AbpLearning.Core;
     using AbpLearning.Core.CloudBookList.BookTags.DomainService;
     using AbpLearning.Core.CloudBookList.Relationships.DomainService;
+    using Core;
     using Core.CloudBookList.BookTags;
     using Microsoft.EntityFrameworkCore;
+    using Model;
 
     [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE)]
     public class BookTagAppService : AbpLearningAppServiceBase, IBookTagAppService
@@ -30,37 +31,24 @@
             _bookAndBookTagRelationshipDomainService = bookAndBookTagRelationshipDomainService;
         }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="bookTagIds">参数...</param>
+        /// <remarks>备注...</remarks>
+        /// <response code="200">Response 200 ...</response>
+        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.BATCHD_DELETE)]
-        public Task BatchDeleteAsync(IEnumerable<long> bookTagIds)
+        public async Task BatchDeleteAsync(List<long> bookTagIds)
         {
-            throw new NotImplementedException();
+            await _bookTagDomainService.BatchDeleteAsync(bookTagIds);
         }
 
         [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY, AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.EDIT)]
         public async Task CreateOrUpdateAsync(BookTagEditModel model)
         {
-            await _bookTagDomainService.CreateOrUpdateAsync(model.MapTo<BookTag>());
-
-            //if (model.Id.HasValue)
-            //{
-            //    await UpdateAsync(model);
-            //}
-            //else
-            //{
-            //    await CreateAsync(model);
-            //}
-        }
-
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY)]
-        public Task CreateAsync(BookTagEditModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.EDIT)]
-        public Task UpdateAsync(BookTagEditModel model)
-        {
-            throw new NotImplementedException();
+            var entity = model.MapTo<BookTag>();
+            await _bookTagDomainService.CreateOrUpdateAsync(entity);
         }
 
         [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.DELETE)]

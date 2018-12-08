@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Abp.AspNetCore;
@@ -20,7 +21,7 @@ namespace AbpLearning.Web.Host.Startup
 {
     public class Startup
     {
-        private const string _defaultCorsPolicyName = "localhost";
+        private const string DefaultCorsPolicyName = "localhost";
 
         private readonly IConfigurationRoot _appConfiguration;
 
@@ -33,7 +34,7 @@ namespace AbpLearning.Web.Host.Startup
         {
             // MVC
             services.AddMvc(
-                options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
+                options => options.Filters.Add(new CorsAuthorizationFilterFactory(DefaultCorsPolicyName))
             );
 
             IdentityRegistrar.Register(services);
@@ -44,7 +45,7 @@ namespace AbpLearning.Web.Host.Startup
             // Configure CORS for angular2 UI
             services.AddCors(
                 options => options.AddPolicy(
-                    _defaultCorsPolicyName,
+                    DefaultCorsPolicyName,
                     builder => builder
                         .WithOrigins(
                             // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
@@ -63,7 +64,12 @@ namespace AbpLearning.Web.Host.Startup
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Info { Title = "AbpLearning API", Version = "v1" });
+                options.SwaggerDoc("v1", new Info
+                {
+                    Title = "AbpLearning API",
+                    Version = "v1",
+                    TermsOfService = "None"
+                });
                 options.DocInclusionPredicate((docName, description) => true);
 
                 // Define the BearerAuth scheme that's in use
@@ -74,6 +80,11 @@ namespace AbpLearning.Web.Host.Startup
                     In = "header",
                     Type = "apiKey"
                 });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
 
             // Configure Abp and Dependency Injection
@@ -89,7 +100,7 @@ namespace AbpLearning.Web.Host.Startup
         {
             app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
 
-            app.UseCors(_defaultCorsPolicyName); // Enable CORS!
+            app.UseCors(DefaultCorsPolicyName); // Enable CORS!
 
             app.UseStaticFiles();
 

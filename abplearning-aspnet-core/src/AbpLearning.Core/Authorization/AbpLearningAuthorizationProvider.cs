@@ -1,9 +1,9 @@
-using Abp.Authorization;
-using Abp.Localization;
-using Abp.MultiTenancy;
-
 namespace AbpLearning.Core.Authorization
 {
+    using Abp.Authorization;
+    using Abp.Localization;
+    using Abp.MultiTenancy;
+
     public class AbpLearningAuthorizationProvider : AuthorizationProvider
     {
         public override void SetPermissions(IPermissionDefinitionContext context)

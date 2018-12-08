@@ -2,20 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.AutoMapper;
-    using Abp.Collections.Extensions;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
-    using AbpLearning.Application.CloudBookList.Book.Model;
-    using AbpLearning.Core;
-    using AbpLearning.Core.CloudBookList.Book.DomainService;
+    using AbpLearning.Core.CloudBookList.Books.DomainService;
     using AbpLearning.Core.CloudBookList.Relationships.DomainService;
+    using Core;
     using Microsoft.EntityFrameworkCore;
+    using Model;
 
     /// <summary>
     /// 书籍 应用服务
@@ -30,13 +28,17 @@
         private readonly IBookListAndBookRelationshipDomainService _bookListAndBookRelationshipDomainService;
 
         public BookAppService(
-            IBookDomainService bookDomainService)
+            IBookDomainService bookDomainService,
+            IBookAndBookTagRelationshipDomainService bookAndBookTagRelationshipDomainService,
+            IBookListAndBookRelationshipDomainService bookListAndBookRelationshipDomainService)
         {
             _bookDomainService = bookDomainService;
+            _bookAndBookTagRelationshipDomainService = bookAndBookTagRelationshipDomainService;
+            _bookListAndBookRelationshipDomainService = bookListAndBookRelationshipDomainService;
         }
 
-        [AbpAuthorize(AbpLearningPermissions.BOOK_NODE+ AbpLearningPermissions.BATCHD_DELETE)]
-        public async Task BatchDeleteAsync(IEnumerable<long> bookIds)
+        [AbpAuthorize(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.BATCHD_DELETE)]
+        public async Task BatchDeleteAsync(List<long> bookIds)
         {
             await _bookAndBookTagRelationshipDomainService.DeleteByBookIdAsync(bookIds);
             await _bookListAndBookRelationshipDomainService.DeleteByBookIdAsync(bookIds);

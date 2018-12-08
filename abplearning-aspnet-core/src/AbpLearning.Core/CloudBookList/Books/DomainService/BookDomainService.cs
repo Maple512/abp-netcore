@@ -1,14 +1,14 @@
-﻿namespace AbpLearning.Core.CloudBookList.Book.DomainService
+﻿namespace AbpLearning.Core.CloudBookList.Books.DomainService
 {
     using Abp.Domain.Repositories;
-    using AbpLearning.Core.Base;
+    using Base;
 
     /// <summary>
     /// <see cref="Book"/> 领域服务
     /// </summary>
-    public class BookDomainService : DomainServiceBase<Book, long>, IBookDomainService
+    public class BookDomainService : DomainServiceBase<Books.Book, long>, IBookDomainService
     {
-        public BookDomainService(IRepository<Book, long> bookRepository) : base(bookRepository)
+        public BookDomainService(IRepository<Books.Book, long> bookRepository) : base(bookRepository)
         {
         }
     }
