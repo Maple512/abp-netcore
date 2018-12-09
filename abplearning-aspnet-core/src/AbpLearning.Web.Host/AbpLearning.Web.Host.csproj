@@ -9,7 +9,7 @@
     <UserSecretsId>LTMCompanyNameFree-AbpLearning-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>F:\Documents\Abp Project\AbpLearning\aspnetcore\abplearning-aspnet-core\src\AbpLearning.Web.Host\AbpLearning.Web.Host.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="App_Data\Logs\**" />
@@ -52,8 +52,6 @@
     <PackageReference Include="Abp.Castle.Log4Net" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>

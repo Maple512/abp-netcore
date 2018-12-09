@@ -12,7 +12,7 @@
     {
         private readonly IRepository<T, TPrimaryKey> _bookRepository;
 
-        public DomainServiceBase(
+        protected DomainServiceBase(
             IRepository<T, TPrimaryKey> bookRepository)
         {
             _bookRepository = bookRepository;
@@ -41,6 +41,11 @@
         public IQueryable<T> GetAll()
         {
             return _bookRepository.GetAll().AsNoTracking();
+        }
+
+        public async Task<bool> IsExistenceAsync(TPrimaryKey id)
+        {
+            return await _bookRepository.CountAsync(m => m.Id.Equals(id)) > 0;
         }
     }
 }

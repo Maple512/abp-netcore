@@ -27,5 +27,12 @@
         /// </summary>
         /// <returns></returns>
         IQueryable<T> GetAll();
+
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsExistenceAsync(TPrimaryKey id);
     }
 }

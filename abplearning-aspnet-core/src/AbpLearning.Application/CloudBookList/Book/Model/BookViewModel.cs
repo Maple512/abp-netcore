@@ -1,5 +1,8 @@
 ﻿namespace AbpLearning.Application.CloudBookList.Book.Model
 {
+    using Abp.AutoMapper;
+
+    [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
     public class BookViewModel
     {
         /// <summary>

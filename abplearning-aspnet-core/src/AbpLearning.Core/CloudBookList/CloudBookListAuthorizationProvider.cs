@@ -17,9 +17,9 @@
 
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
-            var pages = context.GetPermissionOrNull(AbpLearningPermissions.PAGES);
+            var pages = context.GetPermissionOrNull(AbpLearningPermissions.Pages);
 
-            CloudBookListPermission = pages.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.CLOUDBOOKLIST) ?? pages.CreateChildPermission(AbpLearningPermissions.CLOUDBOOKLIST, L("CloudBookList"));
+            CloudBookListPermission = pages.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.Cloudbooklist) ?? pages.CreateChildPermission(AbpLearningPermissions.Cloudbooklist, L("CloudBookList"));
         }
 
         public Permission CloudBookListPermission { get; private set; }

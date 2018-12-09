@@ -22,14 +22,14 @@
         {
             base.SetPermissions(context);
 
-            var bookTags = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BOOKTAG_NODE) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE, L("BookTag"));
+            var bookTags = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BooktagNode) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BooktagNode, L("BookTag"));
 
-            bookTags.CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY, L("BookTagQuery"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.CREATE, L("BookTagCreate"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.EDIT, L("BookTagEdit"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.DELETE, L("BookTagDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.BATCHD_DELETE, L("BookTagBatchDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.EXPORT_EXCEL, L("BookTagExportExcel"));
+            bookTags.CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Query, L("BookTagQuery"))
+                .CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Create, L("BookTagCreate"))
+                .CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Edit, L("BookTagEdit"))
+                .CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Delete, L("BookTagDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.BatchdDelete, L("BookTagBatchDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.ExportExcel, L("BookTagExportExcel"));
         }
     }
 }

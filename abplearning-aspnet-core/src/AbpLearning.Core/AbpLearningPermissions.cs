@@ -9,17 +9,17 @@
 
         #region Pages
 
-        public const string PAGES = "Pages";
+        public const string Pages = "Pages";
 
         #region 云书单
 
-        public const string CLOUDBOOKLIST = PAGES + ".CloudBookList";
+        public const string Cloudbooklist = Pages + ".CloudBookList";
 
-        public const string BOOK_NODE = CLOUDBOOKLIST + ".Book";
+        public const string BookNode = Cloudbooklist + ".Book";
 
-        public const string BOOKTAG_NODE = CLOUDBOOKLIST + ".BookTag";
+        public const string BooktagNode = Cloudbooklist + ".BookTag";
 
-        public const string BOOKLIST_NODE = CLOUDBOOKLIST + ".BookList";
+        public const string BooklistNode = Cloudbooklist + ".BookList";
 
         #endregion
 
@@ -27,13 +27,13 @@
 
         #region Administrator
 
-        public const string ADMINISTRATOR = "Administrator";
+        public const string Administrator = "Administrator";
 
-        public const string TENANTS = ADMINISTRATOR + ".Tenants";
+        public const string Tenants = Administrator + ".Tenants";
 
-        public const string USERS = ADMINISTRATOR + ".Users";
+        public const string Users = Administrator + ".Users";
 
-        public const string ROLES = ADMINISTRATOR + ".Roles";
+        public const string Roles = Administrator + ".Roles";
 
         #endregion
 
@@ -41,23 +41,23 @@
 
         #region 功能
 
-        public const string QUERY = ".Query";
+        public const string Query = ".Query";
 
-        public const string CREATE = ".Create";
+        public const string Create = ".Create";
 
-        public const string EDIT = ".Edit";
+        public const string Edit = ".Edit";
 
-        public const string DELETE = ".Delete";
+        public const string Delete = ".Delete";
 
         /// <summary>
         /// 批量删除
         /// </summary>
-		public const string BATCHD_DELETE = ".BatchDelete";
+		public const string BatchdDelete = ".BatchDelete";
 
         /// <summary>
         /// 导出
         /// </summary>
-        public const string EXPORT_EXCEL = ".ExportExcel";
+        public const string ExportExcel = ".ExportExcel";
 
         #endregion
     }

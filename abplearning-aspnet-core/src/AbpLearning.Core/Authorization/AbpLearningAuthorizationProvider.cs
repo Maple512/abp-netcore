@@ -9,13 +9,13 @@ namespace AbpLearning.Core.Authorization
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
             // 管理员 权限
-            context.CreatePermission(AbpLearningPermissions.ADMINISTRATOR, L("Administrator"))
-                .CreateChildPermission(AbpLearningPermissions.USERS, L("Users"))
-                .CreateChildPermission(AbpLearningPermissions.ROLES, L("Roles"))
-                .CreateChildPermission(AbpLearningPermissions.TENANTS, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
+            context.CreatePermission(AbpLearningPermissions.Administrator, L("Administrator"))
+                .CreateChildPermission(AbpLearningPermissions.Users, L("Users"))
+                .CreateChildPermission(AbpLearningPermissions.Roles, L("Roles"))
+                .CreateChildPermission(AbpLearningPermissions.Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
 
             // 页面
-            context.CreatePermission(AbpLearningPermissions.PAGES, L("Pages"));
+            context.CreatePermission(AbpLearningPermissions.Pages, L("Pages"));
         }
 
         private static ILocalizableString L(string name)

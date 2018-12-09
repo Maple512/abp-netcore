@@ -18,14 +18,14 @@
         {
             base.SetPermissions(context);
 
-            var bookList = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BOOKLIST_NODE) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE, L("BookList"));
+            var bookList = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BooklistNode) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BooklistNode, L("BookList"));
 
-            bookList.CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.QUERY, L("BookListQuery"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.CREATE, L("BookListCreate"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.EDIT, L("BookListEdit"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.DELETE, L("BookListDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.BATCHD_DELETE, L("BookListBatchDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOKLIST_NODE + AbpLearningPermissions.EXPORT_EXCEL, L("BookListExportExcel"));
+            bookList.CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Query, L("BookListQuery"))
+                .CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Create, L("BookListCreate"))
+                .CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Edit, L("BookListEdit"))
+                .CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Delete, L("BookListDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.BatchdDelete, L("BookListBatchDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.ExportExcel, L("BookListExportExcel"));
         }
     }
 }

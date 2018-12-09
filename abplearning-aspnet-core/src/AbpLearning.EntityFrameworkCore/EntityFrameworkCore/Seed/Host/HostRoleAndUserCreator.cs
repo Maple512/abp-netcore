@@ -9,7 +9,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
     using Core.Authorization;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
-    using Core.CloudBookList.Book.Authorization;
+    using Core.CloudBookList.Books.Authorization;
     using Core.CloudBookList.BookLists.Authorization;
     using Core.CloudBookList.BookTags.Authorization;
     using Microsoft.AspNetCore.Identity;

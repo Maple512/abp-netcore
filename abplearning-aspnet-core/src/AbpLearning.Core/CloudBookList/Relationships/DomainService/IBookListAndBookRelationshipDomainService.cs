@@ -21,45 +21,48 @@
         /// <returns></returns>
         Task<IEnumerable<BookListAndBookRelationship>> GetByBookIdAsync(long bookId);
 
-
         /// <summary>
-        /// 创建关联
+        /// 增加关联
         /// </summary>
         /// <param name="bookListId"></param>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        Task CreateRelationshipAsync(long bookListId, IEnumerable<long> bookIds);
-
+        Task AddRelationshipAsync(long bookListId, IEnumerable<long> bookIds);
 
         /// <summary>
-        /// 根据Book.Id删除关联
+        /// 删除关联
+        /// </summary>
+        /// <param name="bookListId"></param>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task DeleteRelationshipAsync(long bookListId, IEnumerable<long> bookIds);
+
+        /// <summary>
+        /// 根据Book.Id删除所有关联（在删除书籍时使用）
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        Task DeleteByBookIdv(long bookId);
-
+        Task DeleteByBookIdAsync(long bookId);
 
         /// <summary>
-        /// 根据Book.Id集合删除关联
+        /// 根据Book.Id集合删除关联（批量删除书籍时使用）
         /// </summary>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        Task DeleteByBookIdAsync(IEnumerable<long> bookIds);
-
+        Task BatchDeleteByBookIdAsync(IEnumerable<long> bookIds);
 
         /// <summary>
-        /// 根据BookList.Id删除关联
+        /// 根据BookList.Id删除关联（在删除书单时使用）
         /// </summary>
         /// <param name="bookListId"></param>
         /// <returns></returns>
         Task DeleteByBookListIdAsync(long bookListId);
 
-
         /// <summary>
-        /// 根据BookList.Id集合删除关联
+        /// 根据BookList.Id集合删除关联（批量删除书单时使用）
         /// </summary>
         /// <param name="bookListIds"></param>
         /// <returns></returns>
-        Task DeleteByBookListIdAsync(IEnumerable<long> bookListIds);
+        Task BatchDeleteByBookListIdAsync(IEnumerable<long> bookListIds);
     }
 }

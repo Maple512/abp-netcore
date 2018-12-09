@@ -16,45 +16,52 @@
         /// <summary>
         /// 根据BookTag.Id查询关联数据
         /// </summary>
-        /// <param name="bookId"></param>
+        /// <param name="bookTagId"></param>
         /// <returns></returns>
         Task<IEnumerable<BookAndBookTagRelationship>> GetByBookTagIdAsync(long bookTagId);
 
         /// <summary>
-        /// 创建书籍与标签的关联
+        /// 增加书籍与书签的关联
         /// </summary>
         /// <param name="bookId"></param>
-        /// <param name="bookTagId"></param>
+        /// <param name="bookTagIds"></param>
         /// <returns></returns>
-        Task CreateRelationshipAsync(long bookId, IEnumerable<long> bookTagId);
+        Task AddRelationshipAsync(long bookId, IEnumerable<long> bookTagIds);
 
         /// <summary>
-        /// 根据Book.Id删除关联
+        /// 删除关联
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <param name="bookTagIds"></param>
+        /// <returns></returns>
+        Task DeleteRelationshipAsync(long bookId, IEnumerable<long> bookTagIds);
+
+        /// <summary>
+        /// 根据Book.Id删除关联（批量删除书籍时使用）
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task BatchDeleteByBookIdAsync(IEnumerable<long> bookIds);
+
+        /// <summary>
+        /// 根据Book.Id删除关联（在删除书籍时用）
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
         Task DeleteByBookIdAsync(long bookId);
 
         /// <summary>
-        /// 根据Book.Id删除关联
-        /// </summary>
-        /// <param name="bookId"></param>
-        /// <returns></returns>
-        Task DeleteByBookIdAsync(IEnumerable<long> bookIds);
-
-
-        /// <summary>
-        /// 根据BookTag.Id删除关联
+        /// 根据BookTag.Id删除关联（在删除书签时用）
         /// </summary>
         /// <param name="bookTagId"></param>
         /// <returns></returns>
         Task DeleteByBookTagIdAsync(long bookTagId);
 
         /// <summary>
-        /// 根据BookTag.Id删除关联
+        /// 根据BookTag.Id删除关联（批量删除书签时使用）
         /// </summary>
         /// <param name="bookTagIds"></param>
         /// <returns></returns>
-        Task DeleteByBookTagIdAsync(IEnumerable<long> bookTagIds);
+        Task BatchDeleteByBookTagIdAsync(IEnumerable<long> bookTagIds);
     }
 }

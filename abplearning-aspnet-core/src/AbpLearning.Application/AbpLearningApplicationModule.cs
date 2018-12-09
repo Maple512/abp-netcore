@@ -3,10 +3,11 @@ namespace AbpLearning.Application
     using Abp.AutoMapper;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
-    using AbpLearning.Core;
     using AbpLearning.Core.Authorization;
-    using AbpLearning.Core.CloudBookList.Book.Authorization;
+    using AbpLearning.Core.CloudBookList.Books.Authorization;
+    using AbpLearning.Core.CloudBookList.BookLists.Authorization;
     using AbpLearning.Core.CloudBookList.BookTags.Authorization;
+    using Core;
 
     [DependsOn(
         typeof(AbpLearningCoreModule),
@@ -22,6 +23,8 @@ namespace AbpLearning.Application
             Configuration.Authorization.Providers.Add<BookAuthorizationProvider>();
 
             Configuration.Authorization.Providers.Add<BookTagAuthorizationProvider>();
+
+            Configuration.Authorization.Providers.Add<BookListAuthorizationProvider>();
 
             #endregion
 

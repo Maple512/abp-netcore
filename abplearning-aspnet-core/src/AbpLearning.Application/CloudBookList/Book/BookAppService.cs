@@ -1,9 +1,10 @@
 ﻿namespace AbpLearning.Application.CloudBookList.Book
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
+    using Abp;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.AutoMapper;
@@ -18,72 +19,150 @@
     /// <summary>
     /// 书籍 应用服务
     /// </summary>
-    [AbpAuthorize(AbpLearningPermissions.BOOK_NODE)]
+    [AbpAuthorize(AbpLearningPermissions.BookNode)]
     public class BookAppService : AbpLearningAppServiceBase, IBookAppService
     {
-        private readonly IBookDomainService _bookDomainService;
+        private readonly IBookDomainService _book;
 
-        private readonly IBookAndBookTagRelationshipDomainService _bookAndBookTagRelationshipDomainService;
+        private readonly IBookAndBookTagRelationshipDomainService _bookAndBookTag;
 
-        private readonly IBookListAndBookRelationshipDomainService _bookListAndBookRelationshipDomainService;
+        private readonly IBookListAndBookRelationshipDomainService _bookListAndBook;
 
         public BookAppService(
-            IBookDomainService bookDomainService,
-            IBookAndBookTagRelationshipDomainService bookAndBookTagRelationshipDomainService,
-            IBookListAndBookRelationshipDomainService bookListAndBookRelationshipDomainService)
+            IBookDomainService book, 
+            IBookAndBookTagRelationshipDomainService bookAndBookTag, 
+            IBookListAndBookRelationshipDomainService bookListAndBook)
         {
-            _bookDomainService = bookDomainService;
-            _bookAndBookTagRelationshipDomainService = bookAndBookTagRelationshipDomainService;
-            _bookListAndBookRelationshipDomainService = bookListAndBookRelationshipDomainService;
-        }
-
-        [AbpAuthorize(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.BATCHD_DELETE)]
-        public async Task BatchDeleteAsync(List<long> bookIds)
-        {
-            await _bookAndBookTagRelationshipDomainService.DeleteByBookIdAsync(bookIds);
-            await _bookListAndBookRelationshipDomainService.DeleteByBookIdAsync(bookIds);
-            await _bookDomainService.BatchDeleteAsync(bookIds);
-        }
-
-        public Task CreateOrUpdateAsync(BookEditModel entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task DeleteAsync(EntityDto<long> entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<BookViewModel> GetAsync(EntityDto<long> model)
-        {
-            throw new NotImplementedException();
+            _book = book;
+            _bookAndBookTag = bookAndBookTag;
+            _bookListAndBook = bookListAndBook;
         }
 
         /// <summary>
-        /// 分页
+        /// Batch Delete
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.BatchdDelete)]
+        public async Task BatchDeleteAsync(List<long> bookIds)
+        {
+            await _bookAndBookTag.BatchDeleteByBookIdAsync(bookIds);
+            await _bookListAndBook.BatchDeleteByBookIdAsync(bookIds);
+            await _book.BatchDeleteAsync(bookIds);
+        }
+
+        /// <summary>
+        /// Create Or Update
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task CreateOrUpdateAsync(BookEditModel model)
+        {
+            var entity = model.MapTo<Core.CloudBookList.Books.Book>();
+            await _book.CreateOrUpdateAsync(entity);
+        }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task DeleteAsync(EntityDto<long> model)
+        {
+            await _bookAndBookTag.DeleteByBookIdAsync(model.Id);
+            await _bookListAndBook.DeleteByBookIdAsync(model.Id);
+            await _book.DeleteAsync(model.Id);
+        }
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<BookViewModel> GetAsync(EntityDto<long> model)
+        {
+            var entity = await _book.GetAsync(model.Id);
+
+            return entity.MapTo<BookViewModel>();
+        }
+
+        /// <summary>
+        /// Paged
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.QUERY)]
+        [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query)]
         public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter)
         {
-            var query = _bookDomainService.GetAll()
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name));
+            var queryBooks = _book.GetAll()
+                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name))
+                .WhereIf(!filter.Author.IsNullOrWhiteSpace(), m => m.Author.Contains(filter.Author));
 
-            var count = await query.CountAsync();
+            var count = await queryBooks.CountAsync();
 
-            var entityList = await query.OrderBy(filter.Sorting).PageBy(filter).ToListAsync();
+            var entityList = queryBooks.OrderBy(filter.Sorting).PageBy(filter);
 
-            var entityListDto = entityList.MapTo<List<BookPagedModel>>();
+            var pagedModels = entityList.MapTo<List<BookPagedModel>>();
 
-            // 租户数据过滤
+            foreach (var model in pagedModels)
+            {
+                model.ExsitedBookListCount = _bookListAndBook.GetByBookIdAsync(model.Id).Result.Count();
+
+                model.BookTags = _bookAndBookTag.GetByBookIdAsync(model.Id).Result.Select(m => m.BookTag)
+                    .Select(m => m.Name).ToList();
+            }
+
+            // TODO:等待
             if (!AbpSession.TenantId.HasValue)
             {
 
             }
 
-            return new PagedResultDto<BookPagedModel>(count, entityListDto);
+            return new PagedResultDto<BookPagedModel>(count, pagedModels);
         }
+
+        #region 与书签关联
+
+        /// <summary>
+        /// Add BookTag Relationships
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="bookTagIds"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
+        public async Task AddBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds)
+        {
+            var isExist = await _book.IsExistenceAsync(model.Id);
+            if (isExist)
+            {
+                await _bookAndBookTag.AddRelationshipAsync(model.Id, bookTagIds);
+            }
+            else
+            {
+                throw new AbpException("创建关联失败：该书籍不存在");
+            }
+        }
+
+        /// <summary>
+        /// Delete BookTag Relationships
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="bookTagIds"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
+        public async Task DeleteBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds)
+        {
+            var isExist = await _book.IsExistenceAsync(model.Id);
+            if (isExist)
+            {
+                await _bookAndBookTag.DeleteRelationshipAsync(model.Id, bookTagIds);
+            }
+            else
+            {
+                throw new AbpException("创建关联失败：该书籍不存在");
+            }
+        }
+
+        #endregion
     }
 }

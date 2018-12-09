@@ -1,15 +1,13 @@
-
 namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 {
     using Abp.Zero.EntityFrameworkCore;
-    using Core.CloudBookList.Books;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
     using Core.CloudBookList.BookLists;
+    using Core.CloudBookList.Books;
     using Core.CloudBookList.BookTags;
     using Core.CloudBookList.Relationships;
     using Core.MultiTenancy;
-    using EntityConfigurations;
     using Microsoft.EntityFrameworkCore;
 
     public class AbpLearningDbContext : AbpZeroDbContext<Tenant, Role, User, AbpLearningDbContext>
@@ -40,9 +38,33 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
             // 清除Abp的默认表前缀
             modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>("");
 
-            modelBuilder.ExecuteConfigurations("Abplearning.Core");
-
             base.OnModelCreating(modelBuilder);
+
+            // 书籍和书籍标签
+            modelBuilder.Entity<BookAndBookTagRelationship>()
+                .HasOne(o => o.Book)
+                .WithMany(o => o.BookAndBookTagRelationships)
+                .HasForeignKey(e => e.BookId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<BookAndBookTagRelationship>()
+                .HasOne(o => o.BookTag)
+                .WithMany(o => o.BookAndBookTagRelationships)
+                .HasForeignKey(e => e.BookTagId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            // 书单和书籍
+            modelBuilder.Entity<BookListAndBookRelationship>()
+                .HasOne(o => o.BookList)
+                .WithMany(o => o.BookListAndBookRelationships)
+                .HasForeignKey(e => e.BookListId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<BookListAndBookRelationship>()
+                .HasOne(o => o.Book)
+                .WithMany(o => o.BookListAndBookRelationships)
+                .HasForeignKey(e => e.BookId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

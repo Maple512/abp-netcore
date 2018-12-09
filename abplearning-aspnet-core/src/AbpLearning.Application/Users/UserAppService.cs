@@ -19,7 +19,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AbpLearning.Application.Users
 {
-    [AbpAuthorize(AbpLearningPermissions.USERS)]
+    [AbpAuthorize(AbpLearningPermissions.Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
         private readonly UserManager _userManager;

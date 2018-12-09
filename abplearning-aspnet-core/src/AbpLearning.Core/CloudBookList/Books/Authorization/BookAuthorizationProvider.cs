@@ -1,4 +1,4 @@
-﻿namespace AbpLearning.Core.CloudBookList.Book.Authorization
+﻿namespace AbpLearning.Core.CloudBookList.Books.Authorization
 {
     using System.Linq;
     using Abp.Authorization;
@@ -22,14 +22,14 @@
         {
             base.SetPermissions(context);
 
-            var books = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BOOK_NODE) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BOOK_NODE, L("Book"));
+            var books = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.BookNode) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.BookNode, L("Book"));
 
-            books.CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.QUERY, L("BookQuery"))
-                .CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.CREATE, L("BookCreate"))
-                .CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.EDIT, L("BookEdit"))
-                .CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.DELETE, L("BookDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.BATCHD_DELETE, L("BookBatchDelete"))
-                .CreateChildPermission(AbpLearningPermissions.BOOK_NODE + AbpLearningPermissions.EXPORT_EXCEL, L("BookExportExcel"));
+            books.CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query, L("BookQuery"))
+                .CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.Create, L("BookCreate"))
+                .CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.Edit, L("BookEdit"))
+                .CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.Delete, L("BookDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.BatchdDelete, L("BookBatchDelete"))
+                .CreateChildPermission(AbpLearningPermissions.BookNode + AbpLearningPermissions.ExportExcel, L("BookExportExcel"));
         }
     }
 }

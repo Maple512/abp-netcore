@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AbpLearning.Application.Roles
 {
-    [AbpAuthorize(AbpLearningPermissions.ROLES)]
+    [AbpAuthorize(AbpLearningPermissions.Roles)]
     public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
     {
         private readonly RoleManager _roleManager;

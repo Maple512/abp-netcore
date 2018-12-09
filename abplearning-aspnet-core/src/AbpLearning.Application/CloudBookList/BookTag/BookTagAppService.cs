@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-
-namespace AbpLearning.Application.CloudBookList.BookTag
+﻿namespace AbpLearning.Application.CloudBookList.BookTag
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
@@ -18,66 +17,94 @@ namespace AbpLearning.Application.CloudBookList.BookTag
     using Microsoft.EntityFrameworkCore;
     using Model;
 
-    [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE)]
+    [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
     public class BookTagAppService : AbpLearningAppServiceBase, IBookTagAppService
     {
-        private readonly IBookTagDomainService _bookTagDomainService;
+        private readonly IBookTagDomainService _bookTag;
 
-        private readonly IBookAndBookTagRelationshipDomainService _bookAndBookTagRelationshipDomainService;
+        private readonly IBookAndBookTagRelationshipDomainService _bookAndBookTag;
 
-        public BookTagAppService(IBookTagDomainService bookTagDomainService, IBookAndBookTagRelationshipDomainService bookAndBookTagRelationshipDomainService)
+        public BookTagAppService(IBookTagDomainService bookTagDomainService, IBookAndBookTagRelationshipDomainService bookAndBookTag)
         {
-            _bookTagDomainService = bookTagDomainService;
-            _bookAndBookTagRelationshipDomainService = bookAndBookTagRelationshipDomainService;
+            _bookTag = bookTagDomainService;
+            _bookAndBookTag = bookAndBookTag;
         }
 
         /// <summary>
-        /// 批量删除
+        /// Batch Delete
         /// </summary>
-        /// <param name="bookTagIds">参数...</param>
-        /// <remarks>备注...</remarks>
-        /// <response code="200">Response 200 ...</response>
+        /// <param name="bookTagIds"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.BATCHD_DELETE)]
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.BatchdDelete)]
         public async Task BatchDeleteAsync(List<long> bookTagIds)
         {
-            await _bookTagDomainService.BatchDeleteAsync(bookTagIds);
+            await _bookAndBookTag.BatchDeleteByBookTagIdAsync(bookTagIds);
+
+            await _bookTag.BatchDeleteAsync(bookTagIds);
         }
 
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY, AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.EDIT)]
+        /// <summary>
+        /// Create Or Update
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Query, AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Edit)]
         public async Task CreateOrUpdateAsync(BookTagEditModel model)
         {
             var entity = model.MapTo<BookTag>();
-            await _bookTagDomainService.CreateOrUpdateAsync(entity);
+
+            await _bookTag.CreateOrUpdateAsync(entity);
         }
 
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.DELETE)]
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Delete)]
         public async Task DeleteAsync(EntityDto<long> model)
         {
-            await _bookAndBookTagRelationshipDomainService.DeleteByBookTagIdAsync(model.Id);
+            await _bookAndBookTag.DeleteByBookTagIdAsync(model.Id);
 
-            await _bookTagDomainService.DeleteAsync(model.Id);
+            await _bookTag.DeleteAsync(model.Id);
         }
 
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY)]
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Query)]
         public async Task<BookViewModel> GetAsync(EntityDto<long> model)
         {
-            var entity = await _bookTagDomainService.GetAsync(model.Id);
+            var entity = await _bookTag.GetAsync(model.Id);
 
             return entity.MapTo<BookViewModel>();
         }
 
-        [AbpAuthorize(AbpLearningPermissions.BOOKTAG_NODE + AbpLearningPermissions.QUERY)]
-        public async Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel model)
+        /// <summary>
+        /// Paged
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Query)]
+        public async Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel filter)
         {
-            var query = _bookTagDomainService.GetAll()
-                .WhereIf(!model.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(model.Name));
+            var query = _bookTag.GetAll()
+                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name));
 
             var count = await query.CountAsync();
 
-            var entityList = await query.OrderBy(model.Sorting).PageBy(model).ToListAsync();
+            var entityList = await query.OrderBy(filter.Sorting).PageBy(filter).ToListAsync();
 
             var entityListDto = entityList.MapTo<List<BookTagPagedModel>>();
+
+            foreach (var model in entityListDto)
+            {
+                var andBook = await _bookAndBookTag.GetByBookTagIdAsync(model.Id);
+
+                model.ExistedBookCount = andBook.Select(m => m.BookId).Distinct().Count();
+            }
 
             if (!AbpSession.TenantId.HasValue)
             {

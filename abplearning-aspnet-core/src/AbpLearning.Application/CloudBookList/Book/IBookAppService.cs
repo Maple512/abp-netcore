@@ -11,24 +11,35 @@
     /// </summary>
     public interface IBookAppService : IApplicationService
     {
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <param name="filterModel"></param>
-        /// <returns></returns>
-        Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filterModel);
+        Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter);
 
-        /// <summary>
-        /// 视图模型
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
         Task<BookViewModel> GetAsync(EntityDto<long> model);
 
-        Task CreateOrUpdateAsync(BookEditModel entity);
+        Task CreateOrUpdateAsync(BookEditModel model);
 
         Task DeleteAsync(EntityDto<long> model);
 
         Task BatchDeleteAsync(List<long> bookIds);
+
+        #region 与书签关联
+
+        /// <summary>
+        /// 给书籍增加关联书签
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="bookTagIds"></param>
+        /// <returns></returns>
+        Task AddBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds);
+
+        /// <summary>
+        /// 删除书籍的关联书签
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="bookTagIds"></param>
+        /// <returns></returns>
+        Task DeleteBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds);
+
+        #endregion
+
     }
 }

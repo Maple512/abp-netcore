@@ -1,10 +1,12 @@
 ﻿namespace AbpLearning.Application.CloudBookList.Book.Model
 {
-    using System;
+    using System.Collections.Generic;
     using Abp.Application.Services.Dto;
-    using Abp.Domain.Entities.Auditing;
+    using Abp.AutoMapper;
+    using AbpLearning.Application.CloudBookList.BookTag.Model;
 
-    public class BookPagedModel : EntityDto<long>, IHasModificationTime
+    [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
+    public class BookPagedModel : AuditedEntityDto<long>
     {
         /// <summary>
         /// 封面图片URL
@@ -31,10 +33,16 @@
         /// </summary>
         public string Url { get; set; }
 
-        public DateTime CreationTime { get; set; }
-
         public string TenancyDisplayName { get; set; }
 
-        public DateTime? LastModificationTime { get; set; }
+        /// <summary>
+        /// 书签
+        /// </summary>
+        public List<string> BookTags { get; set; }
+
+        /// <summary>
+        /// 存在于多少个书单中
+        /// </summary>
+        public int ExsitedBookListCount { get; set; }
     }
 }

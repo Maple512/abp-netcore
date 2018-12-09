@@ -16,6 +16,9 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
 
+            // 云书单 初始数据
+            new DefaultCloudBookListCreator(_context).Create();
+
             _context.SaveChanges();
         }
     }

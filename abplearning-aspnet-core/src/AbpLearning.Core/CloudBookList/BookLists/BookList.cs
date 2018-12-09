@@ -4,13 +4,21 @@
     using System.ComponentModel.DataAnnotations;
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
+    using AbpLearning.Core.Authorization.Users;
     using Relationships;
 
     /// <summary>
     /// 书单
     /// </summary>
-    public class BookList : AuditedEntity<long>, IMayHaveTenant
+    public class BookList : AuditedEntity<long, User>, IMayHaveTenant
     {
+        public BookList(string name, string intro = null, int? tenantId = null)
+        {
+            Name = name;
+            Intro = intro;
+            TenantId = tenantId;
+        }
+
         /// <summary>
         /// 书单名
         /// </summary>
@@ -24,11 +32,8 @@
         [MaxLength(128)]
         public string Intro { get; set; }
 
-        /// <summary>
-        /// 与书籍的关联
-        /// </summary>
-        public IEnumerable<BookListAndBookRelationship> BookListAndBookRelationships { get; set; }
-
         public int? TenantId { get; set; }
+
+        public virtual IEnumerable<BookListAndBookRelationship> BookListAndBookRelationships { get; set; }
     }
 }

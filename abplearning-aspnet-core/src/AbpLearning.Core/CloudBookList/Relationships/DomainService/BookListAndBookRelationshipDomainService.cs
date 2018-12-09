@@ -1,6 +1,5 @@
 ﻿namespace AbpLearning.Core.CloudBookList.Relationships.DomainService
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -17,40 +16,48 @@
             _repository = repository;
         }
 
-        public async Task CreateRelationshipAsync(long bookListId, IEnumerable<long> bookIds)
+        public async Task AddRelationshipAsync(long bookListId, IEnumerable<long> bookIds)
         {
-            // 删除原有关联
-            await _repository.DeleteAsync(m => m.BookListId == bookListId);
-            await CurrentUnitOfWork.SaveChangesAsync();
+            // 原有关联
+            var bookIdsForBookList = await _repository.GetAll().AsNoTracking().Where(m => m.BookListId == bookListId)
+                .Select(m => m.BookId).ToListAsync();
 
-            // 创建关联
-            var insertedBookIds = new List<long>();
+            // 已有关联缓存
+            var insertedCache = new List<long>();
+            var ids = bookIds.Distinct().OrderBy(m => m).Where(m => bookIdsForBookList?.Contains(m) == false);
 
-            foreach (var bookId in bookIds)
+            foreach (var bookId in ids)
             {
-                if (insertedBookIds.Exists(m => m == bookId))
+                if (insertedCache.Exists(m => m == bookId))
                 {
                     continue;
                 }
 
-                await _repository.InsertAsync(new BookListAndBookRelationship
-                {
-                    BookId = bookId,
-                    BookListId = bookListId
-                });
+                await _repository.InsertAsync(new BookListAndBookRelationship(bookListId, bookId));
 
-                insertedBookIds.Add(bookId);
+                insertedCache.Add(bookId);
             }
         }
 
-        public async Task DeleteByBookIdv(long bookId)
+        public async Task DeleteRelationshipAsync(long bookListId, IEnumerable<long> bookIds)
         {
-            await _repository.DeleteAsync(m => m.BookId == bookId);
+            // 原有关联
+            var bookIdsForBookList = await _repository.GetAll().AsNoTracking().Where(m => m.BookListId == bookListId)
+                .Select(m => m.BookId).ToListAsync();
+
+            var ids = bookIds.Distinct().OrderBy(m => m).Where(m => bookIdsForBookList?.Contains(m) == true);
+
+            await  _repository.DeleteAsync(m => m.BookListId == bookListId && ids.Contains(m.BookId));
         }
 
-        public async Task DeleteByBookIdAsync(IEnumerable<long> bookIds)
+        public async Task BatchDeleteByBookIdAsync(IEnumerable<long> bookIds)
         {
             await _repository.DeleteAsync(m => bookIds.Contains(m.BookId));
+        }
+
+        public async Task DeleteByBookIdAsync(long bookId)
+        {
+            await _repository.DeleteAsync(m => m.BookId == bookId);
         }
 
         public async Task DeleteByBookListIdAsync(long bookListId)
@@ -58,7 +65,7 @@
             await _repository.DeleteAsync(m => m.BookListId == bookListId);
         }
 
-        public async Task DeleteByBookListIdAsync(IEnumerable<long> bookListIds)
+        public async Task BatchDeleteByBookListIdAsync(IEnumerable<long> bookListIds)
         {
             await _repository.DeleteAsync(m => bookListIds.Contains(m.BookListId));
         }

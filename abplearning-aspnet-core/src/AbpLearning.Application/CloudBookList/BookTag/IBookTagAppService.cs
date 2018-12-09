@@ -12,7 +12,7 @@
     /// </summary>
     public interface IBookTagAppService : IApplicationService
     {
-        Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel model);
+        Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel filter);
 
         Task<BookViewModel> GetAsync(EntityDto<long> model);
 
