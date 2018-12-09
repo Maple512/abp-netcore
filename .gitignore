@@ -329,3 +329,4 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /abplearning-aspnet-core/52abp_code_power
+/abplearning-aspnet-core/src/AbpLearning.Web.Host/App_Data/Logs

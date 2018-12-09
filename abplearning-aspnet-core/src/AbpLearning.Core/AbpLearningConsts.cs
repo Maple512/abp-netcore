@@ -2,9 +2,7 @@ namespace AbpLearning.Core
 {
     public class AbpLearningConsts
     {
-        public const string LocalizationSourceName_Application = "AbpLearning";
-        public const string LocalizationSourceName_Core = "AbpLearning";
-        public const string LocalizationSourceName_WebCore = "AbpLearning";
+        public const string LocalizationSourceName = "AbpLearning";
 
         public const string ConnectionStringName = "Default";
 

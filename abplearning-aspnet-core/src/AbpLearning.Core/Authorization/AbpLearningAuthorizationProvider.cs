@@ -20,7 +20,7 @@ namespace AbpLearning.Core.Authorization
 
         private static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName_Core);
+            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName);
         }
     }
 }

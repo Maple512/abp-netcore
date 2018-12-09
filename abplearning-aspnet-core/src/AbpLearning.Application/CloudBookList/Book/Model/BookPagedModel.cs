@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
-    using AbpLearning.Application.CloudBookList.BookTag.Model;
 
     [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
     public class BookPagedModel : AuditedEntityDto<long>
@@ -22,11 +21,6 @@
         /// 作者
         /// </summary>
         public string Author { get; set; }
-
-        /// <summary>
-        /// 简介
-        /// </summary>
-        public string Intro { get; set; }
 
         /// <summary>
         /// 链接

@@ -10,10 +10,10 @@ namespace AbpLearning.Core.Localization
         public static void Configure(ILocalizationConfiguration localizationConfiguration)
         {
             localizationConfiguration.Sources.Add(
-                new DictionaryBasedLocalizationSource(AbpLearningConsts.LocalizationSourceName_Core,
+                new DictionaryBasedLocalizationSource(AbpLearningConsts.LocalizationSourceName,
                     new XmlEmbeddedFileLocalizationDictionaryProvider(
                         typeof(AbpLearningLocalizationConfigurer).GetAssembly(),
-                        "AbpLearning.Localization.SourceFiles"
+                        "AbpLearning.Core.Localization.SourceFiles"
                     )
                 )
             );

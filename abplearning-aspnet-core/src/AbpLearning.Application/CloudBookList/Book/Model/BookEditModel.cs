@@ -20,7 +20,7 @@
         [MaxLength(32)]
         public string Author { get; set; }
 
-        [MaxLength(256)]
+        [MaxLength(512)]
         public string Intro { get; set; }
 
         [MaxLength(128)]

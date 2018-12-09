@@ -21,7 +21,7 @@ namespace AbpLearning.Application
 
         protected AbpLearningAppServiceBase()
         {
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName_Application;
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
         }
 
         protected virtual Task<User> GetCurrentUserAsync()

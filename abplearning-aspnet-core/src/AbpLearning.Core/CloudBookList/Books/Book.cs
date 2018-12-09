@@ -46,7 +46,7 @@
         /// <summary>
         /// 简介
         /// </summary>
-        [MaxLength(256)]
+        [MaxLength(512)]
         public string Intro { get; set; }
 
         /// <summary>

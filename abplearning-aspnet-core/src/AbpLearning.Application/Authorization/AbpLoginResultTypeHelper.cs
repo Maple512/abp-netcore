@@ -11,7 +11,7 @@ namespace AbpLearning.Application.Authorization
     {
         public AbpLoginResultTypeHelper()
         {
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName_Application;
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
         }
 
         public Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress, string tenancyName)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20181208110306_Add_CloudBookList")]
+    [Migration("20181209152840_Add_CloudBookList")]
     partial class Add_CloudBookList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

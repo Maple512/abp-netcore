@@ -11,12 +11,12 @@
         /// <summary>
         /// 书名
         /// </summary>
-        public string Name { get; set; }
+        public string FilterText { get; set; }
 
         /// <summary>
         /// 作者
         /// </summary>
-        public string Author { get; set; }
+        //public string Author { get; set; }
 
         public void Normalize()
         {

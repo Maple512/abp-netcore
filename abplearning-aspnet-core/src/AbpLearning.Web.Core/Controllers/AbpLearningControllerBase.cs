@@ -9,7 +9,7 @@ namespace AbpLearning.Web.Core.Controllers
     {
         protected AbpLearningControllerBase()
         {
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName_WebCore;
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
         }
 
         protected void CheckErrors(IdentityResult identityResult)

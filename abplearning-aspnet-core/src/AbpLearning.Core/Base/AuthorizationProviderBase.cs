@@ -20,7 +20,7 @@
 
         internal static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName_Core);
+            return new LocalizableString(name, AbpLearningConsts.LocalizationSourceName);
         }
     }
 }
