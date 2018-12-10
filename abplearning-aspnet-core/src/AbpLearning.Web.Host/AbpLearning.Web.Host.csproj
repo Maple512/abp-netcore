@@ -9,7 +9,8 @@
     <UserSecretsId>LTMCompanyNameFree-AbpLearning-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>F:\Documents\Abp Project\AbpLearning\aspnetcore\abplearning-aspnet-core\src\AbpLearning.Web.Host\AbpLearning.Web.Host.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\AbpLearning.Web.Host.xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="App_Data\Logs\**" />

@@ -12,10 +12,11 @@
     /// </summary>
     public class BookTag : AuditedEntity<long, User>, IMayHaveTenant
     {
-        public BookTag(string name, int? tenantId = null)
+        public BookTag(string name, string color = null, int? tenantId = null)
         {
             Name = name;
             TenantId = tenantId;
+            Color = color;
         }
 
         /// <summary>
@@ -24,6 +25,13 @@
         [Required]
         [MaxLength(16)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 颜色
+        /// </summary>
+        [MaxLength(10)]
+        [DataType(DataType.Text)]
+        public string Color { get; set; }
 
         public int? TenantId { get; set; }
 

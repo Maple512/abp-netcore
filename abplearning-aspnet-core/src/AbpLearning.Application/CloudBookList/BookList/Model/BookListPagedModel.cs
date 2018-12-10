@@ -3,7 +3,7 @@
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
 
-    [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
+    [AutoMapFrom(typeof(Core.CloudBookList.BookLists.BookList))]
     public class BookListPagedModel : AuditedEntityDto<long>
     {
         /// <summary>

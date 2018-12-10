@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Add_CloudBookList : Migration
+    public partial class AddCloudBookList : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     CoverImgUrl = table.Column<string>(maxLength: 128, nullable: true),
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Author = table.Column<string>(maxLength: 32, nullable: false),
-                    Intro = table.Column<string>(maxLength: 256, nullable: true),
+                    Intro = table.Column<string>(maxLength: 512, nullable: true),
                     Url = table.Column<string>(maxLength: 128, nullable: true),
                     TenantId = table.Column<int>(nullable: true)
                 },
@@ -84,6 +84,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierUserId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(maxLength: 16, nullable: false),
+                    Color = table.Column<string>(maxLength: 10, nullable: true),
                     TenantId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

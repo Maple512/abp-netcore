@@ -9,9 +9,9 @@
         {
             CreateMap<BookListEditModel, Core.CloudBookList.BookLists.BookList>();
 
-            CreateMap<Core.CloudBookList.Books.Book, BookListViewModel>();
+            CreateMap<Core.CloudBookList.BookLists.BookList, BookListViewModel>();
 
-            CreateMap<Core.CloudBookList.Books.Book, BookListPagedModel>()
+            CreateMap<Core.CloudBookList.BookLists.BookList, BookListPagedModel>()
                 .ForMember(o => o.LastModificationTime,
                     option => option.MapFrom(m => m.LastModificationTime ?? m.CreationTime))
                 .ForMember(o => o.ExsitedBookCount, option => option.Ignore());

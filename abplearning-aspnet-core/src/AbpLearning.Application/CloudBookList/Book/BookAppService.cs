@@ -12,6 +12,7 @@
     using Abp.Linq.Extensions;
     using AbpLearning.Core.CloudBookList.Books.DomainService;
     using AbpLearning.Core.CloudBookList.Relationships.DomainService;
+    using BookTag.Model;
     using Core;
     using Microsoft.EntityFrameworkCore;
     using Model;
@@ -108,8 +109,9 @@
             {
                 model.ExsitedBookListCount = _bookListAndBook.GetByBookIdAsync(model.Id).Result.Count();
 
-                model.BookTags = _bookAndBookTag.GetByBookIdAsync(model.Id).Result.Select(m => m.BookTag)
-                    .Select(m => m.Name).ToList();
+                model.BookTags = _bookAndBookTag.GetByBookIdAsync(model.Id).Result
+                    .Select(m => m.BookTag).OrderBy(m => m.Name).Take(5)
+                    .MapTo<List<BookTagViewModel>>();
             }
 
             // TODO:等待

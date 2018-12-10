@@ -1046,6 +1046,9 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Color")
+                        .HasMaxLength(10);
+
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<long?>("CreatorUserId");
@@ -1087,7 +1090,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<long?>("CreatorUserId");
 
                     b.Property<string>("Intro")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<DateTime?>("LastModificationTime");
 

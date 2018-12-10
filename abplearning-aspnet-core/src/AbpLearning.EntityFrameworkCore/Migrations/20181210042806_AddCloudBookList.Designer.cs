@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20181209152840_Add_CloudBookList")]
-    partial class Add_CloudBookList
+    [Migration("20181210042806_AddCloudBookList")]
+    partial class AddCloudBookList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1048,6 +1048,9 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Color")
+                        .HasMaxLength(10);
+
                     b.Property<DateTime>("CreationTime");
 
                     b.Property<long?>("CreatorUserId");
@@ -1089,7 +1092,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<long?>("CreatorUserId");
 
                     b.Property<string>("Intro")
-                        .HasMaxLength(256);
+                        .HasMaxLength(512);
 
                     b.Property<DateTime?>("LastModificationTime");
 

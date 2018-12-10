@@ -15,5 +15,11 @@
         [Required]
         [MaxLength(16)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 标签颜色
+        /// </summary>
+        [MaxLength(10)]
+        public string Color { get; set; }
     }
 }

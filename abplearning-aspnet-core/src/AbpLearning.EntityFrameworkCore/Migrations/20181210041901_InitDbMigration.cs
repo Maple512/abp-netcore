@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Init_Db_Migration : Migration
+    public partial class InitDbMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -8,7 +8,7 @@
         /// <summary>
         /// 书签名
         /// </summary>
-        public string Name { get; set; }
+        public string FilterText { get; set; }
 
         public void Normalize()
         {

@@ -91,7 +91,7 @@
         public async Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel filter)
         {
             var query = _bookTag.GetAll()
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name));
+                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText));
 
             var count = await query.CountAsync();
 

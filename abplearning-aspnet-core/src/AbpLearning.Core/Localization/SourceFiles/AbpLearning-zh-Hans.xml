@@ -30,19 +30,33 @@
     <text name="BookDelete" value="删除书籍" />
     <text name="BookBatchDelete" value="批量删除书籍" />
     <text name="BookExportExcel" value="导出书籍" />
+    
+    <!--表格 书籍-->
+    <text name="BookCoverImgUrl" value="封面" />
+    <text name="BookPagedSearchText" value="可输入书名、作者，用于搜索" />
+    <text name="BookName" value="书名" />
+    <text name="Author" value="作者" />
+    <text name="BookUrl" value="购买链接" />
+    <text name="LastModificationTime" value="最后更新时间" />
+    <text name="BookExsitedBookListCount" value="书单（引用次数）" />
 
     <!--权限 书签-->
-    <text name="BookTag" value="书签" />
-    <text name="BookTags" value="书签" />
-    <text name="BookTagQuery" value="查询书签" />
-    <text name="BookTagCreate" value="创建书签" />
-    <text name="BookTagEdit" value="编辑书签" />
-    <text name="BookTagDelete" value="删除书签" />
-    <text name="BookTagBatchDelete" value="批量删除书签" />
-    <text name="BookTagExportExcel" value="导出书签" />
+    <text name="BookTag" value="标签" />
+    <text name="BookTags" value="标签" />
+    <text name="BookTagQuery" value="查询标签" />
+    <text name="BookTagCreate" value="创建标签" />
+    <text name="BookTagEdit" value="编辑标签" />
+    <text name="BookTagDelete" value="删除标签" />
+    <text name="BookTagBatchDelete" value="批量删除标签" />
+    <text name="BookTagExportExcel" value="导出标签" />
+    
+    <!--表格 标签-->
+    <text name="BookTagName" value="标签" />
+    <text name="BookTagColor" value="颜色" />
+    <text name="BookTagPagedSearchText" value="可输入标签名，用于搜索" />
+    <text name="BookTagExistedBookCount" value="书籍（引用次数）" />
 
-
-    <!--权限 书签-->
+    <!--权限 书单-->
     <text name="BookList" value="书单" />
     <text name="BookLists" value="书单" />
     <text name="BookListQuery" value="查询书单" />
@@ -51,13 +65,24 @@
     <text name="BookListDelete" value="删除书单" />
     <text name="BookListBatchDelete" value="批量删除书单" />
     <text name="BookListExportExcel" value="导出书单" />
+
+    <!--表格 标签-->
+    <text name="BookListName" value="书单" />
+    <text name="BookListIntro" value="简介" />
+    <text name="BookListPagedSearchText" value="可输入书单名，用于搜索" />
+    <text name="BookListExsitedBookCount" value="书籍" />
     
     <!--表格-->
     <text name="NoData" value="未找到相关数据"/>
     <text name="Actions" value="操作"/>
     <text name="ViewDetails" value="详情"/>
     <text name="Delete" value="删除"/>
+    <text name="Edit" value="修改"/>
     <text name="Search" value="搜索..." />
+    <text name="ConfirmDeleteWarningMessage" value="确认删除？" />
+    <text name="Ok" value="确认" />
+    <text name="GridFooterDisplayText" value="页码" />
+    <text name="Etc" value="..." />
 
     <!--
     

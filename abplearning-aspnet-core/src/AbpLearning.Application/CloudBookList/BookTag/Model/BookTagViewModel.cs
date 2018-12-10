@@ -6,5 +6,7 @@
     public class BookTagViewModel
     {
         public string Name { get; set; }
+
+        public string Color { get; set; }
     }
 }

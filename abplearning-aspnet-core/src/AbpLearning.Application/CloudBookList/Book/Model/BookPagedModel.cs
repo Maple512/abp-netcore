@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
+    using BookTag.Model;
 
     [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
     public class BookPagedModel : AuditedEntityDto<long>
@@ -32,7 +33,7 @@
         /// <summary>
         /// 书签
         /// </summary>
-        public List<string> BookTags { get; set; }
+        public List<BookTagViewModel> BookTags { get; set; }
 
         /// <summary>
         /// 存在于多少个书单中

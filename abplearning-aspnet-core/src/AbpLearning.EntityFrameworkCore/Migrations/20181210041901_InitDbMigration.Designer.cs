@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20181209152658_Init_Db_Migration")]
-    partial class Init_Db_Migration
+    [Migration("20181210041901_InitDbMigration")]
+    partial class InitDbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
