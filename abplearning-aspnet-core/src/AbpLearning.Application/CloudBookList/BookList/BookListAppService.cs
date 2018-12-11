@@ -90,10 +90,8 @@
         public async Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilterAndSortedModel filter)
         {
             var query = _bookList.GetAll()
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(),
-                    m => m.Name.Contains(filter.Name))
-                .WhereIf(!filter.Intro.IsNullOrWhiteSpace(),
-                    m => m.Intro.Contains(filter.Intro));
+                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(),
+                    m => m.Name.Contains(filter.FilterText));
 
             var count = await query.CountAsync();
 
@@ -126,12 +124,12 @@
         /// <param name="bookIds"></param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode)]
-        public async Task AddBookRelationshipsAsync(EntityDto<long> model, List<long> bookIds)
+        public async Task AddBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel)
         {
-            var isExist = await _bookList.IsExistenceAsync(model.Id);
+            var isExist = await _bookList.IsExistenceAsync(bookListAndBookEditModel.BookListId);
             if (isExist)
             {
-                await _bookListAndBook.AddRelationshipAsync(model.Id, bookIds);
+                await _bookListAndBook.AddRelationshipAsync(bookListAndBookEditModel.BookListId, bookListAndBookEditModel.BookIds);
             }
             else
             {
@@ -146,16 +144,16 @@
         /// <param name="bookIds"></param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode)]
-        public async Task DeleteBookRelationshipsAsync(EntityDto<long> model, List<long> bookIds)
+        public async Task DeleteBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel)
         {
-            var isExist = await _bookList.IsExistenceAsync(model.Id);
+            var isExist = await _bookList.IsExistenceAsync(bookListAndBookEditModel.BookListId);
             if (isExist)
             {
-                await _bookListAndBook.DeleteRelationshipAsync(model.Id, bookIds);
+                await _bookListAndBook.DeleteRelationshipAsync(bookListAndBookEditModel.BookListId, bookListAndBookEditModel.BookIds);
             }
             else
             {
-                throw new AbpException("删除关联失败：该书单不存在");
+                throw new AbpException("创建关联失败：该书单不存在");
             }
         }
 

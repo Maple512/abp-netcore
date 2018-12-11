@@ -13,7 +13,9 @@
     {
         Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter);
 
-        Task<BookViewModel> GetAsync(EntityDto<long> model);
+        Task<BookEditModel> GetForEditAsync(EntityDto<long> model);
+
+        Task<BookViewModel> GetForViewAsync(EntityDto<long> model);
 
         Task CreateOrUpdateAsync(BookEditModel model);
 
@@ -29,7 +31,7 @@
         /// <param name="model"></param>
         /// <param name="bookTagIds"></param>
         /// <returns></returns>
-        Task AddBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds);
+        Task AddBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel);
 
         /// <summary>
         /// 删除书籍的关联书签
@@ -37,7 +39,7 @@
         /// <param name="model"></param>
         /// <param name="bookTagIds"></param>
         /// <returns></returns>
-        Task DeleteBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds);
+        Task DeleteBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel);
 
         #endregion
 

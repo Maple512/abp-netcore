@@ -6,6 +6,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
+using Abp.UI;
 using AbpLearning.Application.Roles.Dto;
 using AbpLearning.Core;
 using AbpLearning.Core.Authorization.Roles;
@@ -26,6 +27,8 @@ namespace AbpLearning.Application.Roles
         {
             _roleManager = roleManager;
             _userManager = userManager;
+
+            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)
@@ -72,6 +75,12 @@ namespace AbpLearning.Application.Roles
             CheckDeletePermission();
 
             var role = await _roleManager.FindByIdAsync(input.Id.ToString());
+
+            if (role.IsStatic)
+            {
+                throw new UserFriendlyException(L("This role cannot be deleted"));
+            }
+
             var users = await _userManager.GetUsersInRoleAsync(role.NormalizedName);
 
             foreach (var user in users)

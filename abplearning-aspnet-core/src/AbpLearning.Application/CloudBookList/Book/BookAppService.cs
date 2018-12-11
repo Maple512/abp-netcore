@@ -30,8 +30,8 @@
         private readonly IBookListAndBookRelationshipDomainService _bookListAndBook;
 
         public BookAppService(
-            IBookDomainService book, 
-            IBookAndBookTagRelationshipDomainService bookAndBookTag, 
+            IBookDomainService book,
+            IBookAndBookTagRelationshipDomainService bookAndBookTag,
             IBookListAndBookRelationshipDomainService bookListAndBook)
         {
             _book = book;
@@ -39,11 +39,6 @@
             _bookListAndBook = bookListAndBook;
         }
 
-        /// <summary>
-        /// Batch Delete
-        /// </summary>
-        /// <param name="bookIds"></param>
-        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.BatchdDelete)]
         public async Task BatchDeleteAsync(List<long> bookIds)
         {
@@ -52,22 +47,12 @@
             await _book.BatchDeleteAsync(bookIds);
         }
 
-        /// <summary>
-        /// Create Or Update
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public async Task CreateOrUpdateAsync(BookEditModel model)
         {
             var entity = model.MapTo<Core.CloudBookList.Books.Book>();
             await _book.CreateOrUpdateAsync(entity);
         }
 
-        /// <summary>
-        /// Delete
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
         public async Task DeleteAsync(EntityDto<long> model)
         {
             await _bookAndBookTag.DeleteByBookIdAsync(model.Id);
@@ -75,29 +60,25 @@
             await _book.DeleteAsync(model.Id);
         }
 
-        /// <summary>
-        /// Get
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<BookViewModel> GetAsync(EntityDto<long> model)
+        public async Task<BookEditModel> GetForEditAsync(EntityDto<long> model)
+        {
+            var entity = await _book.GetAsync(model.Id);
+
+            return entity.MapTo<BookEditModel>();
+        }
+
+        public async Task<BookViewModel> GetForViewAsync(EntityDto<long> model)
         {
             var entity = await _book.GetAsync(model.Id);
 
             return entity.MapTo<BookViewModel>();
         }
 
-        /// <summary>
-        /// Paged
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query)]
         public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter)
         {
             var queryBooks = _book.GetAll()
                 .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText));
-                //.WhereIf(!filter.Author.IsNullOrWhiteSpace(), m => m.Author.Contains(filter.Author))
 
             var count = await queryBooks.CountAsync();
 
@@ -125,19 +106,13 @@
 
         #region 与书签关联
 
-        /// <summary>
-        /// Add BookTag Relationships
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="bookTagIds"></param>
-        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
-        public async Task AddBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds)
+        public async Task AddBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel)
         {
-            var isExist = await _book.IsExistenceAsync(model.Id);
+            var isExist = await _book.IsExistenceAsync(bookAndBookTagEditModel.BookId);
             if (isExist)
             {
-                await _bookAndBookTag.AddRelationshipAsync(model.Id, bookTagIds);
+                await _bookAndBookTag.AddRelationshipAsync(bookAndBookTagEditModel.BookId, bookAndBookTagEditModel.BookTagIds);
             }
             else
             {
@@ -145,19 +120,13 @@
             }
         }
 
-        /// <summary>
-        /// Delete BookTag Relationships
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="bookTagIds"></param>
-        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
-        public async Task DeleteBookTagRelationshipsAsync(EntityDto<long> model, List<long> bookTagIds)
+        public async Task DeleteBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel)
         {
-            var isExist = await _book.IsExistenceAsync(model.Id);
+            var isExist = await _book.IsExistenceAsync(bookAndBookTagEditModel.BookId);
             if (isExist)
             {
-                await _bookAndBookTag.DeleteRelationshipAsync(model.Id, bookTagIds);
+                await _bookAndBookTag.DeleteRelationshipAsync(bookAndBookTagEditModel.BookId, bookAndBookTagEditModel.BookTagIds);
             }
             else
             {

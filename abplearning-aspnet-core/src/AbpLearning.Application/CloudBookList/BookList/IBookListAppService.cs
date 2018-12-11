@@ -26,7 +26,7 @@
         /// <param name="model"></param>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        Task AddBookRelationshipsAsync(EntityDto<long> model, List<long> bookIds);
+        Task AddBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel);
 
         /// <summary>
         /// 删除关联
@@ -34,7 +34,7 @@
         /// <param name="model"></param>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        Task DeleteBookRelationshipsAsync(EntityDto<long> model, List<long> bookIds);
+        Task DeleteBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel);
 
         #endregion
     }
