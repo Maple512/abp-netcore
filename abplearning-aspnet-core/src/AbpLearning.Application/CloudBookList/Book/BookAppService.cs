@@ -39,6 +39,11 @@
             _bookListAndBook = bookListAndBook;
         }
 
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.BatchdDelete)]
         public async Task BatchDeleteAsync(List<long> bookIds)
         {
@@ -47,12 +52,22 @@
             await _book.BatchDeleteAsync(bookIds);
         }
 
+        /// <summary>
+        /// 创建、更新
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task CreateOrUpdateAsync(BookEditModel model)
         {
             var entity = model.MapTo<Core.CloudBookList.Books.Book>();
             await _book.CreateOrUpdateAsync(entity);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(EntityDto<long> model)
         {
             await _bookAndBookTag.DeleteByBookIdAsync(model.Id);
@@ -60,6 +75,11 @@
             await _book.DeleteAsync(model.Id);
         }
 
+        /// <summary>
+        /// 获取修改模型
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<BookEditModel> GetForEditAsync(EntityDto<long> model)
         {
             var entity = await _book.GetAsync(model.Id);
@@ -67,6 +87,11 @@
             return entity.MapTo<BookEditModel>();
         }
 
+        /// <summary>
+        /// 获取查看模型
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<BookViewModel> GetForViewAsync(EntityDto<long> model)
         {
             var entity = await _book.GetAsync(model.Id);
@@ -74,6 +99,11 @@
             return entity.MapTo<BookViewModel>();
         }
 
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query)]
         public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter)
         {
@@ -106,6 +136,11 @@
 
         #region 与书签关联
 
+        /// <summary>
+        /// 增加与书签的关联
+        /// </summary>
+        /// <param name="bookAndBookTagEditModel"></param>
+        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
         public async Task AddBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel)
         {
@@ -120,6 +155,11 @@
             }
         }
 
+        /// <summary>
+        /// 删除与书签的关联
+        /// </summary>
+        /// <param name="bookAndBookTagEditModel"></param>
+        /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooktagNode)]
         public async Task DeleteBookTagRelationshipsAsync(BookAndBookTagEditModel bookAndBookTagEditModel)
         {

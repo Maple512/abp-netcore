@@ -1,24 +1,24 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Abp.AspNetCore;
-using Abp.AspNetCore.SignalR.Hubs;
-using Abp.Castle.Logging.Log4Net;
-using Abp.Extensions;
-using AbpLearning.Core.Identity;
-using AbpLearning.Web.Core.Configuration;
-using Castle.Facilities.Logging;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Swagger;
-
 namespace AbpLearning.Web.Host.Startup
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using Abp.AspNetCore;
+    using Abp.AspNetCore.SignalR.Hubs;
+    using Abp.Castle.Logging.Log4Net;
+    using Abp.Extensions;
+    using AbpLearning.Core.Identity;
+    using AbpLearning.Web.Core.Configuration;
+    using Castle.Facilities.Logging;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Cors.Internal;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Swashbuckle.AspNetCore.Swagger;
+
     public class Startup
     {
         private const string DefaultCorsPolicyName = "localhost";
@@ -82,9 +82,15 @@ namespace AbpLearning.Web.Host.Startup
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
+                // Web.Host
                 var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
+
+                // Application
+                var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
+                var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
+                options.IncludeXmlComments(appPath);
             });
 
             // Configure Abp and Dependency Injection

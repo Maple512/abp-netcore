@@ -1,13 +1,13 @@
-using System.Threading.Tasks;
-using Abp;
-using Abp.Extensions;
-using Abp.Notifications;
-using Abp.Timing;
-using AbpLearning.Web.Core.Controllers;
-using Microsoft.AspNetCore.Mvc;
-
 namespace AbpLearning.Web.Host.Controllers
 {
+    using System.Threading.Tasks;
+    using Abp;
+    using Abp.Extensions;
+    using Abp.Notifications;
+    using Abp.Timing;
+    using AbpLearning.Web.Core.Controllers;
+    using Microsoft.AspNetCore.Mvc;
+
     public class HomeController : AbpLearningControllerBase
     {
         private readonly INotificationPublisher _notificationPublisher;
