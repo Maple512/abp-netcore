@@ -9,8 +9,8 @@ namespace AbpLearning.Web.Host.Startup
     using Abp.Castle.Logging.Log4Net;
     using Abp.Extensions;
     using AbpLearning.Core.Identity;
-    using AbpLearning.Web.Core.Configuration;
     using Castle.Facilities.Logging;
+    using Core.Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Cors.Internal;
@@ -25,9 +25,13 @@ namespace AbpLearning.Web.Host.Startup
 
         private readonly IConfigurationRoot _appConfiguration;
 
+        private readonly IHostingEnvironment _environment;
+
         public Startup(IHostingEnvironment env)
         {
             _appConfiguration = env.GetAppConfiguration();
+
+            _environment = env;
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -81,16 +85,20 @@ namespace AbpLearning.Web.Host.Startup
                     Type = "apiKey"
                 });
 
-                // Set the comments path for the Swagger JSON and UI.
-                // Web.Host
-                var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
+                // 在开发环境时启用API说明文本
+                if (_environment.IsDevelopment())
+                {
+                    // Set the comments path for the Swagger JSON and UI.
+                    // Web.Host
+                    var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    options.IncludeXmlComments(xmlPath);
 
-                // Application
-                var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
-                var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
-                options.IncludeXmlComments(appPath);
+                    // Application
+                    var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
+                    var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
+                    options.IncludeXmlComments(appPath);
+                }
             });
 
             // Configure Abp and Dependency Injection
@@ -137,7 +145,7 @@ namespace AbpLearning.Web.Host.Startup
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AbpLearning API V1");
-                 //options.SwaggerEndpoint(_appConfiguration["App:ServerRootAddress"].EnsureEndsWith('/') + "swagger/v1/swagger.json", "AbpLearning API V1");
+                //options.SwaggerEndpoint(_appConfiguration["App:ServerRootAddress"].EnsureEndsWith('/') + "swagger/v1/swagger.json", "AbpLearning API V1");
 
                 options.IndexStream = () => Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("AbpLearning.Web.Host.wwwroot.swagger.ui.index.html");
