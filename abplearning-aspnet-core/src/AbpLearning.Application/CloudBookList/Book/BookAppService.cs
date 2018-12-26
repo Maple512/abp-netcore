@@ -10,6 +10,7 @@
     using Abp.AutoMapper;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
+    using Abp.UI;
     using AbpLearning.Core.CloudBookList.Books.DomainService;
     using AbpLearning.Core.CloudBookList.Relationships.DomainService;
     using BookTag.Model;
@@ -48,7 +49,9 @@
         public async Task BatchDeleteAsync(List<long> bookIds)
         {
             await _bookAndBookTag.BatchDeleteByBookIdAsync(bookIds);
+
             await _bookListAndBook.BatchDeleteByBookIdAsync(bookIds);
+
             await _book.BatchDeleteAsync(bookIds);
         }
 
@@ -59,6 +62,13 @@
         /// <returns></returns>
         public async Task CreateOrUpdateAsync(BookEditModel model)
         {
+            var isRepeated = _book.GetAll().WhereIf(model.Id.HasValue, m => m.Id != model.Id).Count(m => m.Name == model.Name) > 0;
+
+            if (isRepeated)
+            {
+                throw new UserFriendlyException(L("BookIsAlreadyExists", model.Name));
+            }
+
             var entity = model.MapTo<Core.CloudBookList.Books.Book>();
             await _book.CreateOrUpdateAsync(entity);
         }
@@ -70,9 +80,16 @@
         /// <returns></returns>
         public async Task DeleteAsync(EntityDto<long> model)
         {
-            await _bookAndBookTag.DeleteByBookIdAsync(model.Id);
-            await _bookListAndBook.DeleteByBookIdAsync(model.Id);
-            await _book.DeleteAsync(model.Id);
+            if (await _book.IsExistenceAsync(model.Id))
+            {
+                await _bookAndBookTag.DeleteByBookIdAsync(model.Id);
+                await _bookListAndBook.DeleteByBookIdAsync(model.Id);
+                await _book.DeleteAsync(model.Id);
+            }
+            else
+            {
+                throw new UserFriendlyException(L("DeleteFailedBasedOnId"));
+            }
         }
 
         /// <summary>
@@ -80,23 +97,11 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<BookEditModel> GetForEditAsync(EntityDto<long> model)
+        public async Task<BookEditModel> GetEditAsync(EntityDto<long> model)
         {
             var entity = await _book.GetAsync(model.Id);
 
             return entity.MapTo<BookEditModel>();
-        }
-
-        /// <summary>
-        /// 获取查看模型
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<BookViewModel> GetForViewAsync(EntityDto<long> model)
-        {
-            var entity = await _book.GetAsync(model.Id);
-
-            return entity.MapTo<BookViewModel>();
         }
 
         /// <summary>

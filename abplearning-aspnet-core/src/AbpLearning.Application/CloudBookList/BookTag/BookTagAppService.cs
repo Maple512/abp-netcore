@@ -75,11 +75,11 @@
         /// <param name="model"></param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooktagNode + AbpLearningPermissions.Query)]
-        public async Task<BookViewModel> GetAsync(EntityDto<long> model)
+        public async Task<BookTagEditModel> GetEditAsync(EntityDto<long> model)
         {
             var entity = await _bookTag.GetAsync(model.Id);
 
-            return entity.MapTo<BookViewModel>();
+            return entity.MapTo<BookTagEditModel>();
         }
 
         /// <summary>

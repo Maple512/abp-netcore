@@ -35,6 +35,7 @@
     <text name="Home" value="首页" />
     <text name="HomePage" value="首页" />
     <text name="About" value="关于我们" />
+    <text name="UpdateLog" value="更新日志" />
     <text name="Page" value="页面" />
     <text name="Pages" value="页面" />
     <text name="Administrator" value="管理员" />
@@ -89,6 +90,7 @@
     <text name="BookUrl" value="购买链接" />
     <text name="LastModificationTime" value="最后更新时间" />
     <text name="BookExsitedBookListCount" value="书单（引用次数）" />
+    <text name="BookIsAlreadyExists" value="书名 [{0}] 已存在" />
 
     <!--书签-->
     <text name="BookTag" value="标签" />
@@ -103,6 +105,7 @@
     <text name="BookTagColor" value="颜色" />
     <text name="BookTagPagedSearchText" value="可输入标签名，用于搜索" />
     <text name="BookTagExistedBookCount" value="书籍（引用次数）" />
+    <text name="SelectColors" value="选择颜色" />
 
     <!--书单-->
     <text name="BookList" value="书单" />
@@ -117,6 +120,18 @@
     <text name="BookListIntro" value="简介" />
     <text name="BookListPagedSearchText" value="可输入书单名，用于搜索" />
     <text name="BookListExsitedBookCount" value="书籍" />
+    
+    <!--表格-->
+    <text name="Query" value="查询" />
+    <text name="BatchDelete" value="批量删除" />
+    <text name="ExportExcel" value="导出" />
+    <text name="GridFooterDisplayText" value="当前 {0} 页/共 {1} 页，共 {2} 条/显示 {3}-{4} 条" />
+    <text name="GridSelectedXItemsTips">
+      <![CDATA[
+        已选择 <strong class="text-primary">{0}</strong> 项
+     ]]>
+    </text>
+    <text name="ClearSelect" value="清空选中" />
     
     <!--通用-->
     <text name="Save" value="保存" />
@@ -133,15 +148,17 @@
     <text name="ViewDetails" value="详情"/>
     <text name="Delete" value="删除"/>
     <text name="Edit" value="修改"/>
-    <text name="Search" value="搜索..." />
+    <text name="Search" value="搜索" />
+    <text name="Tips" value="提示" />
     <text name="ConfirmDeleteWarningMessage" value="确认删除？" />
+    <text name="ConfirmBatchDeleteWarningMessage" value="确认删除 [{0}] 项？" />
     <text name="Ok" value="确认" />
-    <text name="GridFooterDisplayText" value="页码" />
     <text name="Etc" value="..." />
     <text name="MessageConfirmOperation" value="是否确认？" />
     <text name="Optional" value="可选" />
     <text name="GoTo" value="跳转" />
     <text name="See" value="查看" />
+    <text name="DeleteFailedBasedOnId" value="删除失败，未找到相关的实体" />
 
     <!--
     <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />

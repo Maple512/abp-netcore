@@ -106,7 +106,7 @@
                 model.ExsitedBookCount = andBookRelationships.Select(m => m.BookId).Distinct().Count();
             }
 
-            // TODO:等待
+            // TODO:等待优化
             if (!AbpSession.TenantId.HasValue)
             {
 

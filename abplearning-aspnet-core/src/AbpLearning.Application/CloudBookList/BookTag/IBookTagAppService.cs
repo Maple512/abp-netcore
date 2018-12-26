@@ -14,7 +14,7 @@
     {
         Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel filter);
 
-        Task<BookViewModel> GetAsync(EntityDto<long> model);
+        Task<BookTagEditModel> GetEditAsync(EntityDto<long> model);
 
         Task CreateOrUpdateAsync(BookTagEditModel model);
 
