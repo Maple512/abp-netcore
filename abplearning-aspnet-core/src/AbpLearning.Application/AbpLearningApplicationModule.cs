@@ -4,9 +4,8 @@ namespace AbpLearning.Application
     using Abp.Modules;
     using Abp.Reflection.Extensions;
     using AbpLearning.Core.Authorization;
-    using AbpLearning.Core.CloudBookList.Books.Authorization;
     using AbpLearning.Core.CloudBookList.BookLists.Authorization;
-    using AbpLearning.Core.CloudBookList.BookTags.Authorization;
+    using AbpLearning.Core.CloudBookList.Books.Authorization;
     using Core;
 
     [DependsOn(
@@ -21,8 +20,6 @@ namespace AbpLearning.Application
             #region 云书单权限
 
             Configuration.Authorization.Providers.Add<BookAuthorizationProvider>();
-
-            Configuration.Authorization.Providers.Add<BookTagAuthorizationProvider>();
 
             Configuration.Authorization.Providers.Add<BookListAuthorizationProvider>();
 

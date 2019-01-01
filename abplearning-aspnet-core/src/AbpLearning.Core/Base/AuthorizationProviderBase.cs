@@ -8,12 +8,12 @@
     {
         private readonly bool _isMultiTenancyEnabled;
 
-        public AuthorizationProviderBase(IMultiTenancyConfig multiTenancyConfig)
+        protected AuthorizationProviderBase(IMultiTenancyConfig multiTenancyConfig)
         {
             _isMultiTenancyEnabled = multiTenancyConfig.IsEnabled;
         }
 
-        public AuthorizationProviderBase(bool isMultiTenancyEnabled)
+        protected AuthorizationProviderBase(bool isMultiTenancyEnabled)
         {
             _isMultiTenancyEnabled = isMultiTenancyEnabled;
         }

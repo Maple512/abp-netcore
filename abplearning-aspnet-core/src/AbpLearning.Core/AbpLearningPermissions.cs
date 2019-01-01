@@ -17,8 +17,6 @@
 
         public const string BookNode = Cloudbooklist + ".Book";
 
-        public const string BooktagNode = Cloudbooklist + ".BookTag";
-
         public const string BooklistNode = Cloudbooklist + ".BookList";
 
         #endregion

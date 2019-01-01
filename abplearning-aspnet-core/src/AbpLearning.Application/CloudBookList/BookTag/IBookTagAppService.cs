@@ -1,10 +1,8 @@
 ﻿namespace AbpLearning.Application.CloudBookList.BookTag
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Abp.Application.Services;
     using Abp.Application.Services.Dto;
-    using Book.Model;
     using Model;
 
     /// <summary>
@@ -12,14 +10,32 @@
     /// </summary>
     public interface IBookTagAppService : IApplicationService
     {
-        Task<PagedResultDto<BookTagPagedModel>> GetPagedAsync(BookTagPagedFilterAndSortedModel filter);
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         Task<BookTagEditModel> GetEditAsync(EntityDto<long> model);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<BookTagViewModel> GetViewAsync(EntityDto<long> model);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         Task CreateOrUpdateAsync(BookTagEditModel model);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         Task DeleteAsync(EntityDto<long> model);
-
-        Task BatchDeleteAsync(List<long> bookTagIds);
     }
 }

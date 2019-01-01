@@ -5,6 +5,9 @@
     using Abp.AutoMapper;
     using BookTag.Model;
 
+    /// <summary>
+    /// <see cref="Core.CloudBookList.Books.Book"/> 分页模型
+    /// </summary>
     [AutoMapFrom(typeof(Core.CloudBookList.Books.Book))]
     public class BookPagedModel : AuditedEntityDto<long>
     {
@@ -28,16 +31,14 @@
         /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string TenancyDisplayName { get; set; }
 
         /// <summary>
         /// 书签
         /// </summary>
-        public List<BookTagViewModel> BookTags { get; set; }
-
-        /// <summary>
-        /// 存在于多少个书单中
-        /// </summary>
-        public int ExsitedBookListCount { get; set; }
+        public List<BookTagViewModel> Tags { get; set; }
     }
 }

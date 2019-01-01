@@ -5,8 +5,7 @@
     /// <summary>
     /// <see cref="Book"/> 领域服务接口
     /// </summary>
-    public interface IBookDomainService : IDomainServiceBase<Books.Book, long>
+    public interface IBookDomainService : IDomainServiceBase<Book, long>
     {
-
     }
 }

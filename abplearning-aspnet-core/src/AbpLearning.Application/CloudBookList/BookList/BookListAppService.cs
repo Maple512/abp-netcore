@@ -11,7 +11,6 @@
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Core.CloudBookList.BookLists.DomainService;
-    using AbpLearning.Core.CloudBookList.Relationships.DomainService;
     using Core;
     using Microsoft.EntityFrameworkCore;
     using Model;
@@ -21,12 +20,9 @@
     {
         private readonly IBookListDomainService _bookList;
 
-        private readonly IBookListAndBookRelationshipDomainService _bookListAndBook;
-
-        public BookListAppService(IBookListDomainService bookList, IBookListAndBookRelationshipDomainService bookListAndBook)
+        public BookListAppService(IBookListDomainService bookList)
         {
             _bookList = bookList;
-            _bookListAndBook = bookListAndBook;
         }
 
         /// <summary>
@@ -37,8 +33,6 @@
         [AbpAuthorize(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.BatchdDelete)]
         public async Task BatchDeleteAsync(List<long> bookListIds)
         {
-            await _bookListAndBook.BatchDeleteByBookListIdAsync(bookListIds);
-
             await _bookList.BatchDeleteAsync(bookListIds);
         }
 
@@ -63,8 +57,6 @@
         [AbpAuthorize(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Delete)]
         public async Task DeleteAsync(EntityDto<long> model)
         {
-            await _bookListAndBook.DeleteByBookListIdAsync(model.Id);
-
             await _bookList.DeleteAsync(model.Id);
         }
 
@@ -74,11 +66,11 @@
         /// <param name="model"></param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Query)]
-        public async Task<BookListViewModel> GetAsync(EntityDto<long> model)
+        public async Task<BookListEditModel> GetEditAsync(EntityDto<long> model)
         {
             var entity = await _bookList.GetAsync(model.Id);
 
-            return entity.MapTo<BookListViewModel>();
+            return entity.MapTo<BookListEditModel>();
         }
 
         /// <summary>
@@ -101,9 +93,9 @@
 
             foreach (var model in entityListDto)
             {
-                var andBookRelationships = await _bookListAndBook.GetByBookListIdAsync(model.Id);
+                //var andBookRelationships = await _bookListAndBook.GetByBookListIdAsync(model.Id);
 
-                model.ExsitedBookCount = andBookRelationships.Select(m => m.BookId).Distinct().Count();
+                //model.ExsitedBookCount = andBookRelationships.Select(m => m.BookId).Distinct().Count();
             }
 
             // TODO:等待优化
@@ -114,49 +106,5 @@
 
             return new PagedResultDto<BookListPagedModel>(count, entityListDto);
         }
-
-        #region 与书籍关联
-
-        /// <summary>
-        /// Add Book Relationships
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="bookIds"></param>
-        /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BookNode)]
-        public async Task AddBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel)
-        {
-            var isExist = await _bookList.IsExistenceAsync(bookListAndBookEditModel.BookListId);
-            if (isExist)
-            {
-                await _bookListAndBook.AddRelationshipAsync(bookListAndBookEditModel.BookListId, bookListAndBookEditModel.BookIds);
-            }
-            else
-            {
-                throw new AbpException("创建关联失败：该书单不存在");
-            }
-        }
-
-        /// <summary>
-        /// Delete Book Relationships
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="bookIds"></param>
-        /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BookNode)]
-        public async Task DeleteBookRelationshipsAsync(BookListAndBookEditModel bookListAndBookEditModel)
-        {
-            var isExist = await _bookList.IsExistenceAsync(bookListAndBookEditModel.BookListId);
-            if (isExist)
-            {
-                await _bookListAndBook.DeleteRelationshipAsync(bookListAndBookEditModel.BookListId, bookListAndBookEditModel.BookIds);
-            }
-            else
-            {
-                throw new AbpException("创建关联失败：该书单不存在");
-            }
-        }
-
-        #endregion
     }
 }

@@ -7,45 +7,41 @@
     using Abp.Domain.Repositories;
     using Microsoft.EntityFrameworkCore;
 
-    public abstract class DomainServiceBase<T, TPrimaryKey> : IDomainServiceBase<T, TPrimaryKey>
+    public abstract class 
+        DomainServiceBase<T, TPrimaryKey> : IDomainServiceBase<T, TPrimaryKey>
         where T : Entity<TPrimaryKey>
     {
-        private readonly IRepository<T, TPrimaryKey> _bookRepository;
+        protected readonly IRepository<T, TPrimaryKey> _repository;
 
         protected DomainServiceBase(
             IRepository<T, TPrimaryKey> bookRepository)
         {
-            _bookRepository = bookRepository;
+            _repository = bookRepository;
         }
 
-        public async Task CreateOrUpdateAsync(T book)
+        public virtual async Task CreateOrUpdateAsync(T entity)
         {
-            await _bookRepository.InsertOrUpdateAsync(book);
+            await _repository.InsertOrUpdateAsync(entity);
         }
 
-        public async Task DeleteAsync(TPrimaryKey id)
+        public virtual async Task DeleteAsync(TPrimaryKey id)
         {
-            await _bookRepository.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
         }
 
-        public async Task BatchDeleteAsync(IEnumerable<TPrimaryKey> list)
+        public virtual async Task BatchDeleteAsync(IEnumerable<TPrimaryKey> ids)
         {
-            await _bookRepository.DeleteAsync(m => list.Contains(m.Id));
+            await _repository.DeleteAsync(m => ids.Contains(m.Id));
         }
 
-        public Task<T> GetAsync(TPrimaryKey id)
+        public virtual Task<T> GetAsync(TPrimaryKey id)
         {
-            return _bookRepository.GetAsync(id);
+            return _repository.GetAsync(id);
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-            return _bookRepository.GetAll().AsNoTracking();
-        }
-
-        public async Task<bool> IsExistenceAsync(TPrimaryKey id)
-        {
-            return await _bookRepository.CountAsync(m => m.Id.Equals(id)) > 0;
+            return _repository.GetAll().AsNoTracking();
         }
     }
 }

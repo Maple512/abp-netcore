@@ -5,14 +5,19 @@
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using AbpLearning.Core.Authorization.Users;
-    using Relationships;
+    using BookTags;
 
     /// <summary>
     /// 书籍
     /// </summary>
-    public class Book : AuditedEntity<long, User>, IMayHaveTenant
+    public class Book : AuditedEntity<long, User>, IMayHaveTenant, ISoftDelete
     {
-        public Book(string name, string author, string coverImgUrl = null, string intro = null, string url = null, int? tenantId = null)
+        /// <summary>
+        /// <see cref="Book"/>拥有<see cref="BookTag"/>的最大数量
+        /// </summary>
+        public const byte TagsMaxLength = 10;
+
+        public Book(string name, string author, string coverImgUrl = null, string intro = null, string url = null, int? tenantId = null, bool isDeleted = false)
         {
             CoverImgUrl = coverImgUrl;
             Name = name;
@@ -20,6 +25,7 @@
             Intro = intro;
             Url = url;
             TenantId = tenantId;
+            IsDeleted = isDeleted;
         }
 
         /// <summary>
@@ -56,10 +62,15 @@
         [DataType(DataType.Url)]
         public string Url { get; set; }
 
+        /// <summary>
+        /// <see cref="BookTag"/>'s
+        /// </summary>
+        /// [Index]
+        [Range(0, TagsMaxLength)]
+        public virtual ICollection<BookTag> Tags { get; set; }
+
         public int? TenantId { get; set; }
 
-        public virtual IEnumerable<BookListAndBookRelationship> BookListAndBookRelationships { get; set; }
-
-        public virtual IEnumerable<BookAndBookTagRelationship> BookAndBookTagRelationships { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

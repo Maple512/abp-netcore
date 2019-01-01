@@ -17,7 +17,7 @@
     <text name="LogIn" value="登录" />
     <text name="TenantRegister" value="租户注册" />
     <text name="ForgotPassword" value="忘记密码" />
-    
+
     <!--租户-->
     <text name="CreateNewTenant" value="创建新租户" />
     <text name="Tenant" value="租户" />
@@ -30,7 +30,7 @@
     <text name="Registering" value="未达到最小长度" />
     <text name="DatabaseConnectionString" value="数据库连接字符串" />
     <text name="DefaultPassword" value="默认密码" />
-    
+
     <!--首页-->
     <text name="Home" value="首页" />
     <text name="HomePage" value="首页" />
@@ -40,7 +40,7 @@
     <text name="Pages" value="页面" />
     <text name="Administrator" value="管理员" />
     <text name="PermissionManagement" value="权限管理" />
-    
+
     <!--用户-->
     <text name="User" value="用户" />
     <text name="Users" value="用户" />
@@ -69,7 +69,7 @@
     <text name="Permanently delete this Role" value="永久删除此角色？" />
     <text name="Remove Users from Role and delete Role" value="从角色中删除用户并删除角色" />
     <text name="This role cannot be deleted" value="不能删除此角色！" />
-    
+
     <!--云书单-->
     <text name="CloudBookList" value="云书单" />
 
@@ -90,7 +90,8 @@
     <text name="BookUrl" value="购买链接" />
     <text name="LastModificationTime" value="最后更新时间" />
     <text name="BookExsitedBookListCount" value="书单（引用次数）" />
-    <text name="BookIsAlreadyExists" value="书名 [{0}] 已存在" />
+    <text name="BookNameIsAlreadyExists" value="书名 [{0}] 已存在" />
+    <text name="BookHasUpBookTags" value="一本书最多可以拥有 [{0}] 本书签" />
 
     <!--书签-->
     <text name="BookTag" value="标签" />
@@ -106,6 +107,7 @@
     <text name="BookTagPagedSearchText" value="可输入标签名，用于搜索" />
     <text name="BookTagExistedBookCount" value="书籍（引用次数）" />
     <text name="SelectColors" value="选择颜色" />
+    <text name="BookTagNameIsRepeat" value="书签名称重复" />
 
     <!--书单-->
     <text name="BookList" value="书单" />
@@ -120,7 +122,7 @@
     <text name="BookListIntro" value="简介" />
     <text name="BookListPagedSearchText" value="可输入书单名，用于搜索" />
     <text name="BookListExsitedBookCount" value="书籍" />
-    
+
     <!--表格-->
     <text name="Query" value="查询" />
     <text name="BatchDelete" value="批量删除" />
@@ -132,7 +134,7 @@
      ]]>
     </text>
     <text name="ClearSelect" value="清空选中" />
-    
+
     <!--通用-->
     <text name="Save" value="保存" />
     <text name="Cancel" value="取消" />
@@ -158,7 +160,11 @@
     <text name="Optional" value="可选" />
     <text name="GoTo" value="跳转" />
     <text name="See" value="查看" />
-    <text name="DeleteFailedBasedOnId" value="删除失败，未找到相关的实体" />
+    <text name="Reading" value="正在读取数据..." />
+    <text name="DataIsNotExistedByDeletedFailed" value="删除失败，数据不存在" />
+    <text name="DataIsNotExistedByEditFailed" value="更新失败，数据不存在" />
+    <text name="DataIsNotExisted" value="数据不存在" />
+    <text name="DataIsAlreadyExistedByCreatedFailed" value="数据已存在" />
 
     <!--
     <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />

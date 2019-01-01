@@ -36,7 +36,7 @@ namespace AbpLearning.Application.MultiTenancy
         /// <summary>
         /// 注册租户信息
         /// </summary>
-        /// <param name="Input"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         public async Task<TenantDto> RegisterTenantAsync(CreateTenantDto input)
         {

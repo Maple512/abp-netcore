@@ -5,13 +5,18 @@
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using AbpLearning.Core.Authorization.Users;
-    using Relationships;
+    using BookLiseCells;
 
     /// <summary>
     /// 书单
     /// </summary>
-    public class BookList : AuditedEntity<long, User>, IMayHaveTenant
+    public class BookList : AuditedEntity<long, User>, IMayHaveTenant, ISoftDelete
     {
+        /// <summary>
+        /// 允许的最大格子（1格子/书）数量
+        /// </summary>
+        public const byte CellMaxLength = 20;
+
         public BookList(string name, string intro = null, int? tenantId = null)
         {
             Name = name;
@@ -32,8 +37,14 @@
         [MaxLength(128)]
         public string Intro { get; set; }
 
+        /// <summary>
+        /// <see cref="BookListCell"/>'s
+        /// </summary>
+        [Range(0, CellMaxLength)]
+        public virtual ICollection<BookListCell> Cells { get; set; }
+
         public int? TenantId { get; set; }
 
-        public virtual IEnumerable<BookListAndBookRelationship> BookListAndBookRelationships { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

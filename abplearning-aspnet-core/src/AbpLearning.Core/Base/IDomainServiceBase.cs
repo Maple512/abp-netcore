@@ -11,14 +11,14 @@
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IDomainServiceBase<T, TPrimaryKey> : IDomainService
+    public interface IDomainServiceBase<T, in TPrimaryKey> : IDomainService
         where T : Entity<TPrimaryKey>
     {
-        Task CreateOrUpdateAsync(T book);
+        Task CreateOrUpdateAsync(T entity);
 
         Task DeleteAsync(TPrimaryKey id);
 
-        Task BatchDeleteAsync(IEnumerable<TPrimaryKey> list);
+        Task BatchDeleteAsync(IEnumerable<TPrimaryKey> ids);
 
         Task<T> GetAsync(TPrimaryKey id);
 
@@ -27,12 +27,5 @@
         /// </summary>
         /// <returns></returns>
         IQueryable<T> GetAll();
-
-        /// <summary>
-        /// 是否存在
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<bool> IsExistenceAsync(TPrimaryKey id);
     }
 }

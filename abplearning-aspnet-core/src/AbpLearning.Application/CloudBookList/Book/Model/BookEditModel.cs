@@ -1,7 +1,12 @@
-﻿namespace AbpLearning.Application.CloudBookList.Book.Model
+﻿using System.ComponentModel;
+
+namespace AbpLearning.Application.CloudBookList.Book.Model
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Abp.AutoMapper;
+    using AbpLearning.Application.CloudBookList.BookList.Model;
+    using AbpLearning.Application.CloudBookList.BookTag.Model;
 
     /// <summary>
     /// <see cref="Core.CloudBookList.Books.Book"/> 更新模型
@@ -48,5 +53,15 @@
         [MaxLength(128)]
         [DataType(DataType.Url)]
         public string Url { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public List<BookTagEditModel> Tags { get; set; }
+
+        /// <summary>
+        /// 书单
+        /// </summary>
+        public List<BookListViewModel> Lists { get; set; }
     }
 }

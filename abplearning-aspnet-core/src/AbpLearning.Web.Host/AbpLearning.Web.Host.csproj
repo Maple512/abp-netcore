@@ -11,6 +11,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\AbpLearning.Web.Host.xml</DocumentationFile>
     <OutputPath>bin\Debug\</OutputPath>
+    <NoWarn>1701;1702;1591;</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="App_Data\Logs\**" />

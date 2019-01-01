@@ -4,22 +4,31 @@
     using Abp.AutoMapper;
     using Core.CloudBookList.BookTags;
 
-    [AutoMapTo(typeof(BookTag))]
+    /// <summary>
+    /// 
+    /// </summary>
+    [AutoMap(typeof(BookTag))]
     public class BookTagEditModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public long? Id { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 标签名（不能重复）
         /// </summary>
         [Required]
         [MaxLength(16)]
         public string Name { get; set; }
 
         /// <summary>
-        /// 标签颜色
+        /// 颜色
         /// </summary>
-        [MaxLength(10)]
+        [Required]
+        [MaxLength(7)]
         public string Color { get; set; }
+
+        public long BookId { get; set; }
     }
 }
