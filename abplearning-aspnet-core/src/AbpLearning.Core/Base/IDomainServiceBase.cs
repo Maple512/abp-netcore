@@ -14,6 +14,10 @@
     public interface IDomainServiceBase<T, in TPrimaryKey> : IDomainService
         where T : Entity<TPrimaryKey>
     {
+        Task InsertAsync(T entity);
+
+        Task UpdateAsync(T entity);
+
         Task CreateOrUpdateAsync(T entity);
 
         Task DeleteAsync(TPrimaryKey id);

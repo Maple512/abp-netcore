@@ -4,14 +4,16 @@ using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    partial class AbpLearningDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190102042829_Add_Abp_Migration")]
+    partial class Add_Abp_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1008,136 +1010,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLiseCells.BookListCell", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("BookId");
-
-                    b.Property<long>("BookListId");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<byte>("Sort");
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("BookListId");
-
-                    b.ToTable("BookListCell","CBL");
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLists.BookList", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<string>("Intro")
-                        .HasMaxLength(128);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorUserId");
-
-                    b.HasIndex("LastModifierUserId");
-
-                    b.ToTable("BookList","CBL");
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookTags.BookTag", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("BookId");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(7);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(16);
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookTag","CBL");
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.Books.Book", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.Property<string>("CoverImgUrl")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<string>("Intro")
-                        .HasMaxLength(512);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.Property<int?>("TenantId");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(128);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorUserId");
-
-                    b.HasIndex("LastModifierUserId");
-
-                    b.ToTable("Book","CBL");
-                });
-
             modelBuilder.Entity("AbpLearning.Core.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -1332,49 +1204,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.HasOne("AbpLearning.Core.Authorization.Users.User", "DeleterUser")
                         .WithMany()
                         .HasForeignKey("DeleterUserId");
-
-                    b.HasOne("AbpLearning.Core.Authorization.Users.User", "LastModifierUser")
-                        .WithMany()
-                        .HasForeignKey("LastModifierUserId");
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLiseCells.BookListCell", b =>
-                {
-                    b.HasOne("AbpLearning.Core.CloudBookList.Books.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AbpLearning.Core.CloudBookList.BookLists.BookList")
-                        .WithMany("Cells")
-                        .HasForeignKey("BookListId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLists.BookList", b =>
-                {
-                    b.HasOne("AbpLearning.Core.Authorization.Users.User", "CreatorUser")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId");
-
-                    b.HasOne("AbpLearning.Core.Authorization.Users.User", "LastModifierUser")
-                        .WithMany()
-                        .HasForeignKey("LastModifierUserId");
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookTags.BookTag", b =>
-                {
-                    b.HasOne("AbpLearning.Core.CloudBookList.Books.Book")
-                        .WithMany("Tags")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.Books.Book", b =>
-                {
-                    b.HasOne("AbpLearning.Core.Authorization.Users.User", "CreatorUser")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId");
 
                     b.HasOne("AbpLearning.Core.Authorization.Users.User", "LastModifierUser")
                         .WithMany()

@@ -17,5 +17,9 @@ namespace AbpLearning.Core
         /// 分页模型中，返回的最大数量
         /// </summary>
         public const int MaxResultCount = 100;
+
+        public const string SchemaNameForAbp = "ABP";
+
+        public const string SchemaNameForCloudBookList = "CBL";
     }
 }

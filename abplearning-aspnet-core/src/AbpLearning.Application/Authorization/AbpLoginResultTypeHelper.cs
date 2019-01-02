@@ -1,12 +1,12 @@
-using System;
-using Abp;
-using Abp.Authorization;
-using Abp.Dependency;
-using Abp.UI;
-using AbpLearning.Core;
-
 namespace AbpLearning.Application.Authorization
 {
+    using System;
+    using Abp;
+    using Abp.Authorization;
+    using Abp.Dependency;
+    using Abp.UI;
+    using AbpLearning.Core;
+
     public class AbpLoginResultTypeHelper : AbpServiceBase, ITransientDependency
     {
         public AbpLoginResultTypeHelper()

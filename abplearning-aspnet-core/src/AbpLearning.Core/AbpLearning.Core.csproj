@@ -15,12 +15,12 @@
     <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="CloudBookList\BookTags\新文件夹\**" />
-    <EmbeddedResource Remove="CloudBookList\BookTags\新文件夹\**" />
-    <None Remove="CloudBookList\BookTags\新文件夹\**" />
+    <Compile Remove="CloudBookLists\BookTags\新文件夹\**" />
+    <EmbeddedResource Remove="CloudBookLists\BookTags\新文件夹\**" />
+    <None Remove="CloudBookLists\BookTags\新文件夹\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="CloudBookList\Books\Authorization\BookPermissions.cs~RF251d85a.TMP" />
+    <None Remove="CloudBookLists\Books\Authorization\BookPermissions.cs~RF251d85a.TMP" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="4.0.2" />

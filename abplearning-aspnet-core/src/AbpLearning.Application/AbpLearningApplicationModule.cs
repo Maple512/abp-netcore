@@ -4,8 +4,8 @@ namespace AbpLearning.Application
     using Abp.Modules;
     using Abp.Reflection.Extensions;
     using AbpLearning.Core.Authorization;
-    using AbpLearning.Core.CloudBookList.BookLists.Authorization;
-    using AbpLearning.Core.CloudBookList.Books.Authorization;
+    using AbpLearning.Core.CloudBookLists.BookLists.Authorization;
+    using AbpLearning.Core.CloudBookLists.Books.Authorization;
     using Core;
 
     [DependsOn(
