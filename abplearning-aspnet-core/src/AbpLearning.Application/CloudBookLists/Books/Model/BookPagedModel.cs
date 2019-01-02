@@ -1,7 +1,7 @@
 ﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
 {
+    using System;
     using System.Collections.Generic;
-    using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
     using BookTags.Model;
     using Core.CloudBookLists.Books;
@@ -10,7 +10,7 @@
     /// <see cref="Book"/> 分页模型
     /// </summary>
     [AutoMapFrom(typeof(Book))]
-    public class BookPagedModel : AuditedEntityDto<long>
+    public class BookPagedModel
     {
         /// <summary>
         /// 封面图片URL
@@ -41,5 +41,7 @@
         /// 书签
         /// </summary>
         public List<BookTagViewModel> Tags { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
     }
 }

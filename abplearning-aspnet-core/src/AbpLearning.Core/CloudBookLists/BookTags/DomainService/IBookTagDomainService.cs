@@ -22,5 +22,12 @@
         /// <param name="bookId"></param>
         /// <returns></returns>
         Task BatchDeleteForBookAsync(long bookId);
+
+        /// <summary>
+        /// 删除多个书籍的所有标签
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task BatchDeleteForBookAsync(List<long> bookIds);
     }
 }

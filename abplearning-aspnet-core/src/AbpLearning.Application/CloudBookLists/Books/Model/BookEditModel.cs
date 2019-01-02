@@ -13,8 +13,6 @@
     [AutoMapTo(typeof(Book))]
     public class BookEditModel
     {
-        public const byte TagsMaxLength = Book.TagsMaxLength;
-
         /// <summary>
         /// null：查看
         /// !null：更新
@@ -54,6 +52,8 @@
         [MaxLength(128)]
         [DataType(DataType.Url)]
         public string Url { get; set; }
+
+        public byte TagsMaxLength => Book.TagsMaxLength;
 
         /// <summary>
         /// 标签

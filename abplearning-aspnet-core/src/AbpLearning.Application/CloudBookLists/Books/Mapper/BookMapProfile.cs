@@ -23,8 +23,8 @@
             CreateMap<Book, BookPagedModel>()
                 .ForMember(o => o.LastModificationTime,
                     option => option.MapFrom(m => m.LastModificationTime ?? m.CreationTime))
-                .ForMember(o => o.TenancyDisplayName, option => option.Ignore())
-                .ForMember(o => o.Tags, option => option.Ignore());
+                .ForMember(o => o.Tags, options => options.MapFrom(m => m.Tags.MapTo<List<BookTagViewModel>>()))
+                .ForMember(o => o.TenancyDisplayName, option => option.Ignore());
         }
     }
 }

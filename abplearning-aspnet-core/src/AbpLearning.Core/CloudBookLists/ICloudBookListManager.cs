@@ -23,6 +23,13 @@
         /// <returns></returns>
         Task DeleteForBookAsync(long bookId);
 
+        /// <summary>
+        /// 批量删除 书籍
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task BatchDeleteForBookAsync(List<long> bookIds);
+
         #endregion
     }
 }

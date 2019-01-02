@@ -37,5 +37,15 @@
                 await BatchDeleteAsync(bookTags.Select(m => m.Id));
             }
         }
+
+        public async Task BatchDeleteForBookAsync(List<long> bookIds)
+        {
+            var bookTags = await _repository.GetAllListAsync(m => bookIds.Contains(m.Id));
+
+            if (bookTags.Count > 0)
+            {
+                await BatchDeleteAsync(bookTags.Select(m => m.Id));
+            }
+        }
     }
 }

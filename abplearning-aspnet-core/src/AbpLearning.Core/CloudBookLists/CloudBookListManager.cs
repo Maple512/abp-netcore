@@ -6,11 +6,11 @@
     using System.Threading.Tasks;
     using Abp.Domain.Services;
     using Abp.Domain.Uow;
-    using AbpLearning.Core.CloudBookLists.BookLiseCells.DomainService;
-    using AbpLearning.Core.CloudBookLists.BookLists;
-    using AbpLearning.Core.CloudBookLists.BookLists.DomainService;
-    using AbpLearning.Core.CloudBookLists.Books.DomainService;
-    using AbpLearning.Core.CloudBookLists.BookTags.DomainService;
+    using BookLiseCells.DomainService;
+    using BookLists;
+    using BookLists.DomainService;
+    using Books.DomainService;
+    using BookTags.DomainService;
     using Microsoft.EntityFrameworkCore;
 
     public class CloudBookListManager : DomainService, ICloudBookListManager
@@ -45,6 +45,19 @@
 
             // cell
             await _bookListCell.BatchDeleteForBookAsync(bookId);
+        }
+
+        [UnitOfWork]
+        public async Task BatchDeleteForBookAsync(List<long> bookIds)
+        {
+            // tag
+            await _bookTag.BatchDeleteForBookAsync(bookIds);
+
+            // book
+            await _book.BatchDeleteAsync(bookIds);
+
+            // cell
+            await _bookListCell.BatchDeleteForBookAsync(bookIds);
         }
 
         public async Task<List<BookList>> GetBookListForBookAsync(long bookId)

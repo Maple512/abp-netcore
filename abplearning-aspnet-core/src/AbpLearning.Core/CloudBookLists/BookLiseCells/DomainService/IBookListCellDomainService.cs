@@ -4,8 +4,9 @@
     using System.Threading.Tasks;
     using Base;
 
+    /// <inheritdoc />
     /// <summary>
-    /// <see cref="BookListCell"/> 领域服务接口
+    /// <see cref="T:AbpLearning.Core.CloudBookLists.BookLiseCells.BookListCell" /> 领域服务接口
     /// </summary>
     public interface IBookListCellDomainService : IDomainServiceBase<BookListCell, long>
     {
