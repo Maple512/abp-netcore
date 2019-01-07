@@ -6,7 +6,8 @@
     using System.Threading.Tasks;
     using Abp.Domain.Services;
     using Abp.Domain.Uow;
-    using BookLiseCells.DomainService;
+    using AbpLearning.Core.CloudBookLists.Books;
+    using BookListCells.DomainService;
     using BookLists;
     using BookLists.DomainService;
     using Books.DomainService;
@@ -34,6 +35,11 @@
 
         #region Book
 
+        /// <summary>
+        /// 删除单个书籍
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
         [UnitOfWork]
         public async Task DeleteForBookAsync(long bookId)
         {
@@ -42,11 +48,13 @@
 
             // book
             await _book.DeleteAsync(bookId);
-
-            // cell
-            await _bookListCell.BatchDeleteForBookAsync(bookId);
         }
 
+        /// <summary>
+        /// 删除多个书籍
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
         [UnitOfWork]
         public async Task BatchDeleteForBookAsync(List<long> bookIds)
         {
@@ -55,11 +63,13 @@
 
             // book
             await _book.BatchDeleteAsync(bookIds);
-
-            // cell
-            await _bookListCell.BatchDeleteForBookAsync(bookIds);
         }
 
+        /// <summary>
+        /// 获取引用书籍的所有书单
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
         public async Task<List<BookList>> GetBookListForBookAsync(long bookId)
         {
             // 书籍所在的格子
@@ -78,6 +88,59 @@
 
         #endregion
 
+        #region BookList
 
+        /// <summary>
+        /// 获取书单引用的所有书籍
+        /// </summary>
+        /// <param name="bookListId"></param>
+        /// <returns></returns>
+        public async Task<List<Book>> GetBookForBookListAsync(long bookListId)
+        {
+            // cell
+            var cells = await _bookListCell.GetForBookListAsync(bookListId);
+
+            if (cells.Count > 0)
+            {
+                // book
+                var bookIds = cells.OrderBy(m => m.Sort).Select(m => m.BookId);
+                var books = await _book.GetAll().Where(m => bookIds.Contains(m.Id))?.ToListAsync();
+                return books;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 删除书单
+        /// </summary>
+        /// <param name="bookListId"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public async Task DeleteForBookListAsync(long bookListId)
+        {
+            // cell
+            await _bookListCell.BatchDeleteForBookListAsync(bookListId);
+
+            // booklist
+            await _bookList.DeleteAsync(bookListId);
+        }
+
+        /// <summary>
+        /// 删除多个书单
+        /// </summary>
+        /// <param name="bookListIds"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public async Task BatchDeleteForBookListAsync(List<long> bookListIds)
+        {
+            // cell
+            await _bookListCell.BatchDeleteForBookListAsync(bookListIds);
+
+            // booklist
+            await _bookList.BatchDeleteAsync(bookListIds);
+        }
+
+        #endregion
     }
 }

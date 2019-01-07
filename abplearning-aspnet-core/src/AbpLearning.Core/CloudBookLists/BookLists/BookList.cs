@@ -5,7 +5,7 @@
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using AbpLearning.Core.Authorization.Users;
-    using BookLiseCells;
+    using BookListCells;
 
     /// <summary>
     /// 书单

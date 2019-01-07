@@ -30,5 +30,7 @@
         public virtual Task<T> GetAsync(TPrimaryKey id) => _repository.GetAsync(id);
 
         public virtual IQueryable<T> GetAll() => _repository.GetAll().AsNoTracking();
+
+        public Task<TPrimaryKey> CreateOrUpdateGetIdAsync(T entity) => _repository.InsertOrUpdateAndGetIdAsync(entity);
     }
 }

@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Abp.AutoMapper;
-    using AbpLearning.Application.CloudBookLists.BookLists.Model;
     using AbpLearning.Application.CloudBookLists.BookTags.Model;
     using Core.CloudBookLists.Books;
 
@@ -53,16 +52,14 @@
         [DataType(DataType.Url)]
         public string Url { get; set; }
 
+        /// <summary>
+        /// 书籍能拥有的最大书签
+        /// </summary>
         public byte TagsMaxLength => Book.TagsMaxLength;
 
         /// <summary>
         /// 标签
         /// </summary>
         public List<BookTagEditModel> Tags { get; set; }
-
-        /// <summary>
-        /// 书单
-        /// </summary>
-        public List<BookListViewModel> Lists { get; set; }
     }
 }

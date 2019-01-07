@@ -4,7 +4,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
     using Core;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
-    using Core.CloudBookLists.BookLiseCells;
+    using Core.CloudBookLists.BookListCells;
     using Core.CloudBookLists.BookLists;
     using Core.CloudBookLists.Books;
     using Core.CloudBookLists.BookTags;

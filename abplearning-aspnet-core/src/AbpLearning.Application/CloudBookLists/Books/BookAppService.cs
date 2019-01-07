@@ -11,7 +11,6 @@
     using Abp.Linq.Extensions;
     using Abp.UI;
     using AbpLearning.Core.CloudBookLists.Books.DomainService;
-    using BookLists.Model;
     using Core;
     using Core.CloudBookLists;
     using Core.CloudBookLists.Books;
@@ -43,13 +42,13 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task CreateOrUpdateAsync(BookEditModel model)
+        public async Task<long> CreateOrUpdateAsync(BookEditModel model)
         {
             CreateOrUpdateCheck(model);
 
             var entity = model.MapTo<Book>();
 
-            await _book.CreateOrUpdateAsync(entity);
+            return await _book.CreateOrUpdateGetIdAsync(entity);
         }
 
         /// <summary>
@@ -61,11 +60,26 @@
         {
             var entity = await _book.GetAsync(model.Id);
 
-            var editModel = entity.MapTo<BookEditModel>();
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
-            editModel.Lists = (await _manager.GetBookListForBookAsync(model.Id))?.MapTo<List<BookListViewModel>>();
+            var editModel = entity?.MapTo<BookEditModel>();
 
             return editModel;
+        }
+
+        /// <summary>
+        /// 获取书单下引用的所有书籍
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<List<BookEditModel>> GetListEditAsync(EntityDto<long> model)
+        {
+            var entities = await _manager.GetBookForBookListAsync(model.Id);
+
+            return entities?.MapTo<List<BookEditModel>>();
         }
 
         /// <summary>
@@ -133,7 +147,7 @@
             {
                 if (Entities.Any(m => m.Id != model.Id))
                 {
-                    throw new UserFriendlyException(L("DataIsNotExistedByEditFailed"));
+                    throw new UserFriendlyException(L("NotFoundData"));
                 }
             }
 

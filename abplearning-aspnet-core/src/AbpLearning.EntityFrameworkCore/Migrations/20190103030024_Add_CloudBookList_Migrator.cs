@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Add_CloudBookList_Migrations : Migration
+    public partial class Add_CloudBookList_Migrator : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     Author = table.Column<string>(maxLength: 32, nullable: false),
                     Intro = table.Column<string>(maxLength: 512, nullable: true),
-                    Url = table.Column<string>(maxLength: 128, nullable: true),
+                    Url = table.Column<string>(maxLength: 64, nullable: true),
                     TenantId = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -113,7 +113,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Sort = table.Column<byte>(nullable: false),
-                    BookId = table.Column<long>(nullable: false),
+                    BookId = table.Column<long>(nullable: true),
                     BookListId = table.Column<long>(nullable: false),
                     TenantId = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
@@ -121,13 +121,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookListCell", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BookListCell_Book_BookId",
-                        column: x => x.BookId,
-                        principalSchema: "CBL",
-                        principalTable: "Book",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BookListCell_BookList_BookListId",
                         column: x => x.BookListId,
@@ -160,12 +153,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 schema: "CBL",
                 table: "BookList",
                 column: "LastModifierUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookListCell_BookId",
-                schema: "CBL",
-                table: "BookListCell",
-                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookListCell_BookListId",

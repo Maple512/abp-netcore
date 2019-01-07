@@ -15,6 +15,11 @@
 
         public const int TagsMaxLength = 10;
 
+        /// <summary>
+        /// 书籍分页，展示最多数量的书签
+        /// </summary>
+        public const int BookPageShowTagMaxLenght = 5;
+
         public const int CoverImgUrlMaxLength = 128;
 
         public const int BookNameMaxLength = 32;

@@ -6,7 +6,6 @@
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.AutoMapper;
-    using Abp.Domain.Uow;
     using Abp.UI;
     using AbpLearning.Core.CloudBookLists.BookTags.DomainService;
     using Core;
@@ -53,19 +52,15 @@
         /// <summary>
         /// 创建Book的tag
         /// </summary>
-        /// <param name="bookModel"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        [UnitOfWork]
-        public async Task CreateForBookAsync(List<BookTagEditModel> bookModel)
+        public async Task CreateForBookAsync(BookTagEditModel model)
         {
-            foreach (var model in bookModel)
-            {
-                CraetCheck(model);
+            CraetCheck(model);
 
-                var entity = model.MapTo<BookTag>();
+            var entity = model.MapTo<BookTag>();
 
-                await _bookTag.InsertAsync(entity);
-            }
+            await _bookTag.InsertAsync(entity);
         }
 
         /// <summary>

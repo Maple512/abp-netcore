@@ -1,5 +1,6 @@
 ﻿namespace AbpLearning.Core.CloudBookLists.BookLists.DomainService
 {
+    using System.Threading.Tasks;
     using AbpLearning.Core.Base;
 
     /// <summary>
@@ -7,6 +8,5 @@
     /// </summary>
     public interface IBookListDomainService : IDomainServiceBase<BookList, long>
     {
-
     }
 }

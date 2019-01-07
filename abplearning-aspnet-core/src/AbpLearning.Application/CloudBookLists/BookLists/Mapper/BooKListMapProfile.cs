@@ -15,7 +15,7 @@
             CreateMap<BookList, BookListPagedModel>()
                 .ForMember(o => o.LastModificationTime,
                     option => option.MapFrom(m => m.LastModificationTime ?? m.CreationTime))
-                .ForMember(o => o.ExsitedBookCount, option => option.Ignore());
+                .ForMember(o => o.ExsitedBookCount, option => option.MapFrom(m => m.Cells.Count));
         }
     }
 }

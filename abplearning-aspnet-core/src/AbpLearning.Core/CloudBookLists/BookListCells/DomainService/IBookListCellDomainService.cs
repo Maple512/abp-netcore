@@ -1,4 +1,4 @@
-﻿namespace AbpLearning.Core.CloudBookLists.BookLiseCells.DomainService
+﻿namespace AbpLearning.Core.CloudBookLists.BookListCells.DomainService
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -6,10 +6,12 @@
 
     /// <inheritdoc />
     /// <summary>
-    /// <see cref="T:AbpLearning.Core.CloudBookLists.BookLiseCells.BookListCell" /> 领域服务接口
+    /// <see cref="BookListCell" /> 领域服务接口
     /// </summary>
     public interface IBookListCellDomainService : IDomainServiceBase<BookListCell, long>
     {
+        #region Book
+
         /// <summary>
         /// 获取书籍的所有格子
         /// </summary>
@@ -17,25 +19,38 @@
         /// <returns></returns>
         Task<List<BookListCell>> GetForBookAsync(long bookId);
 
-        /// <summary>
-        /// 获取多个书籍的所有格子
-        /// </summary>
-        /// <param name="bookIds"></param>
-        /// <returns></returns>
-        Task<List<BookListCell>> GetForBookAsync(List<long> bookIds);
+        #endregion
+
+        #region BookList
 
         /// <summary>
-        /// 删除书籍的所有格子
+        /// 获取书单的所有格子
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        Task BatchDeleteForBookAsync(long bookId);
+        Task<List<BookListCell>> GetForBookListAsync(long bookListId);
 
         /// <summary>
-        /// 删除多个书籍的所有格子
+        /// 获取多个书单的所有格子
         /// </summary>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        Task BatchDeleteForBookAsync(List<long> bookIds);
+        Task<List<BookListCell>> GetForBookListAsync(List<long> bookListIds);
+
+        /// <summary>
+        /// 删除书单的所有格子
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
+        Task BatchDeleteForBookListAsync(long bookListId);
+
+        /// <summary>
+        /// 删除多个书单的所有格子
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task BatchDeleteForBookListAsync(List<long> bookListIds);
+
+        #endregion
     }
 }

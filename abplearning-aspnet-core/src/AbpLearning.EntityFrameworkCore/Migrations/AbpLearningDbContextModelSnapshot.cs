@@ -1008,13 +1008,13 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLiseCells.BookListCell", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookListCells.BookListCell", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("BookId");
+                    b.Property<long?>("BookId");
 
                     b.Property<long>("BookListId");
 
@@ -1026,14 +1026,12 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
                     b.HasIndex("BookListId");
 
                     b.ToTable("BookListCell","CBL");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLists.BookList", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookLists.BookList", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1067,7 +1065,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.ToTable("BookList","CBL");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookTags.BookTag", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookTags.BookTag", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1094,7 +1092,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.ToTable("BookTag","CBL");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.Books.Book", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.Books.Book", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1127,7 +1125,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<int?>("TenantId");
 
                     b.Property<string>("Url")
-                        .HasMaxLength(128);
+                        .HasMaxLength(64);
 
                     b.HasKey("Id");
 
@@ -1338,20 +1336,15 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .HasForeignKey("LastModifierUserId");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLiseCells.BookListCell", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookListCells.BookListCell", b =>
                 {
-                    b.HasOne("AbpLearning.Core.CloudBookList.Books.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AbpLearning.Core.CloudBookList.BookLists.BookList")
+                    b.HasOne("AbpLearning.Core.CloudBookLists.BookLists.BookList")
                         .WithMany("Cells")
                         .HasForeignKey("BookListId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookLists.BookList", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookLists.BookList", b =>
                 {
                     b.HasOne("AbpLearning.Core.Authorization.Users.User", "CreatorUser")
                         .WithMany()
@@ -1362,15 +1355,15 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .HasForeignKey("LastModifierUserId");
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.BookTags.BookTag", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.BookTags.BookTag", b =>
                 {
-                    b.HasOne("AbpLearning.Core.CloudBookList.Books.Book")
+                    b.HasOne("AbpLearning.Core.CloudBookLists.Books.Book")
                         .WithMany("Tags")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("AbpLearning.Core.CloudBookList.Books.Book", b =>
+            modelBuilder.Entity("AbpLearning.Core.CloudBookLists.Books.Book", b =>
                 {
                     b.HasOne("AbpLearning.Core.Authorization.Users.User", "CreatorUser")
                         .WithMany()

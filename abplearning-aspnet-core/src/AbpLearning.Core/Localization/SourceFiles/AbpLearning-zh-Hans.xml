@@ -163,7 +163,7 @@
     <text name="Reading" value="正在读取数据..." />
     <text name="DataIsNotExistedByDeletedFailed" value="删除失败，数据不存在" />
     <text name="DataIsNotExistedByEditFailed" value="更新失败，数据不存在" />
-    <text name="DataIsNotExisted" value="数据不存在" />
+    <text name="NotFoundData" value="未找到相关数据，请稍后重试" />
     <text name="DataIsAlreadyExistedByCreatedFailed" value="数据已存在" />
 
     <!--

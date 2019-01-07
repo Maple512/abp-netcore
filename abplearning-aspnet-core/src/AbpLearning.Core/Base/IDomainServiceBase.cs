@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IDomainServiceBase<T, in TPrimaryKey> : IDomainService
+    public interface IDomainServiceBase<T, TPrimaryKey> : IDomainService
         where T : Entity<TPrimaryKey>
     {
         Task InsertAsync(T entity);
@@ -19,6 +19,8 @@
         Task UpdateAsync(T entity);
 
         Task CreateOrUpdateAsync(T entity);
+
+        Task<TPrimaryKey> CreateOrUpdateGetIdAsync(T entity);
 
         Task DeleteAsync(TPrimaryKey id);
 

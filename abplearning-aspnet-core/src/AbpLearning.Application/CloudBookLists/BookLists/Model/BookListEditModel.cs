@@ -21,5 +21,10 @@
         /// </summary>
         [MaxLength(128)]
         public string Intro { get; set; }
+
+        /// <summary>
+        /// 书单允许的最大数量的格子
+        /// </summary>
+        public byte CellMaxLength => BookList.CellMaxLength;
     }
 }

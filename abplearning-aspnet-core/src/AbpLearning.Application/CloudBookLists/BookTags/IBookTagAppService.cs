@@ -12,7 +12,7 @@
 
         Task<List<BookTagViewModel>> GetViewForBookAsync(EntityDto<long> bookModel);
 
-        Task CreateForBookAsync(List<BookTagEditModel> bookModel);
+        Task CreateForBookAsync(BookTagEditModel model);
 
         Task DeleteForBookAsync(EntityDto<long> bookModel);
     }

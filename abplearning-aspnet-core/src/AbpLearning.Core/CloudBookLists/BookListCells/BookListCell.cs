@@ -1,10 +1,9 @@
-﻿namespace AbpLearning.Core.CloudBookLists.BookLiseCells
+﻿namespace AbpLearning.Core.CloudBookLists.BookListCells
 {
     using Abp.Domain.Entities;
-    using Books;
 
     /// <summary>
-    /// 书单格子
+    /// 书单格子（1个格子，最多可以放一本书）
     /// </summary>
     public class BookListCell : Entity<long>, IMayHaveTenant, ISoftDelete
     {
@@ -13,7 +12,10 @@
         /// </summary>
         public byte Sort { get; set; }
 
-        public long BookId { get; set; }
+        /// <summary>
+        /// 书籍（可空）
+        /// </summary>
+        public long? BookId { get; set; }
 
         public long BookListId { get; set; }
 

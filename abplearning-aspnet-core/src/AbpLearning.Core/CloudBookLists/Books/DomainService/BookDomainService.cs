@@ -14,9 +14,14 @@
         public BookDomainService(IRepository<Book, long> bookRepository) : base(bookRepository)
         { }
 
+        /// <summary>
+        /// 获取书籍（包括对应的书签）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public override Task<Book> GetAsync(long id)
         {
-            return GetAll().Where(m => m.Id == id).Include(m => m.Tags).FirstAsync();
+            return GetAll().Where(m => m.Id == id).Include(m => m.Tags).FirstOrDefaultAsync();
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Abp.Application.Services;
     using Abp.Application.Services.Dto;
+    using BookLists.Model;
     using Model;
 
     /// <summary>
@@ -26,11 +27,18 @@
         Task<BookEditModel> GetEditAsync(EntityDto<long> model);
 
         /// <summary>
+        /// 获取书单下引用的所有书籍
+        /// </summary>
+        /// <param name="model">bookListId</param>
+        /// <returns></returns>
+        Task<List<BookEditModel>> GetListEditAsync(EntityDto<long> model);
+
+        /// <summary>
         /// 创建/更新
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task CreateOrUpdateAsync(BookEditModel model);
+        Task<long> CreateOrUpdateAsync(BookEditModel model);
 
         /// <summary>
         /// 删除
