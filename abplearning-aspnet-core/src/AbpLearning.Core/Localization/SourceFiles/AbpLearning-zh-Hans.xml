@@ -137,7 +137,7 @@
     
     <!--验证码-->
     <text name="NotValidVerificationCode" value="请输入验证码" />
-    <text name="VerificationCodeExpired" value="验证码已过期" />
+    <text name="VerificationCodeExpiredOrNodFound" value="验证码已过期" />
     <text name="NotMatchVerificationCode" value="验证码有误" />
     <text name="NotActiveVerificationCode" value="验证码未激活" />
 

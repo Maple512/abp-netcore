@@ -1,4 +1,4 @@
-﻿namespace AbpLearning.Web.Core.Models.VerificationCode
+﻿namespace AbpLearning.Application.Security.VerificationCodes.model
 {
     using System.ComponentModel.DataAnnotations;
 
