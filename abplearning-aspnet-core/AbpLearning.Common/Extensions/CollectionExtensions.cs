@@ -3,13 +3,29 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
+    using Microsoft.EntityFrameworkCore.Query;
+    using Microsoft.EntityFrameworkCore.Query.Internal;
+    using Microsoft.EntityFrameworkCore.Storage;
 
     /// <summary>
     /// 集合扩展
     /// </summary>
     public static class CollectionExtensions
     {
+        private static readonly TypeInfo QueryCompilerTypeInfo = typeof(QueryCompiler).GetTypeInfo();
+
+        private static readonly FieldInfo QueryCompilerField = typeof(EntityQueryProvider).GetTypeInfo().DeclaredFields.First(x => x.Name == "_queryCompiler");
+
+        private static readonly FieldInfo QueryModelGeneratorField = QueryCompilerTypeInfo.DeclaredFields.First(x => x.Name == "_queryModelGenerator");
+
+        private static readonly FieldInfo DataBaseField = QueryCompilerTypeInfo.DeclaredFields.Single(x => x.Name == "_database");
+
+        private static readonly PropertyInfo DatabaseDependenciesField = typeof(Database).GetTypeInfo().DeclaredProperties.Single(x => x.Name == "Dependencies");
+
+        
+
         #region IEnumerable
 
         /// <summary>
@@ -104,41 +120,9 @@
 
         #endregion IEnumerable的扩展
 
-        #region IQueryable的扩展
-
+        #region List
         /// <summary>
-        ///     根据第三方条件是否为真来决定是否执行指定条件的查询
-        /// </summary>
-        /// <param name="source"> 要查询的源 </param>
-        /// <param name="predicate"> 查询条件 </param>
-        /// <param name="condition"> 第三方条件 </param>
-        /// <typeparam name="T"> 动态类型 </typeparam>
-        /// <returns> 查询的结果 </returns>
-        public static IQueryable<T> WhereIf<T>(this IQueryable<T> source, Expression<Func<T, bool>> predicate,
-            bool condition)
-        {
-            source.CheckNotNull(nameof(source));
-            predicate.CheckNotNull(nameof(predicate));
-
-            return condition ? source.Where(predicate) : source;
-        }
-
-
-
-
-
-        private static Action<T> Fix<T>(Func<Action<T>, Action<T>> f)
-        {
-            return x => f(Fix(f))(x);
-        }
-
-        private static void Render<T>(T model, Func<Action<T>, Action<T>> f)
-        {
-            Fix(f)(model);
-        }
-
-        /// <summary>
-        ///     从指定集合TSource递归出无限级TResult集合、常用于树形数据
+        /// 从指定集合TSource递归出无限级TResult集合、常用于树形数据
         /// </summary>
         /// <typeparam name="TResult">返回的集合类型</typeparam>
         /// <typeparam name="TSource">原始类型</typeparam>
@@ -218,38 +202,41 @@
             return Items;
         }
 
-        /*/// <summary>
-        /// 从指定<see cref="IQueryable{T}"/>集合中筛选指定键范围内的子数据集
-        /// </summary>
-        /// <typeparam name="TSource">集合元素类型</typeparam>
-        /// <typeparam name="TKey">筛选键类型</typeparam>
-        /// <param name="source">要筛选的数据源</param>
-        /// <param name="keySelector">筛选键的范围表达式</param>
-        /// <param name="start">筛选范围起始值</param>
-        /// <param name="end">筛选范围结束值</param>
-        /// <param name="startEqual">是否等于起始值</param>
-        /// <param name="endEqual">是否等于结束集</param>
-        /// <returns></returns>
-        public static IQueryable<TSource> Between<TSource, TKey>(this IQueryable<TSource> source,
-            Expression<Func<TSource, TKey>> keySelector,
-            TKey start,
-            TKey end,
-            bool startEqual = false,
-            bool endEqual = false) where TKey : IComparable<TKey>
-        {
-            Expression[] paramters = keySelector.Parameters.Cast<Expression>().ToArray();
-            Expression key = Expression.Invoke(keySelector, paramters);
-            Expression startBound = startEqual
-                ? Expression.GreaterThanOrEqual(key, Expression.Constant(start))
-                : Expression.GreaterThan(key, Expression.Constant(start));
-            Expression endBound = endEqual
-                ? Expression.LessThanOrEqual(key, Expression.Constant(end))
-                : Expression.LessThan(key, Expression.Constant(end));
-            Expression and = Expression.AndAlso(startBound, endBound);
-            Expression<Func<TSource, bool>> lambda = Expression.Lambda<Func<TSource, bool>>(and, keySelector.Parameters);
-            return source.Where(lambda);
-        }*/
+        #endregion
 
-        #endregion IQueryable的扩展
+        #region IQueryable
+
+        /// <summary>
+        /// IQueryable To Sql String
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
+        {
+            var queryCompiler = (QueryCompiler)QueryCompilerField.GetValue(query.Provider);
+            var modelGenerator = (QueryModelGenerator)QueryModelGeneratorField.GetValue(queryCompiler);
+            var queryModel = modelGenerator.ParseQuery(query.Expression);
+            var database = (IDatabase)DataBaseField.GetValue(queryCompiler);
+            var databaseDependencies = (DatabaseDependencies)DatabaseDependenciesField.GetValue(database);
+            var queryCompilationContext = databaseDependencies.QueryCompilationContextFactory.Create(false);
+            var modelVisitor = (RelationalQueryModelVisitor)queryCompilationContext.CreateQueryModelVisitor();
+            modelVisitor.CreateQueryExecutor<TEntity>(queryModel);
+            var sql = modelVisitor.Queries.First().ToString();
+
+            return sql;
+        }
+
+        #endregion
+
+        private static Action<T> Fix<T>(Func<Action<T>, Action<T>> f)
+        {
+            return x => f(Fix(f))(x);
+        }
+
+        private static void Render<T>(T model, Func<Action<T>, Action<T>> f)
+        {
+            Fix(f)(model);
+        }
     }
 }
