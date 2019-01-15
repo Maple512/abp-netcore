@@ -8,6 +8,7 @@ using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.Configuration;
 using AbpLearning.Application;
+using AbpLearning.Common;
 using AbpLearning.Core;
 using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
 using AbpLearning.Web.Core.Authentication.JwtBearer;
@@ -21,8 +22,9 @@ namespace AbpLearning.Web.Core
     [DependsOn(
          typeof(AbpLearningApplicationModule),
          typeof(AbpLearningEntityFrameworkModule),
-         typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule)
+         typeof(AbpAspNetCoreModule),
+         typeof(AbpLearningCommonModule)
+        , typeof(AbpAspNetCoreSignalRModule)
      )]
     public class AbpLearningWebCoreModule : AbpModule
     {

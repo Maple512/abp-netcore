@@ -8,7 +8,11 @@
     using System.DrawingCore;
     using System.DrawingCore.Imaging;
 
-    public class VerificationCodeService : IVerificationCodeService
+    /// <summary>
+    /// 验证码 工具
+    /// 实现<see cref="IVerificationCodeHelper"/>
+    /// </summary>
+    public class VerificationCodeHelper : IVerificationCodeHelper
     {
         /// <summary>
         /// 生成验证码
