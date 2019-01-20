@@ -1,23 +1,23 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using Abp.Authorization;
-using Abp.Domain.Repositories;
-using Abp.Extensions;
-using Abp.IdentityFramework;
-using Abp.MultiTenancy;
-using Abp.Runtime.Security;
-using AbpLearning.Core;
-using AbpLearning.Core.Authorization.Roles;
-using AbpLearning.Core.Authorization.Users;
-using AbpLearning.Core.Editions;
-using AbpLearning.Core.MultiTenancy;
-using AbpLearning.MultiTenancy.Dto;
-using Microsoft.AspNetCore.Identity;
-
 namespace AbpLearning.Application.MultiTenancy
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.Application.Services;
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization;
+    using Abp.Domain.Repositories;
+    using Abp.Extensions;
+    using Abp.IdentityFramework;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Security;
+    using AbpLearning.Core;
+    using AbpLearning.Core.Authorization.Roles;
+    using AbpLearning.Core.Authorization.Users;
+    using AbpLearning.Core.Editions;
+    using AbpLearning.Core.MultiTenancy;
+    using AbpLearning.MultiTenancy.Dto;
+    using Microsoft.AspNetCore.Identity;
+
     [AbpAuthorize(AbpLearningPermissions.Tenants)]
     public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
     {
@@ -89,7 +89,7 @@ namespace AbpLearning.Application.MultiTenancy
                 CheckErrors(await _userManager.CreateAsync(adminUser));
                 await CurrentUnitOfWork.SaveChangesAsync(); // To get admin user's id
 
-                // ���⻧����Ա��Ȩ
+
                 CheckErrors(await _userManager.AddToRoleAsync(adminUser, adminRole.Name));
                 await CurrentUnitOfWork.SaveChangesAsync();
             }

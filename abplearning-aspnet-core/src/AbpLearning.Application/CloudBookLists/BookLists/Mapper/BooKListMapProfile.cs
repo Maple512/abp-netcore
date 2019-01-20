@@ -4,9 +4,9 @@
     using Core.CloudBookLists.BookLists;
     using Model;
 
-    public class BooKListMapProfile : Profile
+    public class BookListMapProfile : Profile
     {
-        public BooKListMapProfile()
+        public BookListMapProfile()
         {
             CreateMap<BookListEditModel, BookList>();
 

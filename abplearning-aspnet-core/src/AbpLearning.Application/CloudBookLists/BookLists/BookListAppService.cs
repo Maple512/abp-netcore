@@ -101,7 +101,7 @@
         /// <param name="filter">书单分页</param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BooklistNode + AbpLearningPermissions.Query)]
-        public async Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilterAndSortedModel filter)
+        public async Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilteringModel filter)
         {
             var query = _bookList.GetAll()
                 .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(),

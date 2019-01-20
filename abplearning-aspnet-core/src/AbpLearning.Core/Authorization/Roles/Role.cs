@@ -1,12 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Roles;
-using AbpLearning.Core.Authorization.Users;
-
 namespace AbpLearning.Core.Authorization.Roles
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Authorization.Roles;
+    using AbpLearning.Core.Authorization.Users;
+
     public class Role : AbpRole<User>
     {
-        public const int MaxDescriptionLength = 5000;
+        public const int MaxDescriptionLength = 512;
 
         public Role()
         {

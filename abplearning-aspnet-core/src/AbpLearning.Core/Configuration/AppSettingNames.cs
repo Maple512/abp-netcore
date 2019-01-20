@@ -16,6 +16,14 @@ namespace AbpLearning.Core.Configuration
         /// </summary>
         public static class Application
         {
+            
+        }
+
+        /// <summary>
+        /// Tenant Settings
+        /// </summary>
+        public static class Tenant
+        {
             /// <summary>
             /// 是否允许注册租户
             /// </summary>
@@ -25,18 +33,25 @@ namespace AbpLearning.Core.Configuration
             /// 是否允许新租户默认激活
             /// </summary>
             public const string IsDefaultActivationForNewTenant = "IsDefaultActivationForNewTenant";
+
+            /// <summary>
+            /// 注册时的验证码类型
+            /// <see cref=""/>
+            /// </summary>
+            public const string VerificationCodeTypeAtRegistration = "VerificationCodeTypeAtRegistration";
         }
 
-        public static class Tenant
-        {
-
-        }
-
+        /// <summary>
+        /// User Settings
+        /// </summary>
         public static class User
         {
 
         }
-        
+
+        /// <summary>
+        /// All Settings
+        /// </summary>
         public static class All
         {
 

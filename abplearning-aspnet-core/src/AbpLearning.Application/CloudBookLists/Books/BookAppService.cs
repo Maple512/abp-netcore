@@ -116,7 +116,7 @@
         /// <param name="filter"></param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query)]
-        public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter)
+        public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilteringModel filter)
         {
             var queryBooks = Entities
                 .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText) || m.Author.Contains(filter.FilterText));

@@ -5,7 +5,7 @@
     using Abp.Extensions;
     using Abp.Runtime.Caching;
     using Abp.UI;
-    using AbpLearning.Application.Security.VerificationCodes.model;
+    using model;
     using Common.Extensions;
 
     public class VerificationCodeAppService : AbpLearningAppServiceBase, IVerificationCodeAppService
@@ -31,7 +31,7 @@
                 }
 
                 // 分租户获取验证码缓存
-                var key = "VerificationCode_Cache_Key";
+                const string key = "VerificationCode_Cache_Key";
 
                 // 从缓存验证码值
                 var cacheValue = await _cacheManager.GetValue<string>(key, model.CacheKey, true);

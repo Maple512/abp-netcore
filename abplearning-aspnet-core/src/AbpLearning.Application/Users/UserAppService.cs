@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using Abp.Authorization;
-using Abp.Domain.Entities;
-using Abp.Domain.Repositories;
-using Abp.IdentityFramework;
-using Abp.Localization;
-using Abp.Runtime.Session;
-using AbpLearning.Application.Roles.Dto;
-using AbpLearning.Application.Users.Dto;
-using AbpLearning.Core;
-using AbpLearning.Core.Authorization.Roles;
-using AbpLearning.Core.Authorization.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace AbpLearning.Application.Users
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.Application.Services;
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization;
+    using Abp.Domain.Entities;
+    using Abp.Domain.Repositories;
+    using Abp.IdentityFramework;
+    using Abp.Localization;
+    using Abp.Runtime.Session;
+    using Core;
+    using Core.Authorization.Roles;
+    using Core.Authorization.Users;
+    using Dto;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Roles.Model;
+
     [AbpAuthorize(AbpLearningPermissions.Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
@@ -87,10 +87,10 @@ namespace AbpLearning.Application.Users
             await _userManager.DeleteAsync(user);
         }
 
-        public async Task<ListResultDto<RoleDto>> GetRoles()
+        public async Task<ListResultDto<RoleViewModel>> GetRoles()
         {
             var roles = await _roleRepository.GetAllListAsync();
-            return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
+            return new ListResultDto<RoleViewModel>(ObjectMapper.Map<List<RoleViewModel>>(roles));
         }
 
         public async Task ChangeLanguage(ChangeUserLanguageDto input)

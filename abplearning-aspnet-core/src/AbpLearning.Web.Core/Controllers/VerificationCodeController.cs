@@ -5,8 +5,8 @@
     using Abp.Configuration;
     using Abp.Extensions;
     using Abp.Runtime.Caching;
-    using Application.Net.MimeTypes;
     using Common.VerificationCode;
+    using Application.Net.MimeTypes;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]/[action]")]

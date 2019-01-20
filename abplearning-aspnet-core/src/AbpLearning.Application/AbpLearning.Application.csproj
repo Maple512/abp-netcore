@@ -16,12 +16,13 @@
     <NoWarn>1701;1702;1591;</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AbpLearning.Common\AbpLearning.Common.csproj" />
+    <ProjectReference Include="..\..\tools\AbpLearning.Common\AbpLearning.Common.csproj" />
     <ProjectReference Include="..\AbpLearning.Core\AbpLearning.Core.csproj" />
   </ItemGroup>
 </Project>

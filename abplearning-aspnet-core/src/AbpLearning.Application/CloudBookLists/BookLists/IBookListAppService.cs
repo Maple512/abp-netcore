@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="filter">书单分页</param>
         /// <returns></returns>
-        Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilterAndSortedModel filter);
+        Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilteringModel filter);
 
         /// <summary>
         /// 书单 更新模型

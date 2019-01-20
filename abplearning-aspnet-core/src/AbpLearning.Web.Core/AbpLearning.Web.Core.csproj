@@ -16,7 +16,7 @@
     <RootNamespace>AbpLearning.Web.Core</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AbpLearning.Common\AbpLearning.Common.csproj" />
+    <ProjectReference Include="..\..\tools\AbpLearning.Common\AbpLearning.Common.csproj" />
     <ProjectReference Include="..\AbpLearning.Application\AbpLearning.Application.csproj" />
     <ProjectReference Include="..\AbpLearning.EntityFrameworkCore\AbpLearning.EntityFrameworkCore.csproj" />
   </ItemGroup>

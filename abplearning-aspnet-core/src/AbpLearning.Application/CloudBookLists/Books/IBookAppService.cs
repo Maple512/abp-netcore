@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilterAndSortedModel filter);
+        Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilteringModel filter);
 
         /// <summary>
         /// 更新模型

@@ -1,80 +1,70 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using Abp.Authorization;
-using Abp.Domain.Repositories;
-using Abp.IdentityFramework;
-using Abp.UI;
-using AbpLearning.Application.Roles.Dto;
-using AbpLearning.Core;
-using AbpLearning.Core.Authorization.Roles;
-using AbpLearning.Core.Authorization.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace AbpLearning.Application.Roles
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization;
+    using Abp.AutoMapper;
+    using Abp.Domain.Repositories;
+    using Abp.Extensions;
+    using Abp.Linq.Extensions;
+    using Abp.UI;
+    using Core;
+    using Core.Authorization.Roles;
+    using Core.Authorization.Users;
+    using Microsoft.EntityFrameworkCore;
+    using Model;
+
     [AbpAuthorize(AbpLearningPermissions.Roles)]
-    public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
+    public class RoleAppService : AbpLearningAppServiceBase, IRoleAppService<int>
     {
         private readonly RoleManager _roleManager;
         private readonly UserManager _userManager;
+        private readonly IRepository<Role> _repository;
 
-        public RoleAppService(IRepository<Role> repository, RoleManager roleManager, UserManager userManager)
-            : base(repository)
+        public RoleAppService(IRepository<Role> repository,RoleManager roleManager, UserManager userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
-
-            LocalizationSourceName = AbpLearningConsts.LocalizationSourceName;
+            _repository = repository;
         }
 
-        public override async Task<RoleDto> Create(CreateRoleDto input)
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task Create(RoleEditModel model)
         {
-            CheckCreatePermission();
-
-            var role = ObjectMapper.Map<Role>(input);
+            var role = ObjectMapper.Map<Role>(model);
             role.SetNormalizedName();
 
             CheckErrors(await _roleManager.CreateAsync(role));
-
-            var grantedPermissions = PermissionManager
-                .GetAllPermissions()
-                .Where(p => input.Permissions.Contains(p.Name))
-                .ToList();
-
-            await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
-
-            return MapToEntityDto(role);
         }
 
-        public override async Task<RoleDto> Update(RoleDto input)
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task Update(RoleEditModel model)
         {
-            CheckUpdatePermission();
+            var role = await _roleManager.GetRoleByIdAsync(model.Id);
 
-            var role = await _roleManager.GetRoleByIdAsync(input.Id);
-
-            ObjectMapper.Map(input, role);
+            ObjectMapper.Map(model, role);
 
             CheckErrors(await _roleManager.UpdateAsync(role));
-
-            var grantedPermissions = PermissionManager
-                .GetAllPermissions()
-                .Where(p => input.Permissions.Contains(p.Name))
-                .ToList();
-
-            await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
-
-            return MapToEntityDto(role);
         }
 
-        public override async Task Delete(EntityDto<int> input)
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task Delete(EntityDto<int> model)
         {
-            CheckDeletePermission();
-
-            var role = await _roleManager.FindByIdAsync(input.Id.ToString());
+            var role = await _roleManager.FindByIdAsync(model.Id.ToString());
 
             if (role.IsStatic)
             {
@@ -91,33 +81,84 @@ namespace AbpLearning.Application.Roles
             CheckErrors(await _roleManager.DeleteAsync(role));
         }
 
-        public Task<ListResultDto<PermissionDto>> GetAllPermissions()
+        /// <summary>
+        /// 获取所有权限
+        /// </summary>
+        /// <returns></returns>
+        public Task<ListResultDto<PermissionViewModel>> GetAllPermissions()
         {
             var permissions = PermissionManager.GetAllPermissions();
 
-            return Task.FromResult(new ListResultDto<PermissionDto>(
-                ObjectMapper.Map<List<PermissionDto>>(permissions)
+            return Task.FromResult(new ListResultDto<PermissionViewModel>(
+                ObjectMapper.Map<List<PermissionViewModel>>(permissions)
             ));
         }
 
-        protected override IQueryable<Role> CreateFilteredQuery(PagedResultRequestDto input)
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public async Task<PagedResultDto<RolePagedModel>> GetPaged(RolePagedFilteringModel filter)
         {
-            return Repository.GetAllIncluding(x => x.Permissions);
+            var query = _roleManager.Roles
+                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText))
+                .WhereIf(filter.PermissionNames?.Count > 0, m => m.Permissions.Any(p => filter.PermissionNames.Contains(p.Name) && p.IsGranted));
+
+            var count = await query.CountAsync();
+
+            var roles = await query.PageBy(filter).ToListAsync();
+
+            return new PagedResultDto<RolePagedModel>(count, ObjectMapper.Map<List<RolePagedModel>>(roles));
         }
 
-        protected override async Task<Role> GetEntityByIdAsync(int id)
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        public async Task BatchDelete(List<EntityDto<int>> entities)
         {
-            return await Repository.GetAllIncluding(x => x.Permissions).FirstOrDefaultAsync(x => x.Id == id);
+            foreach (var entity in entities)
+            {
+                await Delete(entity);
+            }
         }
 
-        protected override IQueryable<Role> ApplySorting(IQueryable<Role> query, PagedResultRequestDto input)
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<RoleEditModel> GetEdit(NullableIdDto<int> entity)
         {
-            return query.OrderBy(r => r.DisplayName);
+            var editModel = new RoleEditModel();
+
+            if (entity.Id.HasValue)
+            {
+                var role = await _roleManager.GetRoleByIdAsync(entity.Id.Value);
+
+                editModel = role.MapTo<RoleEditModel>();
+            }
+
+            return editModel;
         }
 
-        protected virtual void CheckErrors(IdentityResult identityResult)
+        /// <summary>
+        /// 更新角色的权限
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task UpdatePermissionsForRole(PermissionEditModel model)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            var role = await _roleManager.GetRoleByIdAsync(model.RoleId);
+
+            var grantedPermissions = PermissionManager
+                .GetAllPermissions()
+                .Where(p => model.Permissions.Contains(p.Name))
+                .ToList();
+
+            await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
         }
     }
 }
