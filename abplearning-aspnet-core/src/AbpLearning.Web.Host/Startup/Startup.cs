@@ -11,6 +11,8 @@ namespace AbpLearning.Web.Host.Startup
     using AbpLearning.Core.Identity;
     using Castle.Facilities.Logging;
     using Core.Configuration;
+    using Filter;
+    using LogDashboard;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Cors.Internal;
@@ -72,7 +74,7 @@ namespace AbpLearning.Web.Host.Startup
                 {
                     Title = "AbpLearning API",
                     Version = "v1",
-                    TermsOfService = "None"
+                    TermsOfService = "https://github.com/Maple512/abplearning-angular"
                 });
                 options.DocInclusionPredicate((docName, description) => true);
 
@@ -86,19 +88,30 @@ namespace AbpLearning.Web.Host.Startup
                 });
 
                 // 在开发环境时启用API说明文本
-                if (_environment.IsDevelopment())
-                {
-                    // Set the comments path for the Swagger JSON and UI.
-                    // Web.Host
-                    var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.IncludeXmlComments(xmlPath);
+                if (!_environment.IsDevelopment()) return;
 
-                    // Application
-                    var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
-                    var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
-                    options.IncludeXmlComments(appPath);
-                }
+                // Set the comments path for the Swagger JSON and UI.
+                // Web.Host
+                var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+
+                // Application
+                var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
+                var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
+                options.IncludeXmlComments(appPath);
+            });
+
+            // LogDashboard
+            services.AddLogDashboard(opt =>
+            {
+                opt.RootPath = Path.Combine(_environment.ContentRootPath, @"App_Data/Logs");
+
+                // TODO:授权
+                opt.AddAuthorizeAttribute();
+
+                // 过滤
+                opt.AddAuthorizationFilter(new SamplesAuthorizationFilter());
             });
 
             // Configure Abp and Dependency Injection
@@ -122,6 +135,8 @@ namespace AbpLearning.Web.Host.Startup
 
             app.UseAbpRequestLocalization();
 
+            // LogDashboard
+            app.UseLogDashboard();
 
             app.UseSignalR(routes =>
             {

@@ -39,6 +39,7 @@
     <ProjectReference Include="..\AbpLearning.Web.Core\AbpLearning.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LogDashboard" Version="1.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
