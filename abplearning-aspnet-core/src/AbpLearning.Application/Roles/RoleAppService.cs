@@ -2,6 +2,7 @@ namespace AbpLearning.Application.Roles
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
@@ -107,7 +108,7 @@ namespace AbpLearning.Application.Roles
 
             var count = await query.CountAsync();
 
-            var roles = await query.PageBy(filter).ToListAsync();
+            var roles = await query.OrderBy(filter.Sorting).PageBy(filter).ToListAsync();
 
             return new PagedResultDto<RolePagedModel>(count, ObjectMapper.Map<List<RolePagedModel>>(roles));
         }

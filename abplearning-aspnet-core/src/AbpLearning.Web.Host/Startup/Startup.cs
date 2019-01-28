@@ -15,7 +15,6 @@ namespace AbpLearning.Web.Host.Startup
     using LogDashboard;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Cors.Internal;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -88,24 +87,8 @@ namespace AbpLearning.Web.Host.Startup
                     In = "header",
                     Type = "apiKey"
                 });
-
-                // 在开发环境时启用API说明文本
-                if (_environment.IsDevelopment())
-                {
-                    // Set the comments path for the Swagger JSON and UI.
-                    // Web.Host
-                    var xmlFile = $@"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    options.IncludeXmlComments(xmlPath);
-
-                    // Application
-                    var appXml = $"{typeof(Application.AbpLearningApplicationModule).Assembly.GetName().Name}.xml";
-                    var appPath = Path.Combine(AppContext.BaseDirectory, appXml);
-                    options.IncludeXmlComments(appPath);
-                }
             });
 
-            // TODO:部署时，LogDashboard失败
             // LogDashboard
             services.AddLogDashboard(opt =>
             {

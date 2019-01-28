@@ -7,6 +7,7 @@
     <OutputType>Exe</OutputType>
     <PackageId>AbpLearning.Web.Host</PackageId>
     <UserSecretsId>LTMCompanyNameFree-AbpLearning-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\AbpLearning.Web.Host.xml</DocumentationFile>
@@ -39,7 +40,7 @@
     <ProjectReference Include="..\AbpLearning.Web.Core\AbpLearning.Web.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LogDashboard" Version="1.0.5" />
+    <PackageReference Include="LogDashboard" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>

@@ -11,8 +11,6 @@
     <RootNamespace>AbpLearning.Application</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\AbpLearning.Web.Host\bin\Debug\AbpLearning.Application.xml</DocumentationFile>
-    <OutputPath>..\AbpLearning.Web.Host\bin\Debug\</OutputPath>
     <NoWarn>1701;1702;1591;</NoWarn>
   </PropertyGroup>
   <ItemGroup>
