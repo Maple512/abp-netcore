@@ -66,7 +66,6 @@ namespace AbpLearning.Web.Host.Startup
                 )
             );
 
-
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             services.AddSwaggerGen(options =>
             {

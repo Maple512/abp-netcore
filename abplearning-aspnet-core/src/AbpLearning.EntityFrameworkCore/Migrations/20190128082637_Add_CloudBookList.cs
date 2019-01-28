@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Add_CloudBookList_Migrator : Migration
+    public partial class Add_CloudBookList : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,12 +36,14 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Book_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Book_Users_LastModifierUserId",
                         column: x => x.LastModifierUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -69,12 +71,14 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_BookList_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_BookList_Users_LastModifierUserId",
                         column: x => x.LastModifierUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);

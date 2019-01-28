@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using AbpLearning.Core.Authorization.Users;
@@ -10,6 +11,7 @@
     /// <summary>
     /// 书籍
     /// </summary>
+    [Table(AbpLearningConsts.TablePreFixName.CloudBookList + nameof(Book), Schema = AbpLearningConsts.TableSchemaName.CloudBookList)]
     public class Book : AuditedEntity<long, User>, IMayHaveTenant, ISoftDelete
     {
 

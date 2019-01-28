@@ -1,6 +1,6 @@
 namespace AbpLearning.Core
 {
-    public class AbpLearningConsts
+    public static class AbpLearningConsts
     {
         public const string LocalizationSourceName = "AbpLearning";
 
@@ -18,8 +18,24 @@ namespace AbpLearning.Core
         /// </summary>
         public const int MaxResultCount = 100;
 
-        public const string SchemaNameForAbp = "ABP";
+        /// <summary>
+        /// 数据表 Schema Name
+        /// </summary>
+        public static class TableSchemaName
+        {
+            public const string ABP = "ABP";
 
-        public const string SchemaNameForCloudBookList = "CBL";
+            public const string CloudBookList = "CBL";
+        }
+
+        /// <summary>
+        /// 数据表 PreFix Name
+        /// </summary>
+        public static class TablePreFixName
+        {
+            public const string ABP = "";
+
+            public const string CloudBookList = "";
+        }
     }
 }

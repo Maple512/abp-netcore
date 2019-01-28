@@ -4,12 +4,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Add_Abp_Migrator : Migration
+    public partial class Add_Abp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "ABP");
+
             migrationBuilder.CreateTable(
                 name: "AuditLogs",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -36,6 +40,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BackgroundJobs",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -57,6 +62,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Editions",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -78,6 +84,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "EntityChangeSets",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -100,6 +107,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Languages",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -124,6 +132,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "LanguageTexts",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -145,6 +154,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Notifications",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -168,6 +178,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "NotificationSubscriptions",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -187,6 +198,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "OrganizationUnits",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -209,6 +221,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_OrganizationUnits_OrganizationUnits_ParentId",
                         column: x => x.ParentId,
+                        principalSchema: "ABP",
                         principalTable: "OrganizationUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -216,6 +229,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TenantNotifications",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -237,6 +251,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserAccounts",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -262,6 +277,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserLoginAttempts",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -283,6 +299,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserNotifications",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -299,6 +316,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserOrganizationUnits",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -317,6 +335,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -349,7 +368,8 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     LastLoginTime = table.Column<DateTime>(nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: false),
                     NormalizedEmailAddress = table.Column<string>(maxLength: 256, nullable: false),
-                    ConcurrencyStamp = table.Column<string>(maxLength: 128, nullable: true)
+                    ConcurrencyStamp = table.Column<string>(maxLength: 128, nullable: true),
+                    Portrait = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -357,18 +377,21 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Users_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Users_DeleterUserId",
                         column: x => x.DeleterUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Users_Users_LastModifierUserId",
                         column: x => x.LastModifierUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -376,6 +399,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Features",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -394,6 +418,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Features_Editions_EditionId",
                         column: x => x.EditionId,
+                        principalSchema: "ABP",
                         principalTable: "Editions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -401,6 +426,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "EntityChanges",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -418,6 +444,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_EntityChanges_EntityChangeSets_EntityChangeSetId",
                         column: x => x.EntityChangeSetId,
+                        principalSchema: "ABP",
                         principalTable: "EntityChangeSets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -425,6 +452,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Roles",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -443,7 +471,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     IsDefault = table.Column<bool>(nullable: false),
                     NormalizedName = table.Column<string>(maxLength: 32, nullable: false),
                     ConcurrencyStamp = table.Column<string>(maxLength: 128, nullable: true),
-                    Description = table.Column<string>(maxLength: 5000, nullable: true)
+                    Description = table.Column<string>(maxLength: 512, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -451,18 +479,21 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Roles_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Roles_Users_DeleterUserId",
                         column: x => x.DeleterUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Roles_Users_LastModifierUserId",
                         column: x => x.LastModifierUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -470,6 +501,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Settings",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -489,6 +521,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Settings_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -496,6 +529,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Tenants",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -519,24 +553,28 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Tenants_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tenants_Users_DeleterUserId",
                         column: x => x.DeleterUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tenants_Editions_EditionId",
                         column: x => x.EditionId,
+                        principalSchema: "ABP",
                         principalTable: "Editions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Tenants_Users_LastModifierUserId",
                         column: x => x.LastModifierUserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -544,6 +582,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserClaims",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -561,6 +600,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_UserClaims_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -568,6 +608,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserLogins",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -583,6 +624,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_UserLogins_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -590,6 +632,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserRoles",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -606,6 +649,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -613,6 +657,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "UserTokens",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -630,6 +675,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_UserTokens_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -637,6 +683,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "EntityPropertyChanges",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -654,6 +701,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_EntityPropertyChanges_EntityChanges_EntityChangeId",
                         column: x => x.EntityChangeId,
+                        principalSchema: "ABP",
                         principalTable: "EntityChanges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -661,6 +709,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Permissions",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -680,12 +729,14 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_Permissions_Roles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "ABP",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Permissions_Users_UserId",
                         column: x => x.UserId,
+                        principalSchema: "ABP",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -693,6 +744,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateTable(
                 name: "RoleClaims",
+                schema: "ABP",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -710,6 +762,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     table.ForeignKey(
                         name: "FK_RoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "ABP",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -717,301 +770,361 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditLogs_TenantId_ExecutionDuration",
+                schema: "ABP",
                 table: "AuditLogs",
                 columns: new[] { "TenantId", "ExecutionDuration" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditLogs_TenantId_ExecutionTime",
+                schema: "ABP",
                 table: "AuditLogs",
                 columns: new[] { "TenantId", "ExecutionTime" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuditLogs_TenantId_UserId",
+                schema: "ABP",
                 table: "AuditLogs",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BackgroundJobs_IsAbandoned_NextTryTime",
+                schema: "ABP",
                 table: "BackgroundJobs",
                 columns: new[] { "IsAbandoned", "NextTryTime" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityChanges_EntityChangeSetId",
+                schema: "ABP",
                 table: "EntityChanges",
                 column: "EntityChangeSetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityChanges_EntityTypeFullName_EntityId",
+                schema: "ABP",
                 table: "EntityChanges",
                 columns: new[] { "EntityTypeFullName", "EntityId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityChangeSets_TenantId_CreationTime",
+                schema: "ABP",
                 table: "EntityChangeSets",
                 columns: new[] { "TenantId", "CreationTime" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityChangeSets_TenantId_Reason",
+                schema: "ABP",
                 table: "EntityChangeSets",
                 columns: new[] { "TenantId", "Reason" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityChangeSets_TenantId_UserId",
+                schema: "ABP",
                 table: "EntityChangeSets",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntityPropertyChanges_EntityChangeId",
+                schema: "ABP",
                 table: "EntityPropertyChanges",
                 column: "EntityChangeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Features_EditionId_Name",
+                schema: "ABP",
                 table: "Features",
                 columns: new[] { "EditionId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Features_TenantId_Name",
+                schema: "ABP",
                 table: "Features",
                 columns: new[] { "TenantId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_TenantId_Name",
+                schema: "ABP",
                 table: "Languages",
                 columns: new[] { "TenantId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LanguageTexts_TenantId_Source_LanguageName_Key",
+                schema: "ABP",
                 table: "LanguageTexts",
                 columns: new[] { "TenantId", "Source", "LanguageName", "Key" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_NotificationSubscriptions_NotificationName_EntityTypeName_EntityId_UserId",
+                schema: "ABP",
                 table: "NotificationSubscriptions",
                 columns: new[] { "NotificationName", "EntityTypeName", "EntityId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_NotificationSubscriptions_TenantId_NotificationName_EntityTypeName_EntityId_UserId",
+                schema: "ABP",
                 table: "NotificationSubscriptions",
                 columns: new[] { "TenantId", "NotificationName", "EntityTypeName", "EntityId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganizationUnits_ParentId",
+                schema: "ABP",
                 table: "OrganizationUnits",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganizationUnits_TenantId_Code",
+                schema: "ABP",
                 table: "OrganizationUnits",
                 columns: new[] { "TenantId", "Code" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_TenantId_Name",
+                schema: "ABP",
                 table: "Permissions",
                 columns: new[] { "TenantId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_RoleId",
+                schema: "ABP",
                 table: "Permissions",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_UserId",
+                schema: "ABP",
                 table: "Permissions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
+                schema: "ABP",
                 table: "RoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_TenantId_ClaimType",
+                schema: "ABP",
                 table: "RoleClaims",
                 columns: new[] { "TenantId", "ClaimType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_CreatorUserId",
+                schema: "ABP",
                 table: "Roles",
                 column: "CreatorUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_DeleterUserId",
+                schema: "ABP",
                 table: "Roles",
                 column: "DeleterUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_LastModifierUserId",
+                schema: "ABP",
                 table: "Roles",
                 column: "LastModifierUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_TenantId_NormalizedName",
+                schema: "ABP",
                 table: "Roles",
                 columns: new[] { "TenantId", "NormalizedName" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_UserId",
+                schema: "ABP",
                 table: "Settings",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_TenantId_Name",
+                schema: "ABP",
                 table: "Settings",
                 columns: new[] { "TenantId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TenantNotifications_TenantId",
+                schema: "ABP",
                 table: "TenantNotifications",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_CreatorUserId",
+                schema: "ABP",
                 table: "Tenants",
                 column: "CreatorUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_DeleterUserId",
+                schema: "ABP",
                 table: "Tenants",
                 column: "DeleterUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_EditionId",
+                schema: "ABP",
                 table: "Tenants",
                 column: "EditionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_LastModifierUserId",
+                schema: "ABP",
                 table: "Tenants",
                 column: "LastModifierUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_TenancyName",
+                schema: "ABP",
                 table: "Tenants",
                 column: "TenancyName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccounts_EmailAddress",
+                schema: "ABP",
                 table: "UserAccounts",
                 column: "EmailAddress");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccounts_UserName",
+                schema: "ABP",
                 table: "UserAccounts",
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccounts_TenantId_EmailAddress",
+                schema: "ABP",
                 table: "UserAccounts",
                 columns: new[] { "TenantId", "EmailAddress" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccounts_TenantId_UserId",
+                schema: "ABP",
                 table: "UserAccounts",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccounts_TenantId_UserName",
+                schema: "ABP",
                 table: "UserAccounts",
                 columns: new[] { "TenantId", "UserName" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
+                schema: "ABP",
                 table: "UserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_TenantId_ClaimType",
+                schema: "ABP",
                 table: "UserClaims",
                 columns: new[] { "TenantId", "ClaimType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLoginAttempts_UserId_TenantId",
+                schema: "ABP",
                 table: "UserLoginAttempts",
                 columns: new[] { "UserId", "TenantId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLoginAttempts_TenancyName_UserNameOrEmailAddress_Result",
+                schema: "ABP",
                 table: "UserLoginAttempts",
                 columns: new[] { "TenancyName", "UserNameOrEmailAddress", "Result" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLogins_UserId",
+                schema: "ABP",
                 table: "UserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLogins_TenantId_UserId",
+                schema: "ABP",
                 table: "UserLogins",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLogins_TenantId_LoginProvider_ProviderKey",
+                schema: "ABP",
                 table: "UserLogins",
                 columns: new[] { "TenantId", "LoginProvider", "ProviderKey" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserNotifications_UserId_State_CreationTime",
+                schema: "ABP",
                 table: "UserNotifications",
                 columns: new[] { "UserId", "State", "CreationTime" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOrganizationUnits_TenantId_OrganizationUnitId",
+                schema: "ABP",
                 table: "UserOrganizationUnits",
                 columns: new[] { "TenantId", "OrganizationUnitId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOrganizationUnits_TenantId_UserId",
+                schema: "ABP",
                 table: "UserOrganizationUnits",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UserId",
+                schema: "ABP",
                 table: "UserRoles",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_TenantId_RoleId",
+                schema: "ABP",
                 table: "UserRoles",
                 columns: new[] { "TenantId", "RoleId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_TenantId_UserId",
+                schema: "ABP",
                 table: "UserRoles",
                 columns: new[] { "TenantId", "UserId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CreatorUserId",
+                schema: "ABP",
                 table: "Users",
                 column: "CreatorUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_DeleterUserId",
+                schema: "ABP",
                 table: "Users",
                 column: "DeleterUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_LastModifierUserId",
+                schema: "ABP",
                 table: "Users",
                 column: "LastModifierUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_TenantId_NormalizedEmailAddress",
+                schema: "ABP",
                 table: "Users",
                 columns: new[] { "TenantId", "NormalizedEmailAddress" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_TenantId_NormalizedUserName",
+                schema: "ABP",
                 table: "Users",
                 columns: new[] { "TenantId", "NormalizedUserName" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserTokens_UserId",
+                schema: "ABP",
                 table: "UserTokens",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserTokens_TenantId_UserId",
+                schema: "ABP",
                 table: "UserTokens",
                 columns: new[] { "TenantId", "UserId" });
         }
@@ -1019,85 +1132,112 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuditLogs");
+                name: "AuditLogs",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "BackgroundJobs");
+                name: "BackgroundJobs",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "EntityPropertyChanges");
+                name: "EntityPropertyChanges",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Features");
+                name: "Features",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Languages");
+                name: "Languages",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "LanguageTexts");
+                name: "LanguageTexts",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Notifications");
+                name: "Notifications",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "NotificationSubscriptions");
+                name: "NotificationSubscriptions",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "OrganizationUnits");
+                name: "OrganizationUnits",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Permissions");
+                name: "Permissions",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "RoleClaims");
+                name: "RoleClaims",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Settings");
+                name: "Settings",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "TenantNotifications");
+                name: "TenantNotifications",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Tenants");
+                name: "Tenants",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserAccounts");
+                name: "UserAccounts",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserClaims");
+                name: "UserClaims",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserLoginAttempts");
+                name: "UserLoginAttempts",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserLogins");
+                name: "UserLogins",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserNotifications");
+                name: "UserNotifications",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserOrganizationUnits");
+                name: "UserOrganizationUnits",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "UserRoles",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "UserTokens");
+                name: "UserTokens",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "EntityChanges");
+                name: "EntityChanges",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Roles",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Editions");
+                name: "Editions",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "EntityChangeSets");
+                name: "EntityChangeSets",
+                schema: "ABP");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "ABP");
         }
     }
 }

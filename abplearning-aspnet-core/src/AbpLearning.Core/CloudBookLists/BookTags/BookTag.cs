@@ -1,11 +1,13 @@
 ﻿namespace AbpLearning.Core.CloudBookLists.BookTags
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Domain.Entities;
 
     /// <summary>
     /// 书籍标签
     /// </summary>
+    [Table(AbpLearningConsts.TablePreFixName.CloudBookList + nameof(BookTag), Schema = AbpLearningConsts.TableSchemaName.CloudBookList)]
     public class BookTag : Entity<long>, IMayHaveTenant, ISoftDelete
     {
         public BookTag(string name, string color, int? tenantId = null, bool isDeleted = false)

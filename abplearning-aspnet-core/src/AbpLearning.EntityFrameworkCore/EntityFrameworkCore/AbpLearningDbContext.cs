@@ -47,7 +47,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // 清除Abp的默认表前缀
-            modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>("");
+            modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>(AbpLearningConsts.TablePreFixName.ABP, AbpLearningConsts.TableSchemaName.ABP);
 
             base.OnModelCreating(modelBuilder);
 
@@ -56,17 +56,13 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 
         private ModelBuilder CloudBookListBuilder(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BookTag>()
-                .ToTable(nameof(BookTag), AbpLearningConsts.SchemaNameForCloudBookList);
+            //modelBuilder.Entity<BookTag>();
 
-            modelBuilder.Entity<Book>()
-                .ToTable(nameof(Book), AbpLearningConsts.SchemaNameForCloudBookList);
+            //modelBuilder.Entity<Book>();
 
-            modelBuilder.Entity<BookListCell>()
-                .ToTable(nameof(BookListCell), AbpLearningConsts.SchemaNameForCloudBookList);
+            //modelBuilder.Entity<BookListCell>();
 
-            modelBuilder.Entity<BookList>()
-                .ToTable(nameof(BookList), AbpLearningConsts.SchemaNameForCloudBookList);
+            //modelBuilder.Entity<BookList>();
 
             return modelBuilder;
         }
