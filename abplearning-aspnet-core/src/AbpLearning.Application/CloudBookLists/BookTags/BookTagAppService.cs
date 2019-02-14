@@ -13,7 +13,7 @@
     using Microsoft.EntityFrameworkCore;
     using Model;
 
-    [AbpAuthorize(AbpLearningPermissions.BookNode)]
+    [AbpAuthorize(AbpLearningPermissions.Book)]
     public class BookTagAppService : AbpLearningAppServiceBase, IBookTagAppService
     {
         private readonly IBookTagDomainService _bookTag;

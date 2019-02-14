@@ -7,56 +7,62 @@
     {
         #region 节点
 
-        #region Pages
-
         public const string Pages = "Pages";
 
-        #region 云书单
+        #region Cloudbooklist
 
         public const string Cloudbooklist = Pages + ".CloudBookList";
 
-        public const string BookNode = Cloudbooklist + ".Book";
+        public const string Book = Cloudbooklist + ".Book";
 
-        public const string BooklistNode = Cloudbooklist + ".BookList";
+        public const string Booklist = Cloudbooklist + ".BookList";
+
+        #endregion
+
+        #region Authentication
+
+        public const string Authentication = Pages + ".Authentication";
+
+        public const string Tenant = Authentication + ".Tenant";
+
+        public const string User = Authentication + ".User";
+
+        public const string Role = Authentication + ".Role";
+
+        #endregion
+
+        #region System
+
+        public const string System = Pages + ".System";
+
+        public const string AuditLog = System + ".AuditLog";
 
         #endregion
 
         #endregion
-
-        #region Administrator
-
-        public const string Administrator = "Administrator";
-
-        public const string Tenants = Administrator + ".Tenants";
-
-        public const string Users = Administrator + ".Users";
-
-        public const string Roles = Administrator + ".Roles";
-
-        #endregion
-
-        #endregion
-
-        #region 功能
-
-        public const string Query = ".Query";
-
-        public const string Create = ".Create";
-
-        public const string Edit = ".Edit";
-
-        public const string Delete = ".Delete";
 
         /// <summary>
-        /// 批量删除
+        /// 功能
         /// </summary>
-		public const string BatchdDelete = ".BatchDelete";
+        public static class Action
+        {
+            public const string Query = ".Query";
 
-        /// <summary>
-        /// 导出
-        /// </summary>
-        public const string ExportExcel = ".ExportExcel";
+            public const string Create = ".Create";
 
-        #endregion
+            public const string Edit = ".Edit";
+
+            public const string Delete = ".Delete";
+
+            /// <summary>
+            /// 批量删除
+            /// </summary>
+            public const string BatchdDelete = ".BatchDelete";
+
+            /// <summary>
+            /// 导出
+            /// </summary>
+            public const string ExportExcel = ".ExportExcel";
+        }
     }
 }

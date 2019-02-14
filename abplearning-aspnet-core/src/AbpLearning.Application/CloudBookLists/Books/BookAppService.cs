@@ -20,7 +20,7 @@
     /// <summary>
     /// 书籍 应用服务
     /// </summary>
-    [AbpAuthorize(AbpLearningPermissions.BookNode)]
+    [AbpAuthorize(AbpLearningPermissions.Book)]
     public class BookAppService : AbpLearningAppServiceBase, IBookAppService
     {
         private readonly IBookDomainService _book;
@@ -104,7 +104,7 @@
         /// </summary>
         /// <param name="bookIds"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.BatchdDelete)]
+        [AbpAuthorize(AbpLearningPermissions.Book + AbpLearningPermissions.Action.BatchdDelete)]
         public async Task BatchDeleteAsync(List<long> bookIds)
         {
             await _manager.BatchDeleteForBookAsync(bookIds);
@@ -115,7 +115,7 @@
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.BookNode + AbpLearningPermissions.Query)]
+        [AbpAuthorize(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query)]
         public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilteringModel filter)
         {
             var queryBooks = Entities

@@ -17,7 +17,7 @@ namespace AbpLearning.Application.Roles
     using Microsoft.EntityFrameworkCore;
     using Model;
 
-    [AbpAuthorize(AbpLearningPermissions.Roles)]
+    [AbpAuthorize(AbpLearningPermissions.Role)]
     public class RoleAppService : AbpLearningAppServiceBase, IRoleAppService<int>
     {
         private readonly RoleManager _roleManager;

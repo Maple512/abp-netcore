@@ -18,7 +18,7 @@ namespace AbpLearning.Application.MultiTenancy
     using AbpLearning.MultiTenancy.Dto;
     using Microsoft.AspNetCore.Identity;
 
-    [AbpAuthorize(AbpLearningPermissions.Tenants)]
+    [AbpAuthorize(AbpLearningPermissions.Tenant)]
     public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
     {
         private readonly TenantManager _tenantManager;

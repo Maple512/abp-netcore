@@ -74,7 +74,6 @@ namespace AbpLearning.Web.Host.Startup
                     Title = "AbpLearning API",
                     Version = "v1",
                     TermsOfService = "https://github.com/Maple512/abplearning-angular",
-                    Description= Path.Combine(_environment.ContentRootPath, @"App_Data/Logs")
                 });
                 options.DocInclusionPredicate((docName, description) => true);
 

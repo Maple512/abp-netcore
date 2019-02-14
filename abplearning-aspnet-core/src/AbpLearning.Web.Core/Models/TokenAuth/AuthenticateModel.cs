@@ -1,8 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Users;
-
 namespace AbpLearning.Web.Core.Models.TokenAuth
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Auditing;
+    using Abp.Authorization.Users;
+
     public class AuthenticateModel
     {
         [Required]
@@ -10,6 +11,7 @@ namespace AbpLearning.Web.Core.Models.TokenAuth
         public string UserNameOrEmailAddress { get; set; }
 
         [Required]
+        [DisableAuditing]
         [StringLength(AbpUserBase.MaxPlainPasswordLength)]
         public string Password { get; set; }
         
