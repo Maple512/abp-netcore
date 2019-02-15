@@ -30,15 +30,6 @@
             {
                 Sorting = "ExecutionTime DESC";
             }
-
-            if (Sorting.IndexOf("UserName", StringComparison.InvariantCultureIgnoreCase) >= 0)
-            {
-                Sorting = "UserInfo." + Sorting;
-            }
-            else
-            {
-                Sorting = "AuditLogInfo." + Sorting;
-            }
         }
     }
 }
