@@ -66,4 +66,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 </Project>

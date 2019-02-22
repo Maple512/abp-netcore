@@ -8,6 +8,7 @@ namespace AbpLearning.Web.Host.Startup
     using Abp.AspNetCore.SignalR.Hubs;
     using Abp.Castle.Logging.Log4Net;
     using Abp.Extensions;
+    using AbpLearning.Application;
     using AbpLearning.Core.Identity;
     using Castle.Facilities.Logging;
     using Core.Configuration;
@@ -20,6 +21,7 @@ namespace AbpLearning.Web.Host.Startup
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Swashbuckle.AspNetCore.Swagger;
+    using Swashbuckle.AspNetCore.SwaggerUI;
 
     public class Startup
     {
@@ -73,9 +75,16 @@ namespace AbpLearning.Web.Host.Startup
                 {
                     Title = "AbpLearning API",
                     Version = "v1",
-                    TermsOfService = "https://github.com/Maple512/abplearning-angular",
+                    TermsOfService = "https://github.com/Maple512/AbpLearning",
                 });
                 options.DocInclusionPredicate((docName, description) => true);
+
+                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+
+                var commentsFileName = typeof(AbpLearningApplicationModule).Assembly.GetName().Name + ".xml";
+                var xmlPath = Path.Combine(basePath, commentsFileName);
+
+                options.IncludeXmlComments(xmlPath);
 
                 // Define the BearerAuth scheme that's in use
                 options.AddSecurityDefinition("bearerAuth", new ApiKeyScheme()
@@ -92,10 +101,7 @@ namespace AbpLearning.Web.Host.Startup
             {
                 opt.RootPath = Path.Combine(_environment.ContentRootPath, @"App_Data/Logs");
 
-                // TODO:ÊÚÈ¨
-                opt.AddAuthorizeAttribute();
-
-                // ¹ýÂË
+                // Filter
                 opt.AddAuthorizationFilter(new SamplesAuthorizationFilter());
             });
 
@@ -146,6 +152,12 @@ namespace AbpLearning.Web.Host.Startup
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AbpLearning API V1");
                 //options.SwaggerEndpoint(_appConfiguration["App:ServerRootAddress"].EnsureEndsWith('/') + "swagger/v1/swagger.json", "AbpLearning API V1");
+
+                options.DocExpansion(DocExpansion.None);
+
+                options.EnableFilter();
+
+                options.EnableDeepLinking();
 
                 options.IndexStream = () => Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("AbpLearning.Web.Host.wwwroot.swagger.ui.index.html");
