@@ -1,20 +1,15 @@
 ﻿namespace AbpLearning.Web.Core.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Abp.IO.Extensions;
     using Abp.UI;
     using AbpLearning.Application.Files;
-    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// 文件
     /// </summary>
-    [Route("api/[controller]/[action]")]
-    public class FilesController : AbpLearningControllerBase
+    public abstract class FileServiceControllerBase : AbpLearningControllerBase
     {
         /// <summary>
         /// 上传文件最大长度
@@ -23,7 +18,7 @@
 
         private readonly IFilesAppService _filesService;
 
-        public FilesController(IFilesAppService filesService)
+        public FileServiceControllerBase(IFilesAppService filesService)
         {
             _filesService = filesService;
         }
@@ -32,7 +27,6 @@
         /// 上传文件
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         public async Task UploadFileAsync()
         {
             try

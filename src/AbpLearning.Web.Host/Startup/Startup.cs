@@ -10,6 +10,7 @@ namespace AbpLearning.Web.Host.Startup
     using Abp.Extensions;
     using AbpLearning.Application;
     using AbpLearning.Core.Identity;
+    using AbpLearning.Web.Core;
     using Castle.Facilities.Logging;
     using Core.Configuration;
     using Filter;
@@ -81,10 +82,15 @@ namespace AbpLearning.Web.Host.Startup
 
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
 
-                var commentsFileName = typeof(AbpLearningApplicationModule).Assembly.GetName().Name + ".xml";
-                var xmlPath = Path.Combine(basePath, commentsFileName);
+                var application = typeof(AbpLearningApplicationModule).Assembly.GetName().Name + ".xml";
+                var applicationXmlPath = Path.Combine(basePath, application);
 
-                options.IncludeXmlComments(xmlPath);
+                options.IncludeXmlComments(applicationXmlPath);
+
+                var webCore = typeof(AbpLearningWebCoreModule).Assembly.GetName().Name + ".xml";
+                var webCoreXmlPath = Path.Combine(basePath, webCore);
+
+                options.IncludeXmlComments(webCoreXmlPath);
 
                 // Define the BearerAuth scheme that's in use
                 options.AddSecurityDefinition("bearerAuth", new ApiKeyScheme()
