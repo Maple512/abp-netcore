@@ -9,8 +9,8 @@
     public class BookListCellDomainService : DomainServiceBase<BookListCell, long>, IBookListCellDomainService
     {
         public BookListCellDomainService(
-            IRepository<BookListCell, long> bookRepository)
-            : base(bookRepository)
+            IRepository<BookListCell, long> repository)
+            : base(repository)
         {
         }
 

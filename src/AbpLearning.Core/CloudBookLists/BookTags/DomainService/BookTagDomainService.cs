@@ -12,7 +12,7 @@
     /// </summary>
     public class BookTagDomainService : DomainServiceBase<BookTag, long>, IBookTagDomainService
     {
-        public BookTagDomainService(IRepository<BookTag, long> bookRepository) : base(bookRepository)
+        public BookTagDomainService(IRepository<BookTag, long> repository) : base(repository)
         {
         }
 

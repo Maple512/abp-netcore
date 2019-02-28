@@ -28,4 +28,7 @@
     <Folder Include="Configuration\TenantScopes\" />
     <Folder Include="Configuration\UserScopes\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\tools\AbpLearning.Common\AbpLearning.Common.csproj" />
+  </ItemGroup>
 </Project>

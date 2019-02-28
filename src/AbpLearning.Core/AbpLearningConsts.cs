@@ -26,6 +26,8 @@ namespace AbpLearning.Core
             public const string ABP = "ABP";
 
             public const string CloudBookList = "CBL";
+
+            public const string File = "FILE";
         }
 
         /// <summary>
@@ -36,6 +38,8 @@ namespace AbpLearning.Core
             public const string ABP = "";
 
             public const string CloudBookList = "";
+
+            public const string File = "";
         }
     }
 }

@@ -39,6 +39,14 @@
 
         #endregion
 
+        #region File
+
+        public const string File = Pages + ".File";
+
+        public const string UploadFile = File + ".UpLoadFile";
+
+        #endregion
+
         #endregion
 
         /// <summary>
@@ -63,6 +71,16 @@
             /// 导出
             /// </summary>
             public const string ExportExcel = ".ExportExcel";
+
+            /// <summary>
+            /// 上传
+            /// </summary>
+            public const string Upload = ".Upload";
+
+            /// <summary>
+            /// 下载
+            /// </summary>
+            public const string Download = ".Download";
         }
     }
 }

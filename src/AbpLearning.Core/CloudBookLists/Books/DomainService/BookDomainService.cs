@@ -11,7 +11,7 @@
     /// </summary>
     public class BookDomainService : DomainServiceBase<Book, long>, IBookDomainService
     {
-        public BookDomainService(IRepository<Book, long> bookRepository) : base(bookRepository)
+        public BookDomainService(IRepository<Book, long> repository) : base(repository)
         { }
 
         /// <summary>

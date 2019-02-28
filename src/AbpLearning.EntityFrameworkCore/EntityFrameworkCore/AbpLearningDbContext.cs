@@ -1,6 +1,7 @@
 namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 {
     using Abp.Zero.EntityFrameworkCore;
+    using AbpLearning.Core.Files;
     using Core;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
@@ -44,27 +45,20 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 
         #endregion
 
+        #region File
+
+        public DbSet<UploadFile> UploadFiles { get; set; }
+
+        public DbSet<FileType> FileTypes { get; set; }
+
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // 清除Abp的默认表前缀
             modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>(AbpLearningConsts.TablePreFixName.ABP, AbpLearningConsts.TableSchemaName.ABP);
 
             base.OnModelCreating(modelBuilder);
-
-            CloudBookListBuilder(modelBuilder);
-        }
-
-        private ModelBuilder CloudBookListBuilder(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<BookTag>();
-
-            //modelBuilder.Entity<Book>();
-
-            //modelBuilder.Entity<BookListCell>();
-
-            //modelBuilder.Entity<BookList>();
-
-            return modelBuilder;
         }
     }
 }

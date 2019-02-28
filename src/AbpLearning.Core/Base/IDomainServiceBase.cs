@@ -12,7 +12,7 @@
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
     public interface IDomainServiceBase<T, TPrimaryKey> : IDomainService
-        where T : Entity<TPrimaryKey>
+        where T : IEntity<TPrimaryKey>
     {
         Task InsertAsync(T entity);
 

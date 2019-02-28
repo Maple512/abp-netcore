@@ -22,6 +22,6 @@
             CloudBookListPermission = pages.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.Cloudbooklist) ?? pages.CreateChildPermission(AbpLearningPermissions.Cloudbooklist, L("CloudBookList"));
         }
 
-        public Permission CloudBookListPermission { get; private set; }
+        protected Permission CloudBookListPermission { get; private set; }
     }
 }

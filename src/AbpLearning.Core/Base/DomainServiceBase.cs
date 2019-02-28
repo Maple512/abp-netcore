@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Abp.Domain.Entities;
     using Abp.Domain.Repositories;
+    using Abp.Domain.Uow;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class DomainServiceBase<T, TPrimaryKey> : IDomainServiceBase<T, TPrimaryKey>
@@ -12,9 +13,9 @@
     {
         protected readonly IRepository<T, TPrimaryKey> _repository;
 
-        protected DomainServiceBase(IRepository<T, TPrimaryKey> bookRepository)
+        protected DomainServiceBase(IRepository<T, TPrimaryKey> repository)
         {
-            _repository = bookRepository;
+            _repository = repository;
         }
 
         public virtual Task CreateOrUpdateAsync(T entity) => _repository.InsertOrUpdateAsync(entity);
@@ -25,7 +26,14 @@
 
         public virtual Task DeleteAsync(TPrimaryKey id) => _repository.DeleteAsync(id);
 
-        public virtual Task BatchDeleteAsync(IEnumerable<TPrimaryKey> ids) => _repository.DeleteAsync(m => ids.Contains(m.Id));
+        [UnitOfWork]
+        public virtual async Task BatchDeleteAsync(IEnumerable<TPrimaryKey> ids)
+        {
+            foreach (var id in ids)
+            {
+                await _repository.DeleteAsync(id);
+            }
+        }
 
         public virtual Task<T> GetAsync(TPrimaryKey id) => _repository.GetAsync(id);
 

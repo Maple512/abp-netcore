@@ -6,7 +6,7 @@
 
     public class BookListDomainService : DomainServiceBase<BookList, long>, IBookListDomainService
     {
-        public BookListDomainService(IRepository<BookList, long> bookRepository) : base(bookRepository)
+        public BookListDomainService(IRepository<BookList, long> repository) : base(repository)
         {
            
         }

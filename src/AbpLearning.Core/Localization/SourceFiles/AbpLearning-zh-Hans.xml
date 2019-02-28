@@ -134,7 +134,7 @@
      ]]>
     </text>
     <text name="ClearSelect" value="清空选中" />
-    
+
     <!--验证码-->
     <text name="NotValidVerificationCode" value="请输入验证码" />
     <text name="VerificationCodeExpiredOrNodFound" value="验证码已过期" />
@@ -171,6 +171,10 @@
     <text name="DataIsNotExistedByEditFailed" value="更新失败，数据不存在" />
     <text name="NotFoundData" value="未找到相关数据，请稍后重试" />
     <text name="DataIsAlreadyExistedByCreatedFailed" value="数据已存在" />
+
+    <!--file-->
+    <text name="UploadFileIsEmpty" value="上传文件为空" />
+    <text name="UploadFileLengthExceedsMaxLength" value="上传文件长度超过 {0}" />
 
     <!--
     <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />
