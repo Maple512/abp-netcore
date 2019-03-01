@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20190228064113_Add_File")]
-    partial class Add_File
+    [Migration("20190301023142_Add_Files")]
+    partial class Add_Files
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1196,7 +1196,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("Size");
+                    b.Property<long>("Size");
 
                     b.Property<string>("StoragePath")
                         .IsRequired();

@@ -12,16 +12,30 @@
         public const byte FileNameMaxLenght = UploadFile.FileNameMaxLenght;
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">文件名</param>
+        /// <param name="size">文件大小(kb)</param>
+        /// <param name="storagePath">存储路径</param>
+        /// <param name="extension">文件后缀</param>
+        public UploadFileEditModel(string name, long size, string storagePath, string extension)
+        {
+            Name = name;
+            Size = size;
+            StoragePath = storagePath;
+            Extension = extension;
+        }
+
+        /// <summary>
         /// 文件名
         /// </summary>
         [Required]
-        [Range(1, FileNameMaxLenght)]
         public string Name { get; set; }
 
         /// <summary>
         /// 文件大小(kb)
         /// </summary>
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>
         /// 存储路径

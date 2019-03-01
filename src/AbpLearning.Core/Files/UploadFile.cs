@@ -20,13 +20,12 @@
         /// 文件名
         /// </summary>
         [Required]
-        [Range(1, FileNameMaxLenght)]
         public string Name { get; set; }
 
         /// <summary>
         /// 文件大小(kb)
         /// </summary>
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>
         /// 存储路径

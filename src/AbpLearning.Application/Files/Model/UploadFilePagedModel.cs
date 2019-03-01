@@ -16,7 +16,7 @@
         /// <summary>
         /// 文件大小(kb)
         /// </summary>
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>
         /// 后缀

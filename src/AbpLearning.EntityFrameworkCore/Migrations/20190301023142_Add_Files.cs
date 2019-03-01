@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Add_File : Migration
+    public partial class Add_Files : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     DeleterUserId = table.Column<long>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    Size = table.Column<int>(nullable: false),
+                    Size = table.Column<long>(nullable: false),
                     StoragePath = table.Column<string>(nullable: false),
                     Extension = table.Column<string>(nullable: true),
                     DownloadCount = table.Column<int>(nullable: false),

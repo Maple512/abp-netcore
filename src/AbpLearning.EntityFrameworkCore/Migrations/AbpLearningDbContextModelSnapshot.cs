@@ -1194,7 +1194,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("Size");
+                    b.Property<long>("Size");
 
                     b.Property<string>("StoragePath")
                         .IsRequired();

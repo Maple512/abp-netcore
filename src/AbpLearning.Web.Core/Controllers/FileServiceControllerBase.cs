@@ -1,10 +1,12 @@
 ﻿namespace AbpLearning.Web.Core.Controllers
 {
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
     using Abp.IO.Extensions;
     using Abp.UI;
     using AbpLearning.Application.Files;
+    using AbpLearning.Application.Files.Model;
 
     /// <summary>
     /// 文件
@@ -12,9 +14,9 @@
     public abstract class FileServiceControllerBase : AbpLearningControllerBase
     {
         /// <summary>
-        /// 上传文件最大长度
+        /// 上传文件最大长度(KB)
         /// </summary>
-        private const int MaxProfilePictureSize = 1024 * 1024 * 5;
+        private const int MaxProfilePictureSize = 1024 * 5;
 
         private readonly IFilesAppService _filesService;
 
@@ -25,6 +27,7 @@
 
         /// <summary>
         /// 上传文件
+        /// TODO:待优化
         /// </summary>
         /// <returns></returns>
         public async Task UploadFileAsync()
@@ -39,9 +42,10 @@
                     throw new UserFriendlyException(L("UploadFileIsEmpty"));
                 }
 
-                if (profilePictureFile.Length > MaxProfilePictureSize)
+                var fileLength = profilePictureFile.Length / 1024;
+                if (fileLength > MaxProfilePictureSize)
                 {
-                    throw new UserFriendlyException(L("UploadFileLengthExceedsMaxLength", $"{MaxProfilePictureSize / 1024 / 1024}M"));
+                    throw new UserFriendlyException(L("UploadFileLengthExceedsMaxLength", $"{MaxProfilePictureSize / 1024}M"));
                 }
 
                 byte[] fileBytes;
@@ -59,10 +63,18 @@
                 // AppFileHelper.DeleteFilesInFolderIfExists(_appFolder.TempFileDownloadFolder, "userProfileImage_" + AbpSession.GetUserId());
 
                 //Save new picture
-                //var fileInfo = new FileInfo(profilePictureFile.FileName);
-                //var tempFileName = "userProfileImage_" + AbpSession.GetUserId() + fileInfo.Extension;
-                //var tempFilePath = Path.Combine(_appFolder.TempFileDownloadFolder, tempFileName);
-                //System.IO.File.WriteAllBytes(tempFilePath, fileBytes);
+                var fileInfo = new FileInfo(profilePictureFile.FileName);
+
+                var fileName = fileInfo.Name.Split('.')[0] + "_" + AbpSession.UserId;
+                var folder = @"D:/AbpLearning_File";
+                var filePath = Path.Combine(folder, fileName + fileInfo.Extension);
+
+                // 写入文件
+                await System.IO.File.WriteAllBytesAsync(filePath, fileBytes);
+
+                // 记录
+                var uploadFile = new UploadFileEditModel(fileName, fileLength, folder, fileInfo.Extension.Replace(".", ""));
+                await _filesService.InsertForUploadFileAsync(uploadFile);
 
                 //using (var bmpImage = new Bitmap(tempFilePath))
                 //{

@@ -16,7 +16,7 @@
 
         public override Task InsertAsync(UploadFile entity)
         {
-            entity.FileType = entity.FileType ?? _fileType.GetAll().FirstOrDefault(m => m.ExtensionJSON.Contains(entity.Extension))?.Id;
+            entity.FileType = entity.FileType ?? _fileType.GetAll().FirstOrDefault(m => m.ExtensionJSON.Contains(entity.Extension.ToLower()))?.Id;
             return base.InsertAsync(entity);
         }
     }
