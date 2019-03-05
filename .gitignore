@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/src/AbpLearning.Web.Host/wwwroot/Upload
+/src/AbpLearning.Web.Host/wwwroot/UserProtrait

@@ -3,7 +3,6 @@
     using System.Linq;
     using Core.CloudBookLists.BookLists;
     using Core.CloudBookLists.Books;
-    using Core.CloudBookLists.BookTags;
     using Microsoft.EntityFrameworkCore;
 
     public class DefaultCloudBookListCreator
@@ -17,8 +16,8 @@
 
         public void Create()
         {
-            
+
         }
-        
+
     }
 }

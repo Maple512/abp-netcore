@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
-    using AbpLearning.Application.CloudBookLists.BookTags.Model;
     using Core.CloudBookLists.Books;
 
     /// <summary>
@@ -55,6 +54,6 @@
         /// <summary>
         /// 标签
         /// </summary>
-        public List<BookTagEditModel> Tags { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

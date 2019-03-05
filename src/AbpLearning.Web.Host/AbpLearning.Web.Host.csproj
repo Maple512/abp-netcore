@@ -16,9 +16,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="App_Data\Logs\**" />
+    <Compile Remove="LogFiles\**" />
+    <Compile Remove="logs\**" />
+    <Compile Remove="wwwroot\Upload\**" />
     <Content Remove="App_Data\Logs\**" />
+    <Content Remove="LogFiles\**" />
+    <Content Remove="logs\**" />
+    <Content Remove="wwwroot\Upload\**" />
     <EmbeddedResource Remove="App_Data\Logs\**" />
+    <EmbeddedResource Remove="LogFiles\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <EmbeddedResource Remove="wwwroot\Upload\**" />
     <None Remove="App_Data\Logs\**" />
+    <None Remove="LogFiles\**" />
+    <None Remove="logs\**" />
+    <None Remove="wwwroot\Upload\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\swagger\ui\index.html" />

@@ -1,6 +1,7 @@
 ﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
 {
     using System;
+    using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
     using Core.CloudBookLists.Books;
 
@@ -8,32 +9,32 @@
     /// <see cref="Book"/> 分页模型
     /// </summary>
     [AutoMapFrom(typeof(Book))]
-    public class BookPagedModel
+    public class BookPagedModel : NullableIdDto<long>
     {
         /// <summary>
         /// 封面图片URL
         /// </summary>
-        public string CoverImgUrl { get; set; }
+        public string CoverImgUrl { get; private set; }
 
         /// <summary>
         /// 书名
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// 作者
         /// </summary>
-        public string Author { get; set; }
+        public string Author { get; private set; }
 
         /// <summary>
         /// 链接
         /// </summary>
-        public string Url { get; set; }
+        public string Url { get; private set; }
 
         /// <summary>
         /// 简介
         /// </summary>
-        public string Intro { get; set; }
+        public string Intro { get; private set; }
 
         /// <summary>
         /// 最后更新时间

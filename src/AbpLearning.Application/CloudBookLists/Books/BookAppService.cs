@@ -48,6 +48,8 @@
 
             var entity = model.MapTo<Book>();
 
+            entity.AddOrRemoveTags(model.Tags);
+
             return await _book.CreateOrUpdateGetIdAsync(entity);
         }
 
@@ -73,13 +75,13 @@
         /// <summary>
         /// 获取书单下引用的所有书籍
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="bookList"></param>
         /// <returns></returns>
-        public async Task<List<BookEditModel>> GetListEditAsync(EntityDto<long> model)
+        public async Task<List<BookViewModel>> GetBooksAsync(EntityDto<long> bookList)
         {
-            var entities = await _manager.GetBookForBookListAsync(model.Id);
+            var entities = await _manager.GetBookForBookListAsync(bookList.Id);
 
-            return entities?.MapTo<List<BookEditModel>>();
+            return entities?.MapTo<List<BookViewModel>>();
         }
 
         /// <summary>
@@ -123,7 +125,7 @@
 
             var count = await queryBooks.CountAsync();
 
-            var entityList = queryBooks.OrderBy(filter.Sorting).PageBy(filter).Include(m => m.Tags);
+            var entityList = queryBooks.OrderBy(filter.Sorting).PageBy(filter);
 
             var pagedModels = entityList.MapTo<List<BookPagedModel>>();
 

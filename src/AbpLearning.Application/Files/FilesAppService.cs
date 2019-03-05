@@ -63,6 +63,17 @@
             await _fileType.CreateOrUpdateAsync(entity);
         }
 
+        /// <summary>
+        /// 获取所有文件类型
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<FileTypeViewModel>> GetAll()
+        {
+            var list = await _fileType.GetAll().ToListAsync();
+
+            return list.MapTo<List<FileTypeViewModel>>();
+        }
+
         #endregion
 
         #region UploadFile
@@ -81,11 +92,14 @@
         public async Task<PagedResultDto<UploadFilePagedModel>> GetPagedForUploadFileAsync(UploadFilePagedFilteringModel filter)
         {
             var query = _uploadFile.GetAll()
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name));
+                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name))
+                .WhereIf(filter.FileType.HasValue, m => m.FileType == filter.FileType)
+                .WhereIf(filter.StartTime.HasValue, m => m.CreationTime >= filter.StartTime)
+                .WhereIf(filter.EndTime.HasValue, m => m.CreationTime <= filter.EndTime);
 
             var count = await query.CountAsync();
 
-            var entityList = query.OrderBy(filter.Sorting).PageBy(filter);
+            var entityList = query.OrderBy(filter.Sorting).PageBy(filter).Include(m=>m.TypeName);
 
             var pagedModels = entityList.MapTo<List<UploadFilePagedModel>>();
 

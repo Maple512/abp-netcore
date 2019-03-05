@@ -71,6 +71,12 @@
         /// <returns></returns>
         Task<PagedResultDto<FileTypePagedModel>> GetPagedForFileTypeAsync(FileTypePagedFilteringModel filter);
 
+        /// <summary>
+        /// 所有文件类型
+        /// </summary>
+        /// <returns></returns>
+        Task<List<FileTypeViewModel>> GetAll();
+
         #endregion
     }
 }

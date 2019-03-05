@@ -8,6 +8,7 @@
 
     public class BookListCellDomainService : DomainServiceBase<BookListCell, long>, IBookListCellDomainService
     {
+
         public BookListCellDomainService(
             IRepository<BookListCell, long> repository)
             : base(repository)
@@ -24,6 +25,26 @@
         public async Task<List<BookListCell>> GetForBookAsync(long bookId)
         {
             return await _repository.GetAllListAsync(m => m.BookId == bookId);
+        }
+
+        /// <summary>
+        /// 删除书籍时，删除格子
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
+        public async Task DeletedForBook(long bookId)
+        {
+            await _repository.DeleteAsync(m => m.BookId == bookId);
+        }
+
+        public async Task BatchDeleteForBooks(IEnumerable<long> bookIds)
+        {
+            var entities = _repository.GetAll().Where(m => bookIds.Contains(m.BookId));
+            var ids = entities.Select(m => m.BookId);
+            foreach (var id in ids)
+            {
+                await _repository.DeleteAsync(m => m.BookId == id);
+            }
         }
 
         #endregion
@@ -81,5 +102,14 @@
         }
 
         #endregion
+
+        public async Task BatchCreateAsync(IEnumerable<BookListCell> cells)
+        {
+            foreach (var cell in cells)
+            {
+                await _repository.InsertOrUpdateAsync(cell);
+            }
+        }
+
     }
 }

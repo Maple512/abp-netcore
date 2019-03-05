@@ -14,7 +14,7 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// 文件大小(kb)
+        /// 文件大小(bytes)
         /// </summary>
         public long Size { get; set; }
 

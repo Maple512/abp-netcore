@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using Abp.Domain.Entities;
     using Abp.Domain.Repositories;
-    using Abp.Domain.Uow;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class DomainServiceBase<T, TPrimaryKey> : IDomainServiceBase<T, TPrimaryKey>
@@ -26,7 +25,6 @@
 
         public virtual Task DeleteAsync(TPrimaryKey id) => _repository.DeleteAsync(id);
 
-        [UnitOfWork]
         public virtual async Task BatchDeleteAsync(IEnumerable<TPrimaryKey> ids)
         {
             foreach (var id in ids)

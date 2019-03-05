@@ -3,10 +3,13 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using Abp.IO;
     using Abp.IO.Extensions;
     using Abp.UI;
     using AbpLearning.Application.Files;
     using AbpLearning.Application.Files.Model;
+    using AbpLearning.Common;
+    using AbpLearning.Core.Files.Folders;
 
     /// <summary>
     /// 文件
@@ -14,15 +17,17 @@
     public abstract class FileServiceControllerBase : AbpLearningControllerBase
     {
         /// <summary>
-        /// 上传文件最大长度(KB)
+        /// 上传文件最大长度(MB)
         /// </summary>
-        private const int MaxProfilePictureSize = 1024 * 5;
+        // private const int MaxProfilePictureSize = 1024 * 1024 * 1024 * 5;
 
         private readonly IFilesAppService _filesService;
+        private readonly IAppFolderConfig _appFolderConfig;
 
-        public FileServiceControllerBase(IFilesAppService filesService)
+        protected FileServiceControllerBase(IFilesAppService filesService, IAppFolderConfig appFolderConfig)
         {
             _filesService = filesService;
+            _appFolderConfig = appFolderConfig;
         }
 
         /// <summary>
@@ -42,11 +47,11 @@
                     throw new UserFriendlyException(L("UploadFileIsEmpty"));
                 }
 
-                var fileLength = profilePictureFile.Length / 1024;
-                if (fileLength > MaxProfilePictureSize)
-                {
-                    throw new UserFriendlyException(L("UploadFileLengthExceedsMaxLength", $"{MaxProfilePictureSize / 1024}M"));
-                }
+                var fileLength = profilePictureFile.Length;
+                //if (fileLength > MaxProfilePictureSize)
+                //{
+                //    throw new UserFriendlyException(L("UploadFileLengthExceedsMaxLength", MaxProfilePictureSize));
+                //}
 
                 byte[] fileBytes;
                 using (var stream = profilePictureFile.OpenReadStream())
@@ -54,20 +59,17 @@
                     fileBytes = stream.GetAllBytes();
                 }
 
-                //if (!ImageFormatHelper.GetRawImageFormat(fileBytes).IsIn(ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif))
-                //{
-                //    throw new Exception("Uploaded file is not an accepted image file !");
-                //}
-
-                // Delete old temp profile pictures
-                // AppFileHelper.DeleteFilesInFolderIfExists(_appFolder.TempFileDownloadFolder, "userProfileImage_" + AbpSession.GetUserId());
-
-                //Save new picture
                 var fileInfo = new FileInfo(profilePictureFile.FileName);
 
-                var fileName = fileInfo.Name.Split('.')[0] + "_" + AbpSession.UserId;
-                var folder = @"D:/AbpLearning_File";
+                var fileName = fileInfo.Name.Split('.')[0];
+
+                // 存放文件夹：上传地址+时间戳
+                var folder = _appFolderConfig.UploadFileFolder + Path.DirectorySeparatorChar + DateTimeHelper.GetDateString();
+                DirectoryHelper.CreateIfNotExists(folder);
+
                 var filePath = Path.Combine(folder, fileName + fileInfo.Extension);
+                // 删除原文件
+                FilesHelper.DeleteIfExsit(filePath);
 
                 // 写入文件
                 await System.IO.File.WriteAllBytesAsync(filePath, fileBytes);

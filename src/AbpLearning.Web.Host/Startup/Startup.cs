@@ -17,9 +17,11 @@ namespace AbpLearning.Web.Host.Startup
     using LogDashboard;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Cors.Internal;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Logging;
     using Swashbuckle.AspNetCore.Swagger;
     using Swashbuckle.AspNetCore.SwaggerUI;
@@ -126,7 +128,13 @@ namespace AbpLearning.Web.Host.Startup
 
             app.UseCors(DefaultCorsPolicyName); // Enable CORS!
 
+            // add wwwroot path
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions(new Microsoft.AspNetCore.StaticFiles.Infrastructure.SharedOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, @"wwwroot")),
+                RequestPath = new PathString("/wwwroot")
+            }));
 
             app.UseAuthentication();
 
@@ -153,7 +161,7 @@ namespace AbpLearning.Web.Host.Startup
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
-            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            // Enable middleware to serve swagger - ui assets(HTML, JS, CSS etc.)
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AbpLearning API V1");

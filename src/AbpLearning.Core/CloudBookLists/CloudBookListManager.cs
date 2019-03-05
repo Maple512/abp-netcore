@@ -11,23 +11,19 @@
     using BookLists;
     using BookLists.DomainService;
     using Books.DomainService;
-    using BookTags.DomainService;
     using Microsoft.EntityFrameworkCore;
 
     public class CloudBookListManager : DomainService, ICloudBookListManager
     {
-        private readonly IBookTagDomainService _bookTag;
         private readonly IBookDomainService _book;
         private readonly IBookListCellDomainService _bookListCell;
         private readonly IBookListDomainService _bookList;
 
         public CloudBookListManager(
-            IBookTagDomainService bookTag,
             IBookDomainService book,
             IBookListCellDomainService bookListCell,
             IBookListDomainService bookList)
         {
-            _bookTag = bookTag;
             _book = book;
             _bookListCell = bookListCell;
             _bookList = bookList;
@@ -43,8 +39,8 @@
         [UnitOfWork]
         public async Task DeleteForBookAsync(long bookId)
         {
-            // tag
-            await _bookTag.BatchDeleteForBookAsync(bookId);
+            // cell
+            await _bookListCell.DeletedForBook(bookId);
 
             // book
             await _book.DeleteAsync(bookId);
@@ -58,8 +54,8 @@
         [UnitOfWork]
         public async Task BatchDeleteForBookAsync(List<long> bookIds)
         {
-            // tag
-            await _bookTag.BatchDeleteForBookAsync(bookIds);
+            // cell
+            await _bookListCell.BatchDeleteForBooks(bookIds);
 
             // book
             await _book.BatchDeleteAsync(bookIds);

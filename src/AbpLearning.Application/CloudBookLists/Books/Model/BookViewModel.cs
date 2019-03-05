@@ -25,10 +25,5 @@
         /// 简介
         /// </summary>
         public string Intro { get; set; }
-
-        /// <summary>
-        /// 链接
-        /// </summary>
-        public string Url { get; set; }
     }
 }

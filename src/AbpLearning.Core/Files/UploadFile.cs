@@ -23,12 +23,12 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// 文件大小(kb)
+        /// 文件大小(bytes)
         /// </summary>
         public long Size { get; set; }
 
         /// <summary>
-        /// 存储路径
+        /// 存储路径（虚拟路径）
         /// </summary>
         [Required]
         public string StoragePath { get; set; }

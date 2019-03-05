@@ -29,9 +29,9 @@
         /// <summary>
         /// 获取书单下引用的所有书籍
         /// </summary>
-        /// <param name="model">bookListId</param>
+        /// <param name="bookList">bookList</param>
         /// <returns></returns>
-        Task<List<BookEditModel>> GetListEditAsync(EntityDto<long> model);
+        Task<List<BookViewModel>> GetBooksAsync(EntityDto<long> bookList);
 
         /// <summary>
         /// 创建/更新

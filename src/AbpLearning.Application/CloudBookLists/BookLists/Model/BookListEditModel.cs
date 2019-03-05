@@ -1,14 +1,13 @@
 ﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Model
 {
     using System.ComponentModel.DataAnnotations;
+    using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
     using Core.CloudBookLists.BookLists;
 
     [AutoMapTo(typeof(BookList))]
-    public class BookListEditModel
+    public class BookListEditModel : NullableIdDto<long>
     {
-        public long? Id { get; set; }
-
         /// <summary>
         /// 书单名
         /// </summary>
@@ -21,10 +20,5 @@
         /// </summary>
         [MaxLength(128)]
         public string Intro { get; set; }
-
-        /// <summary>
-        /// 书单允许的最大数量的格子
-        /// </summary>
-        public byte CellMaxLength => BookList.CellMaxLength;
     }
 }

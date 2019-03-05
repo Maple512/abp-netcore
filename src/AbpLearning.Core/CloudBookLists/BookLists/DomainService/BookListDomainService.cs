@@ -1,6 +1,5 @@
 ﻿namespace AbpLearning.Core.CloudBookLists.BookLists.DomainService
 {
-    using System.Threading.Tasks;
     using Abp.Domain.Repositories;
     using Base;
 
@@ -8,7 +7,7 @@
     {
         public BookListDomainService(IRepository<BookList, long> repository) : base(repository)
         {
-           
+
         }
     }
 }

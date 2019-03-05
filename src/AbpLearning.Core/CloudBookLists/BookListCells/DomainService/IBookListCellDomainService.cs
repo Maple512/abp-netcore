@@ -19,6 +19,20 @@
         /// <returns></returns>
         Task<List<BookListCell>> GetForBookAsync(long bookId);
 
+        /// <summary>
+        /// 删除书籍时，删除格子
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
+        Task DeletedForBook(long bookId);
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <returns></returns>
+        Task BatchDeleteForBooks(IEnumerable<long> bookIds);
+
         #endregion
 
         #region BookList
@@ -52,5 +66,13 @@
         Task BatchDeleteForBookListAsync(List<long> bookListIds);
 
         #endregion
+
+        /// <summary>
+        /// 批量增加格子
+        /// </summary>
+        /// <param name="bookIds"></param>
+        /// <param name="bookList"></param>
+        /// <returns></returns>
+        Task BatchCreateAsync(IEnumerable<BookListCell> cells);
     }
 }

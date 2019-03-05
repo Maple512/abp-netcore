@@ -9,6 +9,7 @@
     using Abp.AutoMapper;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
+    using AbpLearning.Core.CloudBookLists.BookListCells.DomainService;
     using AbpLearning.Core.CloudBookLists.BookLists;
     using AbpLearning.Core.CloudBookLists.BookLists.DomainService;
     using Core;
@@ -24,14 +25,18 @@
     {
         private readonly IBookListDomainService _bookList;
 
+        private readonly IBookListCellDomainService _bookListCell;
+
         private readonly ICloudBookListManager _manager;
 
         public BookListAppService(
             IBookListDomainService bookList,
+            IBookListCellDomainService bookListCell,
             ICloudBookListManager manager)
         {
             _bookList = bookList;
             _manager = manager;
+            _bookListCell = bookListCell;
         }
 
         /// <summary>

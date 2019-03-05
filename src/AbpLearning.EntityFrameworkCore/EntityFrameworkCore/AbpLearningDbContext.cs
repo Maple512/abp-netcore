@@ -8,7 +8,6 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
     using Core.CloudBookLists.BookListCells;
     using Core.CloudBookLists.BookLists;
     using Core.CloudBookLists.Books;
-    using Core.CloudBookLists.BookTags;
     using Core.MultiTenancy;
     using Microsoft.EntityFrameworkCore;
 
@@ -22,11 +21,6 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
         /* Define a DbSet for each entity of the application 依赖注入 */
 
         #region 云书单
-
-        /// <summary>
-        /// 书签
-        /// </summary>
-        public DbSet<BookTag> BookTag { get; set; }
 
         /// <summary>
         /// 书籍

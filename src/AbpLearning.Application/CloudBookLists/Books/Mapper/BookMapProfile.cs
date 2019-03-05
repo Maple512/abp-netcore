@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using Abp.AutoMapper;
     using AutoMapper;
-    using BookTags.Model;
     using Core.CloudBookLists.Books;
     using Model;
 
@@ -13,8 +12,6 @@
         {
             CreateMap<BookEditModel, Book>()
                 .ForMember(o => o.Tags, options => options.Ignore());
-            CreateMap<Book, BookEditModel>()
-                .ForMember(o => o.Tags, options => options.MapFrom(m => m.Tags.MapTo<List<BookTagEditModel>>()));
 
             CreateMap<Book, BookViewModel>();
 
