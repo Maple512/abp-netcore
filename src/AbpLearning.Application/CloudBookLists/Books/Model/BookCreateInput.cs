@@ -3,14 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using Core.CloudBookLists.Books;
 
-    /// <summary>
-    /// <see cref="Book"/> 更新模型
-    /// </summary>
-    [AutoMapTo(typeof(Book))]
-    public class BookEditModel : NullableIdDto<long>
+    public class BookCreateInput : NullableIdDto<long>
     {
         /// <summary>
         /// 封面URL
@@ -45,11 +39,6 @@
         [MaxLength(128)]
         [DataType(DataType.Url)]
         public string Url { get; set; }
-
-        /// <summary>
-        /// 书籍能拥有的最大书签
-        /// </summary>
-        public byte TagsMaxLength => Book.TagsMaxLength;
 
         /// <summary>
         /// 标签

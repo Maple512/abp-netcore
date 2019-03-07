@@ -1107,7 +1107,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.Property<string>("TagJSON");
+                    b.Property<string>("TagJson");
 
                     b.Property<int?>("TenantId");
 

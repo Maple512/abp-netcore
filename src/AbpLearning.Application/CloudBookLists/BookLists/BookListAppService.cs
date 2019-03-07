@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="model">书单</param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Edit)]
+        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update)]
         public async Task<long> CreateOrUpdateAsync(BookListEditModel model)
         {
             var entity = ObjectMapper.Map<BookList>(model);

@@ -26,7 +26,7 @@
 
             books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query, L("BookQuery"))
                 .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Create, L("BookCreate"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Edit, L("BookEdit"))
+                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Update, L("BookEdit"))
                 .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Delete, L("BookDelete"))
                 .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.BatchdDelete, L("BookBatchDelete"))
                 .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.ExportExcel, L("BookExportExcel"));

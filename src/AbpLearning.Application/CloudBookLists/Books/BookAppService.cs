@@ -2,73 +2,98 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
+    using Abp.Domain.Repositories;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using Abp.UI;
     using AbpLearning.Core.CloudBookLists.Books.DomainService;
+    using Base;
     using Core;
     using Core.CloudBookLists;
     using Core.CloudBookLists.Books;
-    using Microsoft.EntityFrameworkCore;
     using Model;
 
     /// <summary>
     /// 书籍 应用服务
     /// </summary>
     [AbpAuthorize(AbpLearningPermissions.Book)]
-    public class BookAppService : AbpLearningAppServiceBase, IBookAppService
+    public class BookAppService :
+        AsyncAppService<Book, long, BookUpdateOutput, BookPagedOutput, EntityDto<long>, EntityDto<long>,
+            BookPagedInput, BookCreateInput, EntityDto<long>, BookUpdateInput, EntityDto<long>>
+        , IBookAppService
     {
         private readonly IBookDomainService _book;
 
         private readonly ICloudBookListManager _manager;
 
-        public BookAppService(
-            IBookDomainService book,
-            ICloudBookListManager manager)
+        public BookAppService(IBookDomainService book, ICloudBookListManager manager, IRepository<Book, long> repository) : base(repository)
         {
             _book = book;
             _manager = manager;
         }
 
+        #region PermissionName
+
+        protected override string GetPermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query;
+
+        protected override string CreatePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Create;
+
+        protected override string GetPagedPermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query;
+
+        protected override string DeletePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Delete;
+
+        protected override string UpdatePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Update;
+
+        #endregion
+
         private IQueryable<Book> Entities => _book.GetAll();
 
         /// <summary>
-        /// 创建、更新
+        /// Create
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<long> CreateOrUpdateAsync(BookEditModel model)
+        public override async Task<EntityDto<long>> CreateAsync(BookCreateInput input)
         {
-            CreateOrUpdateCheck(model);
+            CheckCreatePermission();
 
-            var entity = ObjectMapper.Map<Book>(model);
+            if (CheckBookName(input.Name))
+            {
+                throw new UserFriendlyException(L("BookNameIsAlreadyExists"));
+            }
 
-            entity.AddOrRemoveTags(model.Tags);
+            var entity = ObjectMapper.Map<Book>(input);
 
-            return await _book.CreateOrUpdateGetIdAsync(entity);
+            await Repository.InsertAsync(entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return ObjectMapper.Map<EntityDto<long>>(entity);
         }
 
         /// <summary>
-        /// 获取修改模型
+        /// Update
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<BookEditModel> GetEditAsync(EntityDto<long> model)
+        public override async Task<EntityDto<long>> UpdateAsync(BookUpdateInput input)
         {
-            var entity = await _book.GetAsync(model.Id);
+            CheckUpdatePermission();
 
-            if (entity == null)
+            if (CheckBookName(input.Name))
             {
-                throw new UserFriendlyException(L("NotFoundData"));
+                throw new UserFriendlyException(L("BookNameIsAlreadyExists"));
             }
 
-            var editModel = ObjectMapper.Map<BookEditModel>(entity);
+            var entity = await Repository.GetAsync(input.Id);
 
-            return editModel;
+            ObjectMapper.Map(input, entity);
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return ObjectMapper.Map<EntityDto<long>>(entity);
         }
 
         /// <summary>
@@ -76,28 +101,11 @@
         /// </summary>
         /// <param name="bookList"></param>
         /// <returns></returns>
-        public async Task<List<BookViewModel>> GetBooksAsync(EntityDto<long> bookList)
+        public async Task<List<BookViewOutput>> GetBooksAsync(EntityDto<long> bookList)
         {
             var entities = await _manager.GetBookForBookListAsync(bookList.Id);
 
-            return ObjectMapper.Map<List<BookViewModel>>(entities);
-        }
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task DeleteAsync(EntityDto<long> model)
-        {
-            if (Entities.Any(m => m.Id == model.Id))
-            {
-                await _manager.DeleteForBookAsync(model.Id);
-            }
-            else
-            {
-                throw new UserFriendlyException(L("DeleteFailedBasedOnId"));
-            }
+            return ObjectMapper.Map<List<BookViewOutput>>(entities);
         }
 
         /// <summary>
@@ -112,50 +120,24 @@
         }
 
         /// <summary>
-        /// 分页
+        /// 创建过滤查询
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query)]
-        public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilteringModel filter)
+        protected override IQueryable<Book> CreateFilteredQuery(BookPagedInput input)
         {
-            var queryBooks = Entities
-                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText) || m.Author.Contains(filter.FilterText));
-
-            var count = await queryBooks.CountAsync();
-
-            var entityList = queryBooks.OrderBy(filter.Sorting).PageBy(filter);
-
-            var pagedModels = ObjectMapper.Map<List<BookPagedModel>>(entityList);
-
-            if (!AbpSession.TenantId.HasValue)
-            {
-
-            }
-
-            return new PagedResultDto<BookPagedModel>(count, pagedModels);
+            return Entities.WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(input.FilterText) || m.Author.Contains(input.FilterText));
         }
 
         /// <summary>
-        /// 创建/更新 校验
+        /// 书名重复性校验
         /// </summary>
-        /// <param name="model"></param>
-        private void CreateOrUpdateCheck(BookEditModel model)
+        /// <param name="bookName"></param>
+        /// <returns></returns>
+        public bool CheckBookName(string bookName)
         {
-            // 存在性校验
-            if (model.Id.HasValue & model.Id != default(long?))
-            {
-                if (Entities.Any(m => m.Id != model.Id))
-                {
-                    throw new UserFriendlyException(L("NotFoundData"));
-                }
-            }
-
             // 书名重复校验
-            if (Entities.WhereIf(model.Id.HasValue & model.Id != default(long?), m => m.Id != model.Id).Any(m => m.Name == model.Name))
-            {
-                throw new UserFriendlyException(L("BookNameIsAlreadyExists"));
-            }
+            return Entities.Any(m => m.Name == bookName);
         }
     }
 }

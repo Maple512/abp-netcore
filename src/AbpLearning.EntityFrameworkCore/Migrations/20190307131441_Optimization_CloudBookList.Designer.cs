@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20190305041013_Optimization_CloudBookList")]
+    [Migration("20190307131441_Optimization_CloudBookList")]
     partial class Optimization_CloudBookList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1109,7 +1109,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                         .IsRequired()
                         .HasMaxLength(32);
 
-                    b.Property<string>("TagJSON");
+                    b.Property<string>("TagJson");
 
                     b.Property<int?>("TenantId");
 

@@ -8,7 +8,7 @@ namespace AbpLearning.Application
     using Abp.Runtime.Session;
     using AbpLearning.Core.Authorization.Users;
     using AbpLearning.Core.MultiTenancy;
-    using AbpLearning.Core;
+    using Core;
 
     /// <summary>
     /// Derive your application services from this class.

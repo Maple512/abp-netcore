@@ -12,6 +12,7 @@
 
     /// <summary>
     /// 应用程序服务基类（实现：Paged,Sorting,Filtered）
+    /// 注：必须重写 PermissionName 属性（PermissionName默认为空）
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
@@ -64,14 +65,14 @@
 
     /// <summary>
     /// 应用程序服务基类（实现：Paged,Sorting,Filtered）
+    /// 注：必须重写 PermissionName 属性（PermissionName默认为空）
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    /// <typeparam name="TEntityDto"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
     /// <typeparam name="TGetPagedInput"></typeparam>
     public abstract class AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput> : ApplicationService
-        where TEntity : class, IEntity<TPrimaryKey>
-        where TGetPagedInput : IPagedResultRequest
+            where TEntity : class, IEntity<TPrimaryKey>
+            where TGetPagedInput : IPagedResultRequest
     {
         /// <summary>
         /// Repository
@@ -83,27 +84,27 @@
         /// <summary>
         /// Get 权限
         /// </summary>
-        protected virtual string GetPermissionName { get; set; }
+        protected virtual string GetPermissionName => null;
 
         /// <summary>
         /// Paged 权限
         /// </summary>
-        protected virtual string GetPagedPermissionName { get; set; }
+        protected virtual string GetPagedPermissionName => null;
 
         /// <summary>
         /// Create 权限
         /// </summary>
-        protected virtual string CreatePermissionName { get; set; }
+        protected virtual string CreatePermissionName => null;
 
         /// <summary>
         /// Update 权限
         /// </summary>
-        protected virtual string UpdatePermissionName { get; set; }
+        protected virtual string UpdatePermissionName => null;
 
         /// <summary>
         /// Delete 权限
         /// </summary>
-        protected virtual string DeletePermissionName { get; set; }
+        protected virtual string DeletePermissionName => null;
 
         #endregion
 
@@ -122,8 +123,7 @@
         protected virtual IQueryable<TEntity> ApplySorting(IQueryable<TEntity> query, TGetPagedInput input)
         {
             //Try to sort query if available
-            var sortInput = input as ISortedResultRequest;
-            if (sortInput != null)
+            if (input is ISortedResultRequest sortInput)
             {
                 if (!sortInput.Sorting.IsNullOrWhiteSpace())
                 {
@@ -149,8 +149,7 @@
         protected virtual IQueryable<TEntity> ApplyPaging(IQueryable<TEntity> query, TGetPagedInput input)
         {
             //Try to use paging if available
-            var pagedInput = input as IPagedResultRequest;
-            if (pagedInput != null)
+            if (input is IPagedResultRequest pagedInput)
             {
                 return query.PageBy(pagedInput);
             }
@@ -185,7 +184,7 @@
         /// <param name="permissionName">权限名</param>
         protected virtual void CheckPermission(string permissionName)
         {
-            if (!string.IsNullOrEmpty(permissionName))
+            if (!permissionName.IsNullOrEmpty())
             {
                 PermissionChecker.Authorize(permissionName);
             }

@@ -22,7 +22,7 @@
 
             bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query, L("BookListQuery"))
                 .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, L("BookListCreate"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Edit, L("BookListEdit"))
+                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update, L("BookListEdit"))
                 .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Delete, L("BookListDelete"))
                 .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.BatchdDelete, L("BookListBatchDelete"))
                 .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.ExportExcel, L("BookListExportExcel"));

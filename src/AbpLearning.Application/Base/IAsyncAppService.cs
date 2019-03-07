@@ -9,6 +9,7 @@
     /// </summary>
     public interface IAsyncAppService<TPrimaryKey, TGetOutput, in TGetInput>
         : IApplicationService
+        where TPrimaryKey : struct
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
     {
@@ -21,6 +22,7 @@
     public interface IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput,
         in TGetPagedInput, in TGetInput>
         : IApplicationService
+        where TPrimaryKey : struct
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
@@ -37,11 +39,12 @@
     public interface IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput,
         in TGetPagedInput, in TCreateInput, in TGetInput>
         : IApplicationService
+        where TPrimaryKey : struct
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
     {
         Task<TGetOutput> GetAsync(TGetInput input);
@@ -57,11 +60,12 @@
     public interface IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput, TUpdateOutput,
         in TGetPagedInput, in TCreateInput, in TGetInput, in TUpdateInput>
         : IApplicationService
+        where TPrimaryKey : struct
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
         where TUpdateOutput : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
@@ -81,11 +85,12 @@
     public interface IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput, TUpdateOutput,
         in TGetPagedInput, in TCreateInput, in TGetInput, in TUpdateInput, in TDeleteInput>
         : IApplicationService
+        where TPrimaryKey : struct
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
         where TUpdateOutput : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>

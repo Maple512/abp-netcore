@@ -90,7 +90,7 @@
             }
             catch (UserFriendlyException ex)
             {
-                await Task.Run(null);
+                throw new UserFriendlyException(ex.Message);
             }
         }
     }

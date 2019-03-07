@@ -4,7 +4,7 @@
     using Core.CloudBookLists.Books;
 
     [AutoMapFrom(typeof(Book))]
-    public class BookViewModel
+    public class BookViewOutput
     {
         /// <summary>
         /// 封面图片URL

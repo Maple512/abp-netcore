@@ -6,19 +6,22 @@
     using Abp.Domain.Entities;
     using Abp.Domain.Repositories;
     using Abp.Linq;
+    using Abp.UI;
 
     /// <summary>
     /// 应用程序服务基类（基本方法：Get)
     /// </summary>
     public abstract class AsyncAppService<TEntity, TPrimaryKey, TGetOutput, TGetInput>
         : AppServiceBase<TEntity, TPrimaryKey>, IAsyncAppService<TPrimaryKey, TGetOutput, TGetInput>
+        where TPrimaryKey : struct
         where TEntity : class, IEntity<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
-        public AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        protected AsyncAppService(IRepository<TEntity, TPrimaryKey> repository)
+            : base(repository)
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
@@ -32,6 +35,11 @@
             CheckGetPermission();
 
             var entity = await Repository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
             return ObjectMapper.Map<TGetOutput>(entity);
         }
@@ -45,6 +53,7 @@
         : AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput>
         , IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput,
          TGetPagedInput, TGetInput>
+        where TPrimaryKey : struct
         where TEntity : class, IEntity<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
@@ -53,7 +62,8 @@
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
-        public AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        protected AsyncAppService(IRepository<TEntity, TPrimaryKey> repository)
+            : base(repository)
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
@@ -67,6 +77,11 @@
             CheckGetPermission();
 
             var entity = await Repository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
             return ObjectMapper.Map<TGetOutput>(entity);
         }
@@ -103,17 +118,19 @@
         : AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput>
         , IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput,
          TGetPagedInput, TCreateInput, TGetInput>
+        where TPrimaryKey : struct
         where TEntity : class, IEntity<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
-        public AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        protected AsyncAppService(IRepository<TEntity, TPrimaryKey> repository)
+            : base(repository)
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
@@ -126,7 +143,11 @@
         {
             CheckCreatePermission();
 
-            var entity = await Repository.GetAsync(input.Id);
+            var entity = ObjectMapper.Map<TEntity>(input);
+
+            await Repository.InsertAsync(entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
             return ObjectMapper.Map<TCreateOutput>(entity);
         }
 
@@ -139,6 +160,11 @@
             CheckGetPermission();
 
             var entity = await Repository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
             return ObjectMapper.Map<TGetOutput>(entity);
         }
@@ -175,19 +201,20 @@
         : AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput>
         , IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput, TUpdateOutput,
          TGetPagedInput, TCreateInput, TGetInput, TUpdateInput>
+        where TPrimaryKey : struct
         where TEntity : class, IEntity<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
         where TUpdateOutput : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
-        public AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        protected AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
@@ -200,7 +227,11 @@
         {
             CheckCreatePermission();
 
-            var entity = await Repository.GetAsync(input.Id);
+            var entity = ObjectMapper.Map<TEntity>(input);
+
+            await Repository.InsertAsync(entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
             return ObjectMapper.Map<TCreateOutput>(entity);
         }
 
@@ -213,6 +244,11 @@
             CheckGetPermission();
 
             var entity = await Repository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
             return ObjectMapper.Map<TGetOutput>(entity);
         }
@@ -266,12 +302,13 @@
         : AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput>
         , IAsyncAppService<TPrimaryKey, TGetOutput, TPagedOutput, TCreateOutput, TUpdateOutput,
          TGetPagedInput, TCreateInput, TGetInput, TUpdateInput, TDeleteInput>
+        where TPrimaryKey : struct
         where TEntity : class, IEntity<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>
         where TGetOutput : IEntityDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TPagedOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : IEntityDto<TPrimaryKey>
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TCreateOutput : IEntityDto<TPrimaryKey>
         where TUpdateOutput : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
@@ -279,7 +316,8 @@
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
-        public AsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
+        protected AsyncAppService(IRepository<TEntity, TPrimaryKey> repository)
+            : base(repository)
         {
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
@@ -292,7 +330,11 @@
         {
             CheckCreatePermission();
 
-            var entity = await Repository.GetAsync(input.Id);
+            var entity = ObjectMapper.Map<TEntity>(input);
+
+            await Repository.InsertAsync(entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
             return ObjectMapper.Map<TCreateOutput>(entity);
         }
 
@@ -316,6 +358,11 @@
             CheckGetPermission();
 
             var entity = await Repository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
 
             return ObjectMapper.Map<TGetOutput>(entity);
         }

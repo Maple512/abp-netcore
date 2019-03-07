@@ -5,6 +5,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
     using Abp.Authorization.Roles;
     using Abp.Authorization.Users;
     using Abp.MultiTenancy;
+    using AbpLearning.Core.Files;
     using Core;
     using Core.Authorization;
     using Core.Authorization.Roles;
@@ -58,7 +59,8 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
                 .GetAllPermissions(
                     new AbpLearningAuthorizationProvider(),
                     new BookAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
-                    new BookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
+                    new BookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
+                    new FileAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
                 .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Host) && !grantedPermissions.Contains(p.Name))
                 .ToList();
 

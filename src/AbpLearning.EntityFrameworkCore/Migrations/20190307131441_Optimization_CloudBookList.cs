@@ -50,7 +50,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "TagJSON",
+                name: "TagJson",
                 schema: "CBL",
                 table: "Book",
                 nullable: true);
@@ -131,7 +131,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 table: "Book");
 
             migrationBuilder.DropColumn(
-                name: "TagJSON",
+                name: "TagJson",
                 schema: "CBL",
                 table: "Book");
 
