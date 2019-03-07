@@ -3,10 +3,12 @@ namespace AbpLearning.Application
     using Abp.AutoMapper;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
-    using AbpLearning.Core.Authorization;
-    using AbpLearning.Core.CloudBookLists.BookLists.Authorization;
-    using AbpLearning.Core.CloudBookLists.Books.Authorization;
+    using CloudBookLists.Books.Model;
     using Core;
+    using Core.Authorization;
+    using Core.CloudBookLists.BookLists.Authorization;
+    using Core.CloudBookLists.Books.Authorization;
+    using Core.Files;
 
     [DependsOn(
         typeof(AbpLearningCoreModule),
@@ -25,12 +27,16 @@ namespace AbpLearning.Application
 
             #endregion
 
+            #region File
+
+            Configuration.Authorization.Providers.Add<FileAuthorizationProvider>();
+
+            #endregion
+
             // 自定义类型映射
             Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
             {
-                // XXXMapper.CreateMappers(configuration);
-
-
+                BookMapper.CreateMappings(configuration);
             });
         }
 

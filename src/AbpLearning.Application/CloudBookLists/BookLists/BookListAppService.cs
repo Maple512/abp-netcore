@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
-    using Abp.AutoMapper;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Core.CloudBookLists.BookListCells.DomainService;
@@ -47,7 +46,7 @@
         [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Edit)]
         public async Task<long> CreateOrUpdateAsync(BookListEditModel model)
         {
-            var entity = model.MapTo<BookList>();
+            var entity = ObjectMapper.Map<BookList>(model);
 
             return await _bookList.CreateOrUpdateGetIdAsync(entity);
         }
@@ -84,7 +83,7 @@
         {
             var entity = await _bookList.GetAsync(model.Id);
 
-            return entity.MapTo<BookListEditModel>();
+            return ObjectMapper.Map<BookListEditModel>(entity);
         }
 
         /// <summary>
@@ -97,7 +96,7 @@
         {
             var entities = await _manager.GetBookListForBookAsync(model.Id);
 
-            return entities.MapTo<List<BookListEditModel>>();
+            return ObjectMapper.Map<List<BookListEditModel>>(entities);
         }
 
         /// <summary>
@@ -109,8 +108,8 @@
         public async Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilteringModel filter)
         {
             var query = _bookList.GetAll()
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(),
-                    m => m.Name.Contains(filter.Name));
+                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(),
+                    m => m.Name.Contains(filter.FilterText));
 
             var count = await query.CountAsync();
 
@@ -119,7 +118,7 @@
                 .Include(m => m.Cells)
                 .ToListAsync();
 
-            var entityListDto = entityList.MapTo<List<BookListPagedModel>>();
+            var entityListDto = ObjectMapper.Map<List<BookListPagedModel>>(entityList);
 
             if (!AbpSession.TenantId.HasValue)
             {

@@ -93,13 +93,13 @@
         {
             var query = _uploadFile.GetAll()
                 .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name))
-                .WhereIf(filter.FileType.HasValue, m => m.FileType == filter.FileType)
+                .WhereIf(filter.FileType.HasValue, m => m.FileType == (filter.FileType == -1 ? null : filter.FileType))
                 .WhereIf(filter.StartTime.HasValue, m => m.CreationTime >= filter.StartTime)
                 .WhereIf(filter.EndTime.HasValue, m => m.CreationTime <= filter.EndTime);
 
             var count = await query.CountAsync();
 
-            var entityList = query.OrderBy(filter.Sorting).PageBy(filter).Include(m=>m.TypeName);
+            var entityList = query.OrderBy(filter.Sorting).PageBy(filter).Include(m => m.TypeName);
 
             var pagedModels = entityList.MapTo<List<UploadFilePagedModel>>();
 

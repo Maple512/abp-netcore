@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
-    using Abp.AutoMapper;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using Abp.UI;
@@ -46,7 +45,7 @@
         {
             CreateOrUpdateCheck(model);
 
-            var entity = model.MapTo<Book>();
+            var entity = ObjectMapper.Map<Book>(model);
 
             entity.AddOrRemoveTags(model.Tags);
 
@@ -67,7 +66,7 @@
                 throw new UserFriendlyException(L("NotFoundData"));
             }
 
-            var editModel = entity?.MapTo<BookEditModel>();
+            var editModel = ObjectMapper.Map<BookEditModel>(entity);
 
             return editModel;
         }
@@ -81,7 +80,7 @@
         {
             var entities = await _manager.GetBookForBookListAsync(bookList.Id);
 
-            return entities?.MapTo<List<BookViewModel>>();
+            return ObjectMapper.Map<List<BookViewModel>>(entities);
         }
 
         /// <summary>
@@ -121,13 +120,13 @@
         public async Task<PagedResultDto<BookPagedModel>> GetPagedAsync(BookPagedFilteringModel filter)
         {
             var queryBooks = Entities
-                .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name) || m.Author.Contains(filter.Name));
+                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.FilterText) || m.Author.Contains(filter.FilterText));
 
             var count = await queryBooks.CountAsync();
 
             var entityList = queryBooks.OrderBy(filter.Sorting).PageBy(filter);
 
-            var pagedModels = entityList.MapTo<List<BookPagedModel>>();
+            var pagedModels = ObjectMapper.Map<List<BookPagedModel>>(entityList);
 
             if (!AbpSession.TenantId.HasValue)
             {
