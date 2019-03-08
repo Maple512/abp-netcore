@@ -8,18 +8,22 @@
     /// 分页过滤基类
     /// 默认排序方式：CreationTime DESC
     /// </summary>
-    public abstract class PagedFilteringModelBase : PagedAndSortedResultRequestDto, IShouldNormalize
+    public class PagedFilteringModelBase : PagedAndSortedResultRequestDto, IShouldNormalize
     {
+        public PagedFilteringModelBase()
+        {
+        }
+
         /// <summary>
         /// 分页过滤文本
         /// </summary>
-        public string FilterText { get; set; }
+        public virtual string FilterText { get; set; }
 
         /// <summary>
         /// 初始化
         /// 默认排序方式：CreationTime DESC
         /// </summary>
-        public void Normalize()
+        public virtual void Normalize()
         {
             if (Sorting.IsNullOrEmpty())
             {

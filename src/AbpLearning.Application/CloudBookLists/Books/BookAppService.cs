@@ -21,8 +21,7 @@
     /// </summary>
     [AbpAuthorize(AbpLearningPermissions.Book)]
     public class BookAppService :
-        AsyncAppService<Book, long, BookUpdateOutput, BookPagedOutput, EntityDto<long>, EntityDto<long>,
-            BookPagedInput, BookCreateInput, EntityDto<long>, BookUpdateInput, EntityDto<long>>
+        CrudAsyncAppService<Book, long, BookGetViewOutput, BookGetPagedOutput, BookGetPagedInput, BookGetUpdateOutput, BookCreateInput, BookUpdateInput>
         , IBookAppService
     {
         private readonly IBookDomainService _book;
@@ -99,13 +98,13 @@
         /// <summary>
         /// 获取书单下引用的所有书籍
         /// </summary>
-        /// <param name="bookList"></param>
+        /// <param name="bookList">BookList Id</param>
         /// <returns></returns>
-        public async Task<List<BookViewOutput>> GetBooksAsync(EntityDto<long> bookList)
+        public async Task<List<BookGetViewOutput>> GetBooksAsync(EntityDto<long> bookList)
         {
             var entities = await _manager.GetBookForBookListAsync(bookList.Id);
 
-            return ObjectMapper.Map<List<BookViewOutput>>(entities);
+            return ObjectMapper.Map<List<BookGetViewOutput>>(entities);
         }
 
         /// <summary>
@@ -124,7 +123,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        protected override IQueryable<Book> CreateFilteredQuery(BookPagedInput input)
+        protected override IQueryable<Book> CreateFilteredQuery(BookGetPagedInput input)
         {
             return Entities.WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(input.FilterText) || m.Author.Contains(input.FilterText));
         }

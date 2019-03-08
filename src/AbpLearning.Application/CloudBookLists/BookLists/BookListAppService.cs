@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
+    using Abp.Domain.Repositories;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
+    using AbpLearning.Application.Base;
     using AbpLearning.Core.CloudBookLists.BookListCells.DomainService;
     using AbpLearning.Core.CloudBookLists.BookLists;
     using AbpLearning.Core.CloudBookLists.BookLists.DomainService;
@@ -20,7 +21,8 @@
     /// <see cref="BookList"/> 应用程序服务
     /// </summary>
     [AbpAuthorize(AbpLearningPermissions.Booklist)]
-    public class BookListAppService : AbpLearningAppServiceBase, IBookListAppService
+    public class BookListAppService : CrudAsyncAppService<BookList, long, BookListGetViewOutput, BookListGetPagedOutput, BookListGetPagedInput, BookListGetUpdateOutput, BookListCreateInput, BookListUpdateInput>
+        , IBookListAppService
     {
         private readonly IBookListDomainService _bookList;
 
@@ -31,35 +33,38 @@
         public BookListAppService(
             IBookListDomainService bookList,
             IBookListCellDomainService bookListCell,
-            ICloudBookListManager manager)
+            ICloudBookListManager manager,
+            IRepository<BookList, long> repository) : base(repository)
         {
             _bookList = bookList;
             _manager = manager;
             _bookListCell = bookListCell;
         }
 
-        /// <summary>
-        /// 书单 查询/更新
-        /// </summary>
-        /// <param name="model">书单</param>
-        /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update)]
-        public async Task<long> CreateOrUpdateAsync(BookListEditModel model)
-        {
-            var entity = ObjectMapper.Map<BookList>(model);
+        #region PermissionName
 
-            return await _bookList.CreateOrUpdateGetIdAsync(entity);
-        }
+        protected override string GetPermissionName => AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query;
+
+        protected override string CreatePermissionName => AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create;
+
+        protected override string GetPagedPermissionName => AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query;
+
+        protected override string DeletePermissionName => AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Delete;
+
+        protected override string UpdatePermissionName => AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update;
+
+        #endregion 
 
         /// <summary>
-        /// 书单 删除
+        /// 删除书单
         /// </summary>
-        /// <param name="model">书单</param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Delete)]
-        public async Task DeleteAsync(EntityDto<long> model)
+        public override async Task DeleteAsync(EntityDto<long> input)
         {
-            await _manager.DeleteForBookListAsync(model.Id);
+            CheckDeletePermission();
+
+            await _manager.DeleteForBookListAsync(input.Id);
         }
 
         /// <summary>
@@ -74,58 +79,54 @@
         }
 
         /// <summary>
-        /// 书单 获取书单更新模型
-        /// </summary>
-        /// <param name="model">书单</param>
-        /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query)]
-        public async Task<BookListEditModel> GetEditAsync(EntityDto<long> model)
-        {
-            var entity = await _bookList.GetAsync(model.Id);
-
-            return ObjectMapper.Map<BookListEditModel>(entity);
-        }
-
-        /// <summary>
         /// 书单 获取书籍引用的所有书单
         /// </summary>
         /// <param name="model">书籍</param>
         /// <returns></returns>
         [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query)]
-        public async Task<List<BookListEditModel>> GetListEditAsync(EntityDto<long> model)
+        public async Task<List<BookListCreateInput>> GetListEditAsync(EntityDto<long> model)
         {
             var entities = await _manager.GetBookListForBookAsync(model.Id);
 
-            return ObjectMapper.Map<List<BookListEditModel>>(entities);
+            return ObjectMapper.Map<List<BookListCreateInput>>(entities);
         }
 
-        /// <summary>
-        /// 书单 分页
-        /// </summary>
-        /// <param name="filter">书单分页</param>
-        /// <returns></returns>
-        [AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query)]
-        public async Task<PagedResultDto<BookListPagedModel>> GetPagedAsync(BookListPagedFilteringModel filter)
+        protected override IQueryable<BookList> CreateFilteredQuery(BookListGetPagedInput input)
         {
             var query = _bookList.GetAll()
-                .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(),
-                    m => m.Name.Contains(filter.FilterText));
+                .WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(input.FilterText))
+                .Include(m => m.Cells);
 
-            var count = await query.CountAsync();
-
-            var entityList = await query.OrderBy(filter.Sorting)
-                .PageBy(filter)
-                .Include(m => m.Cells)
-                .ToListAsync();
-
-            var entityListDto = ObjectMapper.Map<List<BookListPagedModel>>(entityList);
-
-            if (!AbpSession.TenantId.HasValue)
-            {
-
-            }
-
-            return new PagedResultDto<BookListPagedModel>(count, entityListDto);
+            return query;
         }
+
+        ///// <summary>
+        ///// 书单 分页
+        ///// </summary>
+        ///// <param name="filter">书单分页</param>
+        ///// <returns></returns>
+        //[AbpAuthorize(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query)]
+        //public async Task<PagedResultDto<BookListGetPagedOutput>> GetPagedAsync(BookListGetPagedInput filter)
+        //{
+        //    var query = _bookList.GetAll()
+        //        .WhereIf(!filter.FilterText.IsNullOrWhiteSpace(),
+        //            m => m.Name.Contains(filter.FilterText));
+
+        //    var count = await query.CountAsync();
+
+        //    var entityList = await query.OrderBy(filter.Sorting)
+        //        .PageBy(filter)
+        //        .Include(m => m.Cells)
+        //        .ToListAsync();
+
+        //    var entityListDto = ObjectMapper.Map<List<BookListGetPagedOutput>>(entityList);
+
+        //    if (!AbpSession.TenantId.HasValue)
+        //    {
+
+        //    }
+
+        //    return new PagedResultDto<BookListGetPagedOutput>(count, entityListDto);
+        //}
     }
 }

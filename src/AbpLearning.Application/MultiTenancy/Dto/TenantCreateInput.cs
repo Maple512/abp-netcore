@@ -4,12 +4,12 @@ namespace AbpLearning.MultiTenancy.Dto
     using Abp.Authorization.Users;
     using Abp.AutoMapper;
     using Abp.MultiTenancy;
+    using AbpLearning.Application.Base;
     using AbpLearning.Core.MultiTenancy;
 
     [AutoMapTo(typeof(Tenant))]
-    public class CreateTenantDto
+    public class TenantCreateInput : ICreateEntityDto
     {
-
         [Required]
         [StringLength(AbpTenantBase.MaxTenancyNameLength)]
         [RegularExpression(AbpTenantBase.TenancyNameRegex)]
@@ -25,7 +25,7 @@ namespace AbpLearning.MultiTenancy.Dto
         [StringLength(AbpTenantBase.MaxConnectionStringLength)]
         public string ConnectionString { get; set; }
 
-        public bool IsActive {get; set;}
+        public bool IsActive { get; set; }
 
         public string TenantAdminPassword { get; set; }
     }

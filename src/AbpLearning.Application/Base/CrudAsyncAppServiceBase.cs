@@ -16,7 +16,7 @@
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public abstract class AppServiceBase<TEntity, TPrimaryKey> : ApplicationService
+    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey> : ApplicationService
         where TEntity : class, IEntity<TPrimaryKey>
     {
         /// <summary>
@@ -33,7 +33,7 @@
 
         #endregion
 
-        protected AppServiceBase(IRepository<TEntity, TPrimaryKey> repository)
+        protected CrudAsyncAppServiceBase(IRepository<TEntity, TPrimaryKey> repository)
         {
             Repository = repository;
         }
@@ -70,7 +70,7 @@
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
     /// <typeparam name="TGetPagedInput"></typeparam>
-    public abstract class AppServiceBase<TEntity, TPrimaryKey, TGetPagedInput> : ApplicationService
+    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey, TGetPagedInput> : ApplicationService
             where TEntity : class, IEntity<TPrimaryKey>
             where TGetPagedInput : IPagedResultRequest
     {
@@ -108,7 +108,7 @@
 
         #endregion
 
-        protected AppServiceBase(IRepository<TEntity, TPrimaryKey> repository)
+        protected CrudAsyncAppServiceBase(IRepository<TEntity, TPrimaryKey> repository)
         {
             Repository = repository;
         }

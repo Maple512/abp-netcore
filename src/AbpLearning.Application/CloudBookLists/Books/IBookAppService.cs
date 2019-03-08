@@ -9,7 +9,7 @@
     /// <summary>
     /// 书籍 应用服务 接口
     /// </summary>
-    public interface IBookAppService : IAsyncAppService<long, BookUpdateOutput, BookPagedOutput, EntityDto<long>, EntityDto<long>, BookPagedInput, BookCreateInput, EntityDto<long>, BookUpdateInput, EntityDto<long>>
+    public interface IBookAppService : ICrudAsyncAppService<long, BookGetViewOutput, BookGetPagedOutput, BookGetPagedInput, BookGetUpdateOutput, BookCreateInput, BookUpdateInput>
     {
         /// <summary>
         /// 检查书名
@@ -23,7 +23,7 @@
         /// </summary>
         /// <param name="bookList">bookList</param>
         /// <returns></returns>
-        Task<List<BookViewOutput>> GetBooksAsync(EntityDto<long> bookList);
+        Task<List<BookGetViewOutput>> GetBooksAsync(EntityDto<long> bookList);
 
         /// <summary>
         /// 批量删除

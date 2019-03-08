@@ -15,12 +15,12 @@
         /// <param name="configuration"></param>
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<BookUpdateOutput, Book>()
+            configuration.CreateMap<BookGetUpdateOutput, Book>()
                 .ForMember(o => o.Tags, options => options.Ignore());
 
-            configuration.CreateMap<Book, BookViewOutput>();
+            configuration.CreateMap<Book, BookGetViewOutput>();
 
-            configuration.CreateMap<Book, BookPagedOutput>()
+            configuration.CreateMap<Book, BookGetPagedOutput>()
                 .ForMember(o => o.LastModificationTime,
                     option => option.MapFrom(m => m.LastModificationTime ?? m.CreationTime));
 

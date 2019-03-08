@@ -10,6 +10,6 @@ namespace AbpLearning.Application.MultiTenancy
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantDto> RegisterTenantAsync(CreateTenantDto input);
+        Task<TenantUpdateInput> RegisterTenantAsync(TenantCreateInput input);
     }
 }

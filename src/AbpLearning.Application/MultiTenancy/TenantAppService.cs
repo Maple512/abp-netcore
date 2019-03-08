@@ -2,7 +2,6 @@ namespace AbpLearning.Application.MultiTenancy
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Abp.Application.Services;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.Domain.Repositories;
@@ -10,6 +9,8 @@ namespace AbpLearning.Application.MultiTenancy
     using Abp.IdentityFramework;
     using Abp.MultiTenancy;
     using Abp.Runtime.Security;
+    using AbpLearning.Application.Base;
+    using AbpLearning.Application.MultiTenancy.Dto;
     using AbpLearning.Core;
     using AbpLearning.Core.Authorization.Roles;
     using AbpLearning.Core.Authorization.Users;
@@ -19,7 +20,7 @@ namespace AbpLearning.Application.MultiTenancy
     using Microsoft.AspNetCore.Identity;
 
     [AbpAuthorize(AbpLearningPermissions.Tenant)]
-    public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
+    public class TenantAppService : CrudAsyncAppService<Tenant, int, TenantGetViewOutput, TenantGetPagedOutput, PagedFilteringModelBase, TenantGetUpdateOutput, TenantCreateInput, TenantUpdateInput>, ITenantAppService
     {
         private readonly TenantManager _tenantManager;
         private readonly EditionManager _editionManager;
@@ -29,29 +30,27 @@ namespace AbpLearning.Application.MultiTenancy
         private readonly IPasswordHasher<User> _passwordHasher;
 
         public TenantAppService(
-            IRepository<Tenant, int> repository, 
-            TenantManager tenantManager, 
+            IRepository<Tenant, int> repository,
+            TenantManager tenantManager,
             EditionManager editionManager,
-            UserManager userManager,            
-            RoleManager roleManager, 
-            IAbpZeroDbMigrator abpZeroDbMigrator, 
-            IPasswordHasher<User> passwordHasher) 
+            UserManager userManager,
+            RoleManager roleManager,
+            IAbpZeroDbMigrator abpZeroDbMigrator,
+            IPasswordHasher<User> passwordHasher)
             : base(repository)
         {
-            _tenantManager = tenantManager; 
+            _tenantManager = tenantManager;
             _editionManager = editionManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _abpZeroDbMigrator = abpZeroDbMigrator;
             _passwordHasher = passwordHasher;
         }
-        
-        public override async Task<TenantDto> Create(CreateTenantDto input)
+
+        public override async Task<EntityDto<int>> CreateAsync(TenantCreateInput input)
         {
-            //���Ȩ��
             CheckCreatePermission();
 
-            // ������ɫ
             var tenant = ObjectMapper.Map<Tenant>(input);
             tenant.ConnectionString = input.ConnectionString.IsNullOrEmpty()
                 ? null
@@ -63,27 +62,28 @@ namespace AbpLearning.Application.MultiTenancy
                 tenant.EditionId = defaultEdition.Id;
             }
 
+            //To get new tenant's id.
             await _tenantManager.CreateAsync(tenant);
-            await CurrentUnitOfWork.SaveChangesAsync(); //      �����Ի�ȡ���⻧��Id
+            await CurrentUnitOfWork.SaveChangesAsync();
 
 
-            // �����⻧���ݿ�
+            // Create tenant Database
             _abpZeroDbMigrator.CreateOrMigrateForTenant(tenant);
 
-            //�����ɹ�����Ҫ���õ�ǰ������ԪΪ��ǰ��¼����⻧��Ϣ
+            // We are working entities of new tenant, so changing tenant filter
             using (CurrentUnitOfWork.SetTenantId(tenant.Id))
             {
-                // �����⻧������ɫ
+                // Create static roles for new tenant
                 CheckErrors(await _roleManager.CreateStaticRoles(tenant.Id));
 
-                await CurrentUnitOfWork.SaveChangesAsync(); // To get static role ids
+                // To get static role ids
+                await CurrentUnitOfWork.SaveChangesAsync(); 
 
-                //    ����Ȩ��
-
+                //    grant all permissions to admin role
                 var adminRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);
                 await _roleManager.GrantAllPermissionsAsync(adminRole);
 
-                // �������⻧�Ĺ���Ա�û�
+                // Create admin user for the tenant
                 var adminUser = User.CreateTenantAdminUser(tenant.Id, input.AdminEmailAddress);
                 adminUser.Password = _passwordHasher.HashPassword(adminUser, User.DefaultPassword);
                 CheckErrors(await _userManager.CreateAsync(adminUser));
@@ -93,19 +93,10 @@ namespace AbpLearning.Application.MultiTenancy
                 CheckErrors(await _userManager.AddToRoleAsync(adminUser, adminRole.Name));
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
-
-            return MapToEntityDto(tenant);
+            return ObjectMapper.Map<EntityDto>(tenant);
         }
 
-        protected override void MapToEntity(TenantDto updateInput, Tenant entity)
-        {
-            // Manually mapped since TenantDto contains non-editable properties too.
-            entity.Name = updateInput.Name;
-            entity.TenancyName = updateInput.TenancyName;
-            entity.IsActive = updateInput.IsActive;
-        }
-
-        public override async Task Delete(EntityDto<int> input)
+        public override async Task DeleteAsync(EntityDto<int> input)
         {
             CheckDeletePermission();
 

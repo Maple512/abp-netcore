@@ -38,7 +38,7 @@ namespace AbpLearning.Application.MultiTenancy
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<TenantDto> RegisterTenantAsync(CreateTenantDto input)
+        public async Task<TenantUpdateInput> RegisterTenantAsync(TenantCreateInput input)
         {
             //创建租户信息
             Tenant tenant = new Tenant(input.TenancyName, input.TenancyName)
@@ -87,7 +87,7 @@ namespace AbpLearning.Application.MultiTenancy
 
 
             }
-            return tenant.MapTo<TenantDto>();
+            return tenant.MapTo<TenantUpdateInput>();
 
 
  

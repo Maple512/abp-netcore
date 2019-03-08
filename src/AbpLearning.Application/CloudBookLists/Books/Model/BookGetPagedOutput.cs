@@ -9,7 +9,7 @@
     /// <see cref="Book"/> 分页模型
     /// </summary>
     [AutoMapFrom(typeof(Book))]
-    public class BookPagedOutput : EntityDto<long>
+    public class BookGetPagedOutput : EntityDto<long>
     {
         /// <summary>
         /// 封面图片URL
