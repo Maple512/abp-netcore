@@ -1,4 +1,4 @@
-﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
+﻿namespace AbpLearning.Application.CloudBookLists.Books.Dto
 {
     using AbpLearning.Core.CloudBookLists.Books;
     using AutoMapper;
@@ -9,10 +9,6 @@
     /// </summary>
     public class BookMapper
     {
-        /// <summary>
-        /// Book 创建映射
-        /// </summary>
-        /// <param name="configuration"></param>
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<BookGetUpdateOutput, Book>()

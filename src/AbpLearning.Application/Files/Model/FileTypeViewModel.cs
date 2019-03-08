@@ -1,10 +1,7 @@
 ﻿namespace AbpLearning.Application.Files.Model
 {
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.Files;
 
-    [AutoMapTo(typeof(FileType))]
     public class FileTypeViewModel : NullableIdDto<int>
     {
         /// <summary>

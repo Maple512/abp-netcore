@@ -1,13 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
-using Abp.Authorization.Users;
-using Abp.AutoMapper;
-using Abp.Runtime.Validation;
-using AbpLearning.Core.Authorization.Users;
-
 namespace AbpLearning.Application.Users.Dto
 {
-    [AutoMapTo(typeof(User))]
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Auditing;
+    using Abp.Authorization.Users;
+    using Abp.Runtime.Validation;
+
     public class CreateUserDto : IShouldNormalize
     {
         [Required]

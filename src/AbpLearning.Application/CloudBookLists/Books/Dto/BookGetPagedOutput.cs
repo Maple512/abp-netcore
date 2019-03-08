@@ -1,15 +1,16 @@
-﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
+﻿namespace AbpLearning.Application.CloudBookLists.Books.Dto
 {
     using System;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
+    using Abp.Domain.Entities.Auditing;
     using Core.CloudBookLists.Books;
 
     /// <summary>
     /// <see cref="Book"/> 分页模型
     /// </summary>
     [AutoMapFrom(typeof(Book))]
-    public class BookGetPagedOutput : EntityDto<long>
+    public class BookGetPagedOutput : EntityDto<long>, IHasModificationTime
     {
         /// <summary>
         /// 封面图片URL

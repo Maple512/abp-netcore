@@ -1,9 +1,9 @@
-﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Model
+﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Dto
 {
     using System.ComponentModel.DataAnnotations;
-    using Abp.Application.Services.Dto;
+    using AbpLearning.Application.Base;
 
-    public class BookListUpdateInput : EntityDto<long>
+    public class BookListCreateInput : INullIdEntityDto
     {
         /// <summary>
         /// 书单名

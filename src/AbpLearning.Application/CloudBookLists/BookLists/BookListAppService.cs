@@ -15,7 +15,7 @@
     using Core;
     using Core.CloudBookLists;
     using Microsoft.EntityFrameworkCore;
-    using Model;
+    using Dto;
 
     /// <summary>
     /// <see cref="BookList"/> 应用程序服务

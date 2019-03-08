@@ -1,12 +1,9 @@
-﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Model
+﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Dto
 {
     using System.ComponentModel.DataAnnotations;
-    using Abp.AutoMapper;
-    using AbpLearning.Application.Base;
-    using Core.CloudBookLists.BookLists;
+    using Abp.Application.Services.Dto;
 
-    [AutoMapTo(typeof(BookList))]
-    public class BookListCreateInput : ICreateEntityDto
+    public class BookListGetUpdateOutput : EntityDto<long>
     {
         /// <summary>
         /// 书单名

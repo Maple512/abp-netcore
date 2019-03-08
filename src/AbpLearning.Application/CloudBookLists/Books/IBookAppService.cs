@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Base;
-    using Model;
+    using Dto;
 
     /// <summary>
     /// 书籍 应用服务 接口

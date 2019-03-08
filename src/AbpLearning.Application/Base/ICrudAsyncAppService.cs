@@ -13,11 +13,11 @@
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
          EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
        where TPrimaryKey : struct
-        where TGetViewOutput : NullableIdDto<TPrimaryKey>
+        where TGetViewOutput : INullIdEntityDto
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : ICreateEntityDto
+        where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
     }
@@ -32,11 +32,11 @@
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
          TGetUpdateInput, TGetViewInput, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
        where TPrimaryKey : struct
-        where TGetViewOutput : NullableIdDto<TPrimaryKey>
+        where TGetViewOutput : INullIdEntityDto
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : ICreateEntityDto
+        where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
         where TGetViewInput : IEntityDto<TPrimaryKey>
@@ -51,11 +51,11 @@
         in TGetUpdateInput, in TGetViewInput, TUpdateOutput, TCreateOutput, in TDeleteInput>
         : IApplicationService
         where TPrimaryKey : struct
-        where TGetViewOutput : NullableIdDto<TPrimaryKey>
+        where TGetViewOutput : INullIdEntityDto
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : ICreateEntityDto
+        where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
         where TGetViewInput : IEntityDto<TPrimaryKey>

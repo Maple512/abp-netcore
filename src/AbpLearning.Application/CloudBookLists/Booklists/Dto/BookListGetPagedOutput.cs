@@ -1,11 +1,10 @@
-﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Model
+﻿namespace AbpLearning.Application.CloudBookLists.BookLists.Dto
 {
+    using System;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using Core.CloudBookLists.BookLists;
+    using Abp.Domain.Entities.Auditing;
 
-    [AutoMapFrom(typeof(BookList))]
-    public class BookListGetPagedOutput : AuditedEntityDto<long>
+    public class BookListGetPagedOutput : EntityDto<long>, IHasModificationTime
     {
         /// <summary>
         /// 书单名
@@ -21,5 +20,7 @@
         /// 书单中存在多少本书籍
         /// </summary>
         public int ExsitedBookCount { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
     }
 }

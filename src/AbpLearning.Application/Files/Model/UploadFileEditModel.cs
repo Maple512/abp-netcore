@@ -3,14 +3,9 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.Files;
 
-    [AutoMapTo(typeof(UploadFile))]
     public class UploadFileEditModel : NullableIdDto<Guid>
     {
-        public const byte FileNameMaxLenght = UploadFile.FileNameMaxLenght;
-
         /// <summary>
         /// 
         /// </summary>

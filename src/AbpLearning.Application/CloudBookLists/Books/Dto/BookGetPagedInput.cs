@@ -1,4 +1,4 @@
-﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
+﻿namespace AbpLearning.Application.CloudBookLists.Books.Dto
 {
     using AbpLearning.Application.Base;
     using AbpLearning.Core.CloudBookLists.Books;

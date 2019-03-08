@@ -2,11 +2,9 @@
 {
     using System;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.Files;
+    using Abp.Domain.Entities.Auditing;
 
-    [AutoMapFrom(typeof(UploadFile))]
-    public class UploadFilePagedModel : AuditedEntityDto<Guid>
+    public class UploadFilePagedModel : EntityDto<Guid>, IHasModificationTime
     {
         /// <summary>
         /// 文件名
@@ -27,5 +25,7 @@
         /// 文件类型
         /// </summary>
         public string Type { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
     }
 }

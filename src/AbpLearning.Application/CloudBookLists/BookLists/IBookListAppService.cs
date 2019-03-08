@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Base;
-    using Model;
+    using Dto;
 
     public interface IBookListAppService : ICrudAsyncAppService<long, BookListGetViewOutput, BookListGetPagedOutput, BookListGetPagedInput, BookListGetUpdateOutput, BookListCreateInput, BookListUpdateInput>
     {

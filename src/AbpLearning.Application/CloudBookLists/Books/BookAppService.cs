@@ -14,7 +14,7 @@
     using Core;
     using Core.CloudBookLists;
     using Core.CloudBookLists.Books;
-    using Model;
+    using Dto;
 
     /// <summary>
     /// 书籍 应用服务

@@ -1,10 +1,7 @@
-using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using AbpLearning.Core.Authorization.Users;
-
 namespace AbpLearning.Application.Sessions.Dto
 {
-    [AutoMapFrom(typeof(User))]
+    using Abp.Application.Services.Dto;
+
     public class UserLoginInfoDto : EntityDto<long>
     {
         public string Name { get; set; }

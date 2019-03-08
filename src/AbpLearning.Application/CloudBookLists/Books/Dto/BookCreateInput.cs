@@ -1,11 +1,11 @@
-﻿namespace AbpLearning.Application.CloudBookLists.Books.Model
+﻿namespace AbpLearning.Application.CloudBookLists.Books.Dto
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Abp.Application.Services.Dto;
     using AbpLearning.Application.Base;
 
-    public class BookCreateInput : ICreateEntityDto
+    public class BookCreateInput : INullIdEntityDto
     {
         /// <summary>
         /// 封面URL

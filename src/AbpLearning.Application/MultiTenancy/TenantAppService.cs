@@ -47,6 +47,8 @@ namespace AbpLearning.Application.MultiTenancy
             _passwordHasher = passwordHasher;
         }
 
+        // TODO:权限名赋值
+
         public override async Task<EntityDto<int>> CreateAsync(TenantCreateInput input)
         {
             CheckCreatePermission();

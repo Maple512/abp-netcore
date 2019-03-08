@@ -1,10 +1,7 @@
-using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using AbpLearning.Core.MultiTenancy;
-
 namespace AbpLearning.Application.Sessions.Dto
 {
-    [AutoMapFrom(typeof(Tenant))]
+    using Abp.Application.Services.Dto;
+
     public class TenantLoginInfoDto : EntityDto
     {
         public string TenancyName { get; set; }

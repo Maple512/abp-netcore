@@ -11,13 +11,13 @@ namespace AbpLearning.Application.Users
     using Abp.IdentityFramework;
     using Abp.Localization;
     using Abp.Runtime.Session;
+    using AbpLearning.Application.Authorization.Roles.Dto;
     using Core;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
     using Dto;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using Roles.Model;
 
     [AbpAuthorize(AbpLearningPermissions.User)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
@@ -87,10 +87,10 @@ namespace AbpLearning.Application.Users
             await _userManager.DeleteAsync(user);
         }
 
-        public async Task<ListResultDto<RoleViewModel>> GetRoles()
+        public async Task<ListResultDto<RoleGetViewOutput>> GetRoles()
         {
             var roles = await _roleRepository.GetAllListAsync();
-            return new ListResultDto<RoleViewModel>(ObjectMapper.Map<List<RoleViewModel>>(roles));
+            return new ListResultDto<RoleGetViewOutput>(ObjectMapper.Map<List<RoleGetViewOutput>>(roles));
         }
 
         public async Task ChangeLanguage(ChangeUserLanguageDto input)

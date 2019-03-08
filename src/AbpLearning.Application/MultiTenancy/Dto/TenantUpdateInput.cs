@@ -2,11 +2,8 @@ namespace AbpLearning.MultiTenancy.Dto
 {
     using System.ComponentModel.DataAnnotations;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
     using Abp.MultiTenancy;
-    using AbpLearning.Core.MultiTenancy;
 
-    [AutoMapFrom(typeof(Tenant))]
     public class TenantUpdateInput : EntityDto
     {
         [Required]

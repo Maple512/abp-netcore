@@ -2,11 +2,8 @@
 {
     using System;
     using Abp.Application.Services.Dto;
-    using Abp.Auditing;
-    using Abp.AutoMapper;
 
-    [AutoMapFrom(typeof(AuditLog))]
-    public class AuditLogPagedModel:EntityDto<long>
+    public class AuditLogPagedModel : EntityDto<long>
     {
         public string UserName { get; set; }
 

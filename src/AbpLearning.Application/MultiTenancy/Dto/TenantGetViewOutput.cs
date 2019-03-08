@@ -1,11 +1,8 @@
 ﻿namespace AbpLearning.Application.MultiTenancy.Dto
 {
-    using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.MultiTenancy;
+    using Base;
 
-    [AutoMapFrom(typeof(Tenant))]
-    public class TenantGetViewOutput:NullableIdDto
+    public class TenantGetViewOutput : INullIdEntityDto
     {
         /// <summary>
         /// 租户名

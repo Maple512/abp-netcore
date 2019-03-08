@@ -1,5 +1,6 @@
 namespace AbpLearning.Application.MultiTenancy
 {
+    using AbpLearning.Application.MultiTenancy.Dto;
     using AbpLearning.MultiTenancy.Dto;
     using System.Threading.Tasks;
 
