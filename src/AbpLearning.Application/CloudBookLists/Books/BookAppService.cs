@@ -36,15 +36,7 @@
 
         #region PermissionName
 
-        protected override string GetPermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query;
-
-        protected override string CreatePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Create;
-
-        protected override string GetPagedPermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query;
-
-        protected override string DeletePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Delete;
-
-        protected override string UpdatePermissionName => AbpLearningPermissions.Book + AbpLearningPermissions.Action.Update;
+        protected override string NodePermissionName => AbpLearningPermissions.Book;
 
         #endregion
 

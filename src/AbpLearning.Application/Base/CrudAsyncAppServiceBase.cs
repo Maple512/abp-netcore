@@ -9,6 +9,8 @@
     using Abp.Domain.Repositories;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
+    using AbpLearning.Core;
+    using AbpLearning.Core.Authorization;
 
     /// <summary>
     /// 应用程序服务基类（实现：Paged,Sorting,Filtered）
@@ -81,30 +83,27 @@
 
         #region Permission Name
 
+        protected virtual string NodePermissionName => null;
+
         /// <summary>
         /// Get 权限
         /// </summary>
-        protected virtual string GetPermissionName => null;
-
-        /// <summary>
-        /// Paged 权限
-        /// </summary>
-        protected virtual string GetPagedPermissionName => null;
+        protected virtual string QueryPermissionName => NodePermissionName + AbpLearningPermissions.Action.Query;
 
         /// <summary>
         /// Create 权限
         /// </summary>
-        protected virtual string CreatePermissionName => null;
+        protected virtual string CreatePermissionName => NodePermissionName + AbpLearningPermissions.Action.Create;
 
         /// <summary>
         /// Update 权限
         /// </summary>
-        protected virtual string UpdatePermissionName => null;
+        protected virtual string UpdatePermissionName => NodePermissionName + AbpLearningPermissions.Action.Update;
 
         /// <summary>
         /// Delete 权限
         /// </summary>
-        protected virtual string DeletePermissionName => null;
+        protected virtual string DeletePermissionName => NodePermissionName + AbpLearningPermissions.Action.Delete;
 
         #endregion
 
@@ -195,7 +194,7 @@
         /// </summary>
         protected virtual void CheckGetPermission()
         {
-            CheckPermission(GetPermissionName);
+            CheckPermission(QueryPermissionName);
         }
 
         /// <summary>
@@ -203,7 +202,7 @@
         /// </summary>
         protected virtual void CheckGetPagedPermission()
         {
-            CheckPermission(GetPagedPermissionName);
+            CheckPermission(QueryPermissionName);
         }
 
         /// <summary>
