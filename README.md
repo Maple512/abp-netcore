@@ -1,2 +1,4 @@
-# AbpLearning
-基于52Abp框架。学习用
+> This project based on the [52Abp](https://www.52abp.com/) framework
+___
+
+*to be continued...*
