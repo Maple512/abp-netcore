@@ -1,6 +1,8 @@
 namespace AbpLearning.Core.Authorization.Users
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Authorization.Users;
     using Abp.Extensions;
 
@@ -13,6 +15,15 @@ namespace AbpLearning.Core.Authorization.Users
         /// </summary>
         public string Portrait { get; set; }
 
+        [Obsolete("Name属性已经不在使用，请使用UserName")]
+        [Required(AllowEmptyStrings = true)]
+        private new string Name { get; set; }
+
+        [Obsolete("Surname属性已经不在使用，请使用UserName")]
+        [NotMapped]
+        [Required(AllowEmptyStrings = true)]
+        private new string Surname { get; set; }
+
         public static string CreateRandomPassword()
         {
             return Guid.NewGuid().ToString("N").Truncate(16);
@@ -24,8 +35,6 @@ namespace AbpLearning.Core.Authorization.Users
             {
                 TenantId = tenantId,
                 UserName = AdminUserName,
-                Name = AdminUserName,
-                Surname = AdminUserName,
                 EmailAddress = emailAddress
             };
 

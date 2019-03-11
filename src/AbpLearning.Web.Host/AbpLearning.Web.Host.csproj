@@ -6,7 +6,7 @@
     <AssemblyName>AbpLearning.Web.Host</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>AbpLearning.Web.Host</PackageId>
-    <UserSecretsId>LTMCompanyNameFree-AbpLearning-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
+    <UserSecretsId>AbpLearning-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

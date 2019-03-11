@@ -2,10 +2,8 @@
 {
     using Base;
 
-    public class RoleGetViewOutput: INullIdEntityDto
+    public class RoleGetViewOutput : INullIdEntityDto
     {
-        public string Name { get; set; }
-
         public string DisplayName { get; set; }
 
         public string Description { get; set; }

@@ -1,15 +1,17 @@
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Abp.Authorization;
-using Abp.Authorization.Roles;
-using Abp.Domain.Uow;
-using Abp.Runtime.Caching;
-using Abp.Zero.Configuration;
-using AbpLearning.Core.Authorization.Users;
+using System.Threading.Tasks;
 
 namespace AbpLearning.Core.Authorization.Roles
 {
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Logging;
+    using Abp.Authorization;
+    using Abp.Authorization.Roles;
+    using Abp.Domain.Uow;
+    using Abp.Runtime.Caching;
+    using Abp.Zero.Configuration;
+    using Users;
+
     public class RoleManager : AbpRoleManager<Role, User>
     {
         public RoleManager(
@@ -33,5 +35,29 @@ namespace AbpLearning.Core.Authorization.Roles
                   roleManagementConfig)
         {
         }
+
+        //public override Task<IdentityResult> CheckDuplicateRoleNameAsync(int? expectedRoleId, string name, string displayName)
+        //{
+        //    AbpRoleManager<TRole, TUser> abpRoleManager = this;
+        //    TRole byNameAsync = await abpRoleManager.FindByNameAsync(name);
+        //    if ((Entity<int>)byNameAsync != (Entity<int>)null)
+        //    {
+        //        int id = byNameAsync.Id;
+        //        int? nullable = expectedRoleId;
+        //        int valueOrDefault = nullable.GetValueOrDefault();
+        //        if (!(id == valueOrDefault & nullable.HasValue))
+        //            throw new UserFriendlyException(string.Format(abpRoleManager.L("RoleNameIsAlreadyTaken"), (object)name));
+        //    }
+        //    TRole displayNameAsync = await abpRoleManager.FindByDisplayNameAsync(displayName);
+        //    if ((Entity<int>)displayNameAsync != (Entity<int>)null)
+        //    {
+        //        int id = displayNameAsync.Id;
+        //        int? nullable = expectedRoleId;
+        //        int valueOrDefault = nullable.GetValueOrDefault();
+        //        if (!(id == valueOrDefault & nullable.HasValue))
+        //            throw new UserFriendlyException(string.Format(abpRoleManager.L("RoleDisplayNameIsAlreadyTaken"), (object)displayName));
+        //    }
+        //    return IdentityResult.Success;
+        //}
     }
 }
