@@ -49,7 +49,7 @@ namespace AbpLearning.Application.MultiTenancy
 
         // TODO:权限名赋值
 
-        public override async Task<EntityDto<int>> CreateAsync(TenantCreateInput input)
+        public override async Task<NullableIdDto<int>> CreateAsync(TenantCreateInput input)
         {
             CheckCreatePermission();
 
@@ -88,27 +88,22 @@ namespace AbpLearning.Application.MultiTenancy
                 // Create admin user for the tenant
                 var adminUser = User.CreateTenantAdminUser(tenant.Id, input.AdminEmailAddress);
                 adminUser.Password = _passwordHasher.HashPassword(adminUser, User.DefaultPassword);
+
                 CheckErrors(await _userManager.CreateAsync(adminUser));
                 await CurrentUnitOfWork.SaveChangesAsync(); // To get admin user's id
-
 
                 CheckErrors(await _userManager.AddToRoleAsync(adminUser, adminRole.Name));
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
-            return ObjectMapper.Map<EntityDto>(tenant);
+            return ObjectMapper.Map<NullableIdDto>(tenant);
         }
 
-        public override async Task DeleteAsync(EntityDto<int> input)
+        public override async Task DeleteAsync(NullableIdDto<int> input)
         {
             CheckDeletePermission();
 
-            var tenant = await _tenantManager.GetByIdAsync(input.Id);
+            var tenant = await _tenantManager.GetByIdAsync(input.Id.GetValueOrDefault());
             await _tenantManager.DeleteAsync(tenant);
-        }
-
-        private void CheckErrors(IdentityResult identityResult)
-        {
-            identityResult.CheckErrors(LocalizationManager);
         }
     }
 }

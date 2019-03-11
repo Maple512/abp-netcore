@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
-    public partial class Optimization_CloudBookList : Migration
+    public partial class Optimization_CloudBookList_User : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,16 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 name: "ExsitedBookCount",
                 schema: "CBL",
                 table: "BookList");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
+                schema: "ABP",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "Surname",
+                schema: "ABP",
+                table: "Users");
 
             migrationBuilder.AlterColumn<long>(
                 name: "BookId",
@@ -148,6 +158,22 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                 table: "BookList",
                 nullable: false,
                 defaultValue: (byte)0);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                schema: "ABP",
+                table: "Users",
+                maxLength: 64,
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Surname",
+                schema: "ABP",
+                table: "Users",
+                maxLength: 64,
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.CreateTable(
                 name: "BookTag",

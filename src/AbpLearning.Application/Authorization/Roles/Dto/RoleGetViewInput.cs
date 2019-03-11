@@ -2,7 +2,7 @@
 {
     using Abp.Application.Services.Dto;
 
-    public class RoleGetViewInput : EntityDto<int>
+    public class RoleGetViewInput : NullableIdDto
     {
         /// <summary>
         /// Permission Name

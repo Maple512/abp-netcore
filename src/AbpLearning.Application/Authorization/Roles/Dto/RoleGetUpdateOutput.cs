@@ -14,7 +14,7 @@
         /// <summary>
         /// all permisssion
         /// </summary>
-        public PermissionGetViewOutput Permissions { get; set; }
+        public List<PermissionGetViewOutput> Permissions { get; set; }
 
         /// <summary>
         /// permissions granted to this role

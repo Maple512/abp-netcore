@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using System.Linq.Dynamic.Core;
-    using Abp.Application.Services;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.Domain.Entities;
@@ -10,7 +9,6 @@
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Core;
-    using AbpLearning.Core.Authorization;
 
     /// <summary>
     /// 应用程序服务基类（实现：Paged,Sorting,Filtered）
@@ -18,7 +16,7 @@
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey> : ApplicationService
+    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey> : AbpLearningAppServiceBase
         where TEntity : class, IEntity<TPrimaryKey>
     {
         /// <summary>
@@ -72,7 +70,7 @@
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TPrimaryKey"></typeparam>
     /// <typeparam name="TGetPagedInput"></typeparam>
-    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey, TGetPagedInput> : ApplicationService
+    public abstract class CrudAsyncAppServiceBase<TEntity, TPrimaryKey, TGetPagedInput> : AbpLearningAppServiceBase
             where TEntity : class, IEntity<TPrimaryKey>
             where TGetPagedInput : IPagedResultRequest
     {

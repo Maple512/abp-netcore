@@ -20,12 +20,12 @@
 
             var bookList = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.Booklist) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.Booklist, L("BookList"));
 
-            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query, L("BookListQuery"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, L("BookListCreate"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update, L("BookListEdit"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Delete, L("BookListDelete"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.BatchdDelete, L("BookListBatchDelete"))
-                .CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.ExportExcel, L("BookListExportExcel"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Query, L("BookList Query"), L("BookList Query Description"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Create, L("BookList Create"), L("BookList Create Description"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Update, L("BookList Edit"), L("BookList Edit Description"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.Delete, L("BookList Delete"), L("BookList Delete Description"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.BatchdDelete, L("BookList BatchDelete"), L("BookList BatchDelete Description"));
+            bookList.CreateChildPermission(AbpLearningPermissions.Booklist + AbpLearningPermissions.Action.ExportExcel, L("BookList ExportExcel"), L("BookList ExportExcel Description"));
         }
     }
 }

@@ -10,6 +10,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190305021559_Optimization_CloudBookList.cs" />
     <Compile Remove="Migrations\20190305041013_Optimization_CloudBookList.cs" />
+    <Compile Remove="Migrations\20190307131441_Optimization_CloudBookList.cs" />
+    <Compile Remove="Migrations\20190311080533_Remove_User_Name_SurName.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />

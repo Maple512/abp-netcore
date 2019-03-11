@@ -19,31 +19,23 @@
 
         #endregion
 
-        #region Authentication
-
-        public const string Authentication = Pages + ".Authentication";
-
-        public const string Tenant = Authentication + ".Tenant";
-
-        public const string User = Authentication + ".User";
-
-        public const string Role = Authentication + ".Role";
-
-        #endregion
-
         #region System
 
         public const string System = Pages + ".System";
 
         public const string AuditLog = System + ".AuditLog";
 
+        public const string Tenant = System + ".Tenant";
+
+        public const string User = System + ".User";
+
+        public const string Role = System + ".Role";
+
         #endregion
 
         #region File
 
         public const string File = Pages + ".File";
-
-        public const string UploadFile = File + ".UpLoadFile";
 
         #endregion
 

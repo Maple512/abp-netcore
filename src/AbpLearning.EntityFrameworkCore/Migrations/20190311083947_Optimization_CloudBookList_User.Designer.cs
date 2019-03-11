@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    [Migration("20190307131441_Optimization_CloudBookList")]
-    partial class Optimization_CloudBookList
+    [Migration("20190311083947_Optimization_CloudBookList_User")]
+    partial class Optimization_CloudBookList_User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -960,10 +960,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.Property<DateTime?>("LockoutEndDateUtc");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
                     b.Property<string>("NormalizedEmailAddress")
                         .IsRequired()
                         .HasMaxLength(256);
@@ -986,10 +982,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128);
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(64);
 
                     b.Property<int?>("TenantId");
 

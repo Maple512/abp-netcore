@@ -52,11 +52,11 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public override async Task DeleteAsync(EntityDto<long> input)
+        public override async Task DeleteAsync(NullableIdDto<long> input)
         {
             CheckDeletePermission();
 
-            await _manager.DeleteForBookListAsync(input.Id);
+            await _manager.DeleteForBookListAsync(input.Id.GetValueOrDefault());
         }
 
         /// <summary>

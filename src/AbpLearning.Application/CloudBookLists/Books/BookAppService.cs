@@ -47,7 +47,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public override async Task<EntityDto<long>> CreateAsync(BookCreateInput input)
+        public override async Task<NullableIdDto<long>> CreateAsync(BookCreateInput input)
         {
             CheckCreatePermission();
 
@@ -61,7 +61,7 @@
             await Repository.InsertAsync(entity);
             await CurrentUnitOfWork.SaveChangesAsync();
 
-            return ObjectMapper.Map<EntityDto<long>>(entity);
+            return ObjectMapper.Map<NullableIdDto<long>>(entity);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public override async Task<EntityDto<long>> UpdateAsync(BookUpdateInput input)
+        public override async Task<NullableIdDto<long>> UpdateAsync(BookUpdateInput input)
         {
             CheckUpdatePermission();
 
@@ -84,7 +84,7 @@
 
             await CurrentUnitOfWork.SaveChangesAsync();
 
-            return ObjectMapper.Map<EntityDto<long>>(entity);
+            return ObjectMapper.Map<NullableIdDto<long>>(entity);
         }
 
         /// <summary>

@@ -24,12 +24,12 @@
 
             var books = CloudBookListPermission.Children.FirstOrDefault(m => m.Name == AbpLearningPermissions.Book) ?? CloudBookListPermission.CreateChildPermission(AbpLearningPermissions.Book, L("Book"));
 
-            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query, L("BookQuery"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Create, L("BookCreate"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Update, L("BookEdit"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Delete, L("BookDelete"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.BatchdDelete, L("BookBatchDelete"))
-                .CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.ExportExcel, L("BookExportExcel"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Query, L("Book Query"), L("Book Query Description"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Create, L("Book Create"), L("Book Create Description"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Update, L("Book Edit"), L("Book Edit Description"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.Delete, L("Book Delete"), L("Book Delete Description"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.BatchdDelete, L("Book BatchDelete"), L("Book BatchDelete Description"));
+            books.CreateChildPermission(AbpLearningPermissions.Book + AbpLearningPermissions.Action.ExportExcel, L("Book ExportExcel"), L("Book ExportExcel Description"));
         }
     }
 }

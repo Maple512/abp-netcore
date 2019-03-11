@@ -15,6 +15,7 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
+    using Abp.Json;
 
     public class HostRoleAndUserCreator
     {
@@ -88,8 +89,6 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
                 {
                     TenantId = null,
                     UserName = AbpUserBase.AdminUserName,
-                    Name = "admin",
-                    Surname = "admin",
                     EmailAddress = "admin@52abp.com",
                     IsEmailConfirmed = true,
                     IsActive = true

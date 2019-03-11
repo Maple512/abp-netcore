@@ -15,7 +15,7 @@
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput>
         : CrudAsyncAppService<TEntity, TPrimaryKey, TGetViewOutput,
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
-         EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
+         EntityDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
          where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : struct
         where TGetViewOutput : INullIdEntityDto
@@ -38,7 +38,7 @@
          TGetUpdateInput, TGetViewInput>
         : CrudAsyncAppService<TEntity, TPrimaryKey, TGetViewOutput,
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
-         TGetUpdateInput, TGetViewInput, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
+         TGetUpdateInput, TGetViewInput, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
          where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : struct
         where TGetViewOutput : INullIdEntityDto
@@ -48,7 +48,7 @@
         where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
-        where TGetViewInput : IEntityDto<TPrimaryKey>
+        where TGetViewInput : NullableIdDto<TPrimaryKey>
     {
         protected CrudAsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
         {
@@ -74,10 +74,10 @@
         where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
-        where TGetViewInput : IEntityDto<TPrimaryKey>
-        where TUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateOutput : IEntityDto<TPrimaryKey>
-        where TDeleteInput : IEntityDto<TPrimaryKey>
+        where TGetViewInput : NullableIdDto<TPrimaryKey>
+        where TUpdateOutput : NullableIdDto<TPrimaryKey>
+        where TCreateOutput : NullableIdDto<TPrimaryKey>
+        where TDeleteInput : NullableIdDto<TPrimaryKey>
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
@@ -107,11 +107,11 @@
         /// Delete
         /// </summary>
         /// <returns></returns>
-        public virtual Task DeleteAsync(TDeleteInput input)
+        public virtual async Task DeleteAsync(TDeleteInput input)
         {
             CheckDeletePermission();
 
-            return Repository.DeleteAsync(input.Id);
+            await Repository.DeleteAsync(input.Id.GetValueOrDefault());
         }
 
         /// <summary>
@@ -174,7 +174,7 @@
         }
 
         /// <summary>
-        /// Get View
+        /// Get View(by id to get view,need override)
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -182,7 +182,7 @@
         {
             CheckGetPermission();
 
-            var entity = await Repository.GetAsync(input.Id);
+            var entity = await Repository.GetAsync(input.Id.GetValueOrDefault());
 
             if (entity == null)
             {

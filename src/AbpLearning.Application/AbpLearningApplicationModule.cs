@@ -3,6 +3,8 @@ namespace AbpLearning.Application
     using Abp.AutoMapper;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
+    using AbpLearning.Application.Authorization.Permissions.Dto;
+    using AbpLearning.Application.Authorization.Roles.Dto;
     using AbpLearning.Application.CloudBookLists.Booklists.Dto;
     using CloudBookLists.Books.Dto;
     using Core;
@@ -40,6 +42,10 @@ namespace AbpLearning.Application
                 BookMapper.CreateMappings(configuration);
 
                 BookListMapper.CreateMappings(configuration);
+
+                RoleMapper.CreateMappings(configuration);
+
+                PermissionMapper.CreateMappings(configuration);
             });
         }
 

@@ -11,7 +11,7 @@
         TGetPagedOutput, in TGetPagedInput, TGetUpdateOutput, in TCreateInput, in TUpdateInput>
         : ICrudAsyncAppService<TPrimaryKey, TGetViewOutput,
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
-         EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
+         EntityDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
        where TPrimaryKey : struct
         where TGetViewOutput : INullIdEntityDto
         where TGetPagedInput : IPagedResultRequest
@@ -30,7 +30,7 @@
         in TGetUpdateInput, in TGetViewInput>
         : ICrudAsyncAppService<TPrimaryKey, TGetViewOutput,
         TGetPagedOutput, TGetPagedInput, TGetUpdateOutput, TCreateInput, TUpdateInput,
-         TGetUpdateInput, TGetViewInput, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
+         TGetUpdateInput, TGetViewInput, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
        where TPrimaryKey : struct
         where TGetViewOutput : INullIdEntityDto
         where TGetPagedInput : IPagedResultRequest
@@ -39,7 +39,7 @@
         where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
-        where TGetViewInput : IEntityDto<TPrimaryKey>
+        where TGetViewInput : NullableIdDto<TPrimaryKey>
     {
     }
 
@@ -58,10 +58,10 @@
         where TCreateInput : INullIdEntityDto
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
-        where TGetViewInput : IEntityDto<TPrimaryKey>
-        where TUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateOutput : IEntityDto<TPrimaryKey>
-        where TDeleteInput : IEntityDto<TPrimaryKey>
+        where TGetViewInput : NullableIdDto<TPrimaryKey>
+        where TUpdateOutput : NullableIdDto<TPrimaryKey>
+        where TCreateOutput : NullableIdDto<TPrimaryKey>
+        where TDeleteInput : NullableIdDto<TPrimaryKey>
     {
         Task<TGetUpdateOutput> GetUpdateAsync(TGetUpdateInput input);
 

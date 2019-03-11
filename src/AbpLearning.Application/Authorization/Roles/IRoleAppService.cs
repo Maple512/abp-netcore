@@ -9,7 +9,7 @@
     /// <summary>
     /// this interface is Role AppService
     /// </summary>
-    public interface IRoleAppService : ICrudAsyncAppService<int, RoleGetViewOutput, RoleGetPagedOutput, RoleGetPagedInput, RoleGetUpdateOutput, RoleCreateInput, RoleUpdateDto>, IApplicationService
+    public interface IRoleAppService : ICrudAsyncAppService<int, RoleGetViewOutput, RoleGetPagedOutput, RoleGetPagedInput, RoleGetUpdateOutput, RoleCreateInput, RoleUpdateInput>, IApplicationService
     {
         /// <summary>
         /// Get All For View
@@ -25,6 +25,6 @@
         /// <param name="name"></param>
         /// <param name="displayName"></param>
         /// <returns></returns>
-        Task<bool> CheckDuplicateRoleNameAsync(int? expectedRoleId, string name, string displayName);
+        bool CheckDuplicateRoleName(int? expectedRoleId, string name, string displayName);
     }
 }

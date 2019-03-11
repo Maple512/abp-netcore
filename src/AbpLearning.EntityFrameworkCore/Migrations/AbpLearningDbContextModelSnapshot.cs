@@ -958,10 +958,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.Property<DateTime?>("LockoutEndDateUtc");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
                     b.Property<string>("NormalizedEmailAddress")
                         .IsRequired()
                         .HasMaxLength(256);
@@ -984,10 +980,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128);
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(64);
 
                     b.Property<int?>("TenantId");
 
