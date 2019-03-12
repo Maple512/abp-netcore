@@ -6,11 +6,11 @@ namespace AbpLearning.Application
     using AbpLearning.Application.Authorization.Permissions.Dto;
     using AbpLearning.Application.Authorization.Roles.Dto;
     using AbpLearning.Application.CloudBookLists.Booklists.Dto;
+    using AbpLearning.Application.Users.Dto;
+    using AbpLearning.Core.CloudBookLists;
     using CloudBookLists.Books.Dto;
     using Core;
     using Core.Authorization;
-    using Core.CloudBookLists.BookLists.Authorization;
-    using Core.CloudBookLists.Books.Authorization;
     using Core.Files;
 
     [DependsOn(
@@ -20,21 +20,14 @@ namespace AbpLearning.Application
     {
         public override void PreInitialize()
         {
+            // Pages
             Configuration.Authorization.Providers.Add<AbpLearningAuthorizationProvider>();
 
-            #region 云书单权限
+            // 云书单权限
+            Configuration.Authorization.Providers.Add<CloudBookListAuthorizationProvider>();
 
-            Configuration.Authorization.Providers.Add<BookAuthorizationProvider>();
-
-            Configuration.Authorization.Providers.Add<BookListAuthorizationProvider>();
-
-            #endregion
-
-            #region File
-
+            // File
             Configuration.Authorization.Providers.Add<FileAuthorizationProvider>();
-
-            #endregion
 
             // 自定义类型映射
             Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
@@ -46,6 +39,8 @@ namespace AbpLearning.Application
                 RoleMapper.CreateMappings(configuration);
 
                 PermissionMapper.CreateMappings(configuration);
+
+                UserMapper.CreateMappings(configuration);
             });
         }
 

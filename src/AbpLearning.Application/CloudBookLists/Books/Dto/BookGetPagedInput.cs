@@ -6,7 +6,7 @@
     /// <summary>
     /// <see cref="Book"/> 分页过滤模型
     /// </summary>
-    public class BookGetPagedInput : PagedFilteringModelBase
+    public class BookGetPagedInput : PagedFilteringDtoBase
     {
     }
 }

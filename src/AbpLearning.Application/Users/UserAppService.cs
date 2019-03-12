@@ -3,15 +3,16 @@ namespace AbpLearning.Application.Users
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Abp.Application.Services;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.Domain.Entities;
     using Abp.Domain.Repositories;
-    using Abp.IdentityFramework;
+    using Abp.Extensions;
+    using Abp.Linq.Extensions;
     using Abp.Localization;
     using Abp.Runtime.Session;
     using AbpLearning.Application.Authorization.Roles.Dto;
+    using AbpLearning.Application.Base;
     using Core;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
@@ -20,12 +21,14 @@ namespace AbpLearning.Application.Users
     using Microsoft.EntityFrameworkCore;
 
     [AbpAuthorize(AbpLearningPermissions.User)]
-    public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
+    public class UserAppService : CrudAsyncAppService<User, long, UserGetViewOutput, UserGetPagedOutput, UserGetPagedInput, UserGetUpdateOutput, UserCreateInput, UserUpdateInput>, IUserAppService
     {
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+
+        protected override string NodePermissionName => AbpLearningPermissions.User;
 
         public UserAppService(
             IRepository<User, long> repository,
@@ -41,7 +44,7 @@ namespace AbpLearning.Application.Users
             _passwordHasher = passwordHasher;
         }
 
-        public override async Task<UserDto> Create(CreateUserDto input)
+        public override async Task<NullableIdDto<long>> CreateAsync(UserCreateInput input)
         {
             CheckCreatePermission();
 
@@ -60,16 +63,16 @@ namespace AbpLearning.Application.Users
 
             CurrentUnitOfWork.SaveChanges();
 
-            return MapToEntityDto(user);
+            return null;
         }
 
-        public override async Task<UserDto> Update(UserDto input)
+        public override async Task<NullableIdDto<long>> UpdateAsync(UserUpdateInput input)
         {
             CheckUpdatePermission();
 
             var user = await _userManager.GetUserByIdAsync(input.Id);
 
-            MapToEntity(input, user);
+            ObjectMapper.Map(input, user);
 
             CheckErrors(await _userManager.UpdateAsync(user));
 
@@ -78,12 +81,14 @@ namespace AbpLearning.Application.Users
                 CheckErrors(await _userManager.SetRoles(user, input.RoleNames));
             }
 
-            return await Get(input);
+            return null;
         }
 
-        public override async Task Delete(EntityDto<long> input)
+        public override async Task DeleteAsync(NullableIdDto<long> input)
         {
-            var user = await _userManager.GetUserByIdAsync(input.Id);
+            CheckDeletePermission();
+
+            var user = await _userManager.GetUserByIdAsync(input.Id.GetValueOrDefault());
             await _userManager.DeleteAsync(user);
         }
 
@@ -102,33 +107,12 @@ namespace AbpLearning.Application.Users
             );
         }
 
-        protected override User MapToEntity(CreateUserDto createInput)
+        protected override IQueryable<User> CreateFilteredQuery(UserGetPagedInput input)
         {
-            var user = ObjectMapper.Map<User>(createInput);
-            user.SetNormalizedNames();
-            return user;
+            return Entities.Include(x => x.Roles).WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.UserName.Contains(input.FilterText));
         }
 
-        protected override void MapToEntity(UserDto input, User user)
-        {
-            ObjectMapper.Map(input, user);
-            user.SetNormalizedNames();
-        }
-
-        protected override UserDto MapToEntityDto(User user)
-        {
-            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
-            var userDto = base.MapToEntityDto(user);
-            userDto.RoleNames = roles.ToArray();
-            return userDto;
-        }
-
-        protected override IQueryable<User> CreateFilteredQuery(PagedResultRequestDto input)
-        {
-            return Repository.GetAllIncluding(x => x.Roles);
-        }
-
-        protected override async Task<User> GetEntityByIdAsync(long id)
+        protected async Task<User> GetEntityByIdAsync(long id)
         {
             var user = await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
 
@@ -138,16 +122,6 @@ namespace AbpLearning.Application.Users
             }
 
             return user;
-        }
-
-        protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedResultRequestDto input)
-        {
-            return query.OrderBy(r => r.UserName);
-        }
-
-        protected virtual void CheckErrors(IdentityResult identityResult)
-        {
-            identityResult.CheckErrors(LocalizationManager);
         }
     }
 }

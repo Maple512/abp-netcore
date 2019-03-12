@@ -2,9 +2,12 @@ namespace AbpLearning.Application.MultiTenancy.Dto
 {
     using System.ComponentModel.DataAnnotations;
     using Abp.Authorization.Users;
+    using Abp.AutoMapper;
     using Abp.MultiTenancy;
+    using AbpLearning.Core.MultiTenancy;
     using Base;
 
+    [AutoMapTo(typeof(Tenant))]
     public class TenantCreateInput : INullIdEntityDto
     {
         [Required]

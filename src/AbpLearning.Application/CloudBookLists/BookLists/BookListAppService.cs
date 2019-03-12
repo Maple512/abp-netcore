@@ -20,7 +20,6 @@
     /// <summary>
     /// <see cref="BookList"/> 应用程序服务
     /// </summary>
-    [AbpAuthorize(AbpLearningPermissions.Booklist)]
     public class BookListAppService : CrudAsyncAppService<BookList, long, BookListGetViewOutput, BookListGetPagedOutput, BookListGetPagedInput, BookListGetUpdateOutput, BookListCreateInput, BookListUpdateInput>
         , IBookListAppService
     {

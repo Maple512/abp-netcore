@@ -3,9 +3,12 @@ using Abp.Authorization;
 using Abp.Authorization.Roles;
 using Abp.Authorization.Users;
 using Abp.MultiTenancy;
+using AbpLearning.Core;
 using AbpLearning.Core.Authorization;
 using AbpLearning.Core.Authorization.Roles;
 using AbpLearning.Core.Authorization.Users;
+using AbpLearning.Core.CloudBookLists;
+using AbpLearning.Core.Files;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -47,11 +50,12 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Tenants
                 .Select(p => p.Name)
                 .ToList();
 
-            var permissions = PermissionFinder
-                .GetAllPermissions(new AbpLearningAuthorizationProvider())
-                .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Tenant) &&
-                            !grantedPermissions.Contains(p.Name))
-                .ToList();
+            var permissions = PermissionFinder.GetAllPermissions(new AbpLearningAuthorizationProvider(),
+                    new CloudBookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
+                    new FileAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
+                    .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Tenant) && !grantedPermissions.Contains(p.Name))
+                    .OrderBy(m => m.Name)
+                    .ToList();
 
             if (permissions.Any())
             {

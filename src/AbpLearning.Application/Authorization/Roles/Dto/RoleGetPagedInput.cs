@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Base;
 
-    public class RoleGetPagedInput : PagedFilteringModelBase
+    public class RoleGetPagedInput : PagedFilteringDtoBase
     {
         /// <summary>
         /// 权限名

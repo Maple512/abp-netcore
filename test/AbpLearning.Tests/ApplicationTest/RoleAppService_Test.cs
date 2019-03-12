@@ -20,7 +20,7 @@
         }
 
         [Theory(DisplayName = "get roles for view")]
-        [InlineData("Pages.Authentication.Usewr")]
+        [InlineData("Pages.System.User")]
         public async Task GetAllForViewAsync_Test(string permissionName)
         {
             var roles = await _roleAppService.GetAllForViewAsync(new RoleGetViewInput() { PermissionName = permissionName });

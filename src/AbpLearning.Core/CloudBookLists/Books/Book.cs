@@ -82,7 +82,7 @@
         /// <summary>
         /// tag's
         /// </summary>
-        public List<string> Tags => TagJson.FromJsonString<List<string>>();
+        public IEnumerable<string> Tags => TagJson.FromJsonString<IEnumerable<string>>();
 
         /// <summary>
         /// tag JSON string
@@ -90,5 +90,14 @@
         public string TagJson { get; private set; }
 
         public int? TenantId { get; set; }
+
+        /// <summary>
+        /// reset tags(remove or add)
+        /// </summary>
+        /// <param name="tags"></param>
+        public void ResetTags(IEnumerable<string> tags)
+        {
+            TagJson = tags.Distinct().ToJsonString();
+        }
     }
 }

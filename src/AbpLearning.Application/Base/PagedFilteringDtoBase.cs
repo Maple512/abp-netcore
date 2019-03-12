@@ -5,23 +5,23 @@
     using Abp.Runtime.Validation;
 
     /// <summary>
-    /// 分页过滤基类
-    /// 默认排序方式：CreationTime DESC
+    /// paged filtering base dto
+    /// default sort：CreationTime DESC
     /// </summary>
-    public class PagedFilteringModelBase : PagedAndSortedResultRequestDto, IShouldNormalize
+    public class PagedFilteringDtoBase : PagedAndSortedResultRequestDto, IShouldNormalize
     {
-        public PagedFilteringModelBase()
+        public PagedFilteringDtoBase()
         {
         }
 
         /// <summary>
-        /// 分页过滤文本
+        /// Filter Text
         /// </summary>
         public virtual string FilterText { get; set; }
 
         /// <summary>
-        /// 初始化
-        /// 默认排序方式：CreationTime DESC
+        /// Normalize order
+        /// default sort：CreationTime DESC
         /// </summary>
         public virtual void Normalize()
         {

@@ -6,15 +6,23 @@ namespace AbpLearning.MultiTenancy.Dto
 
     public class TenantUpdateInput : EntityDto
     {
+        /// <summary>
+        /// display name
+        /// </summary>
+        [Required]
+        [StringLength(AbpTenantBase.MaxNameLength)]
+        public string Name { get; set; }
+
         [Required]
         [StringLength(AbpTenantBase.MaxTenancyNameLength)]
         [RegularExpression(AbpTenantBase.TenancyNameRegex)]
         public string TenancyName { get; set; }
 
-        [Required]
-        [StringLength(AbpTenantBase.MaxNameLength)]
-        public string Name { get; set; }        
-        
-        public bool IsActive {get; set;}
+        /// <summary>
+        /// connection string
+        /// </summary>
+        public string ConnectionString { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

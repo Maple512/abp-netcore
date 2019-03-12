@@ -42,8 +42,7 @@
         /// <returns></returns>
         public bool CheckDuplicateRoleName(int? expectedRoleId, string name, string displayName)
         {
-            return Repository.GetAll().AsNoTracking()
-                .Where(m => m.Id != expectedRoleId.GetValueOrDefault())
+            return Entities.Where(m => m.Id != expectedRoleId.GetValueOrDefault())
                 .Any(m => m.Name == name || m.DisplayName == displayName);
         }
 
@@ -55,7 +54,7 @@
         public async Task<ListResultDto<RoleGetViewOutput>> GetAllForViewAsync(RoleGetViewInput input)
         {
             var entities = await _roleManager.Roles
-                .WhereIf(!input.PermissionName.IsNullOrEmpty(), m => m.Permissions.Any(p => p.Name.Contains(input.PermissionName) && p.IsGranted)
+                .WhereIf(!input.PermissionName.IsNullOrEmpty(), m => m.Permissions.Any(p => p.Name == input.PermissionName && p.IsGranted)
                 ).ToListAsync();
 
             return new ListResultDto<RoleGetViewOutput>(ObjectMapper.Map<List<RoleGetViewOutput>>(entities));
@@ -118,11 +117,15 @@
 
         protected override IQueryable<Role> CreateFilteredQuery(RoleGetPagedInput input)
         {
-            var query = Repository.GetAll().AsNoTracking()
-                .WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(input.FilterText))
+            var query = Entities.WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.Name.Contains(input.FilterText))
                 .WhereIf(input.PermissionNames?.Count() > 0, m => m.Permissions.Any(p => input.PermissionNames.Contains(p.Name) && p.IsGranted));
 
             return query;
+        }
+
+        public override Task DeleteAsync(NullableIdDto<int> input)
+        {
+            return base.DeleteAsync(input);
         }
     }
 }

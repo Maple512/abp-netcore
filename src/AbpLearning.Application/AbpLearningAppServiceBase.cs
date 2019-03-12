@@ -4,7 +4,6 @@ namespace AbpLearning.Application
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using Abp.Application.Services;
-    using Abp.IdentityFramework;
     using Abp.Runtime.Session;
     using AbpLearning.Core.Authorization.Users;
     using AbpLearning.Core.MultiTenancy;

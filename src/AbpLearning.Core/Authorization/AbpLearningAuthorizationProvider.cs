@@ -30,6 +30,10 @@ namespace AbpLearning.Core.Authorization
             role.CreateChildPermission(AbpLearningPermissions.Role + AbpLearningPermissions.Action.BatchdDelete, L("Role BatchDelete"), L("User BatchDelete Description"));
 
             var tenant = system.CreateChildPermission(AbpLearningPermissions.Tenant, L("Tenant"), L("Tenant Description"), multiTenancySides: MultiTenancySides.Host);
+            tenant.CreateChildPermission(AbpLearningPermissions.Tenant + AbpLearningPermissions.Action.Query, L("Tenant Query"), L("Tenant Query Description"), multiTenancySides: MultiTenancySides.Host);
+            tenant.CreateChildPermission(AbpLearningPermissions.Tenant + AbpLearningPermissions.Action.Create, L("Tenant Create"), L("Tenant Create Description"), multiTenancySides: MultiTenancySides.Host);
+            tenant.CreateChildPermission(AbpLearningPermissions.Tenant + AbpLearningPermissions.Action.Update, L("Tenant Update"), L("Tenant Update Description"), multiTenancySides: MultiTenancySides.Host);
+            tenant.CreateChildPermission(AbpLearningPermissions.Tenant + AbpLearningPermissions.Action.Delete, L("Tenant Delete"), L("Tenant Delete Description"), multiTenancySides: MultiTenancySides.Host);
 
             var auditlog = system.CreateChildPermission(AbpLearningPermissions.AuditLog, L("AuditLog"), L("AuditLog Description"));
 

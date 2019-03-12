@@ -16,10 +16,6 @@
     using Core.CloudBookLists.Books;
     using Dto;
 
-    /// <summary>
-    /// 书籍 应用服务
-    /// </summary>
-    [AbpAuthorize(AbpLearningPermissions.Book)]
     public class BookAppService :
         CrudAsyncAppService<Book, long, BookGetViewOutput, BookGetPagedOutput, BookGetPagedInput, BookGetUpdateOutput, BookCreateInput, BookUpdateInput>
         , IBookAppService
@@ -34,13 +30,7 @@
             _manager = manager;
         }
 
-        #region PermissionName
-
         protected override string NodePermissionName => AbpLearningPermissions.Book;
-
-        #endregion
-
-        private IQueryable<Book> Entities => _book.GetAll();
 
         /// <summary>
         /// Create

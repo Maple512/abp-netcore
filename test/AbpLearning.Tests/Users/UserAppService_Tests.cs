@@ -21,7 +21,7 @@ namespace AbpLearning.Tests.Users
         public async Task GetUsers_Test()
         {
             // Act
-            var output = await _userAppService.GetAll(new PagedResultRequestDto{MaxResultCount=20, SkipCount=0} );
+            var output = await _userAppService.GetPagedAsync(new UserGetPagedInput{MaxResultCount=20, SkipCount=0} );
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
@@ -31,13 +31,11 @@ namespace AbpLearning.Tests.Users
         public async Task CreateUser_Test()
         {
             // Act
-            await _userAppService.Create(
-                new CreateUserDto
+            await _userAppService.CreateAsync(
+                new UserCreateInput
                 {
                     EmailAddress = "john@volosoft.com",
                     IsActive = true,
-                    Name = "John",
-                    Surname = "Nash",
                     Password = "123qwe",
                     UserName = "john.nash"
                 });

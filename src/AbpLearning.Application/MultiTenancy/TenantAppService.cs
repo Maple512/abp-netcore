@@ -3,10 +3,9 @@ namespace AbpLearning.Application.MultiTenancy
     using System.Linq;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
-    using Abp.Authorization;
     using Abp.Domain.Repositories;
     using Abp.Extensions;
-    using Abp.IdentityFramework;
+    using Abp.Linq.Extensions;
     using Abp.MultiTenancy;
     using Abp.Runtime.Security;
     using AbpLearning.Application.Base;
@@ -18,9 +17,9 @@ namespace AbpLearning.Application.MultiTenancy
     using AbpLearning.Core.MultiTenancy;
     using AbpLearning.MultiTenancy.Dto;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
 
-    [AbpAuthorize(AbpLearningPermissions.Tenant)]
-    public class TenantAppService : CrudAsyncAppService<Tenant, int, TenantGetViewOutput, TenantGetPagedOutput, PagedFilteringModelBase, TenantGetUpdateOutput, TenantCreateInput, TenantUpdateInput>, ITenantAppService
+    public class TenantAppService : CrudAsyncAppService<Tenant, int, TenantGetViewOutput, TenantGetPagedOutput, TenantGetPagedInput, TenantGetUpdateOutput, TenantCreateInput, TenantUpdateInput>, ITenantAppService
     {
         private readonly TenantManager _tenantManager;
         private readonly EditionManager _editionManager;
@@ -47,7 +46,7 @@ namespace AbpLearning.Application.MultiTenancy
             _passwordHasher = passwordHasher;
         }
 
-        // TODO:权限名赋值
+        protected override string NodePermissionName => AbpLearningPermissions.Tenant;
 
         public override async Task<NullableIdDto<int>> CreateAsync(TenantCreateInput input)
         {
@@ -68,7 +67,6 @@ namespace AbpLearning.Application.MultiTenancy
             await _tenantManager.CreateAsync(tenant);
             await CurrentUnitOfWork.SaveChangesAsync();
 
-
             // Create tenant Database
             _abpZeroDbMigrator.CreateOrMigrateForTenant(tenant);
 
@@ -79,7 +77,7 @@ namespace AbpLearning.Application.MultiTenancy
                 CheckErrors(await _roleManager.CreateStaticRoles(tenant.Id));
 
                 // To get static role ids
-                await CurrentUnitOfWork.SaveChangesAsync(); 
+                await CurrentUnitOfWork.SaveChangesAsync();
 
                 //    grant all permissions to admin role
                 var adminRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);
@@ -95,7 +93,7 @@ namespace AbpLearning.Application.MultiTenancy
                 CheckErrors(await _userManager.AddToRoleAsync(adminUser, adminRole.Name));
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
-            return ObjectMapper.Map<NullableIdDto>(tenant);
+            return ObjectMapper.Map<NullableIdDto>(null);
         }
 
         public override async Task DeleteAsync(NullableIdDto<int> input)
@@ -104,6 +102,37 @@ namespace AbpLearning.Application.MultiTenancy
 
             var tenant = await _tenantManager.GetByIdAsync(input.Id.GetValueOrDefault());
             await _tenantManager.DeleteAsync(tenant);
+        }
+
+        protected override IQueryable<Tenant> CreateFilteredQuery(TenantGetPagedInput input)
+        {
+            var query = Entities.WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.TenancyName.Contains(input.FilterText));
+
+            return query;
+        }
+
+        public override async Task<NullableIdDto<int>> UpdateAsync(TenantUpdateInput input)
+        {
+            input.ConnectionString = SimpleStringCipher.Instance.Encrypt(input.ConnectionString);
+
+            var tenant = await TenantManager.GetByIdAsync(input.Id);
+
+            ObjectMapper.Map(input, tenant);
+
+            await TenantManager.UpdateAsync(tenant);
+
+            return new NullableIdDto();
+        }
+
+        public override async Task<TenantGetUpdateOutput> GetUpdateAsync(EntityDto<int> input)
+        {
+            var entity = await TenantManager.GetByIdAsync(input.Id);
+
+            var output = ObjectMapper.Map<TenantGetUpdateOutput>(entity);
+
+            output.ConnectionString = SimpleStringCipher.Instance.Decrypt(output.ConnectionString);
+
+            return output;
         }
     }
 }

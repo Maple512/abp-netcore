@@ -9,6 +9,7 @@
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Core;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// 应用程序服务基类（实现：Paged,Sorting,Filtered）
@@ -79,9 +80,14 @@
         /// </summary>
         protected readonly IRepository<TEntity, TPrimaryKey> Repository;
 
+        /// <summary>
+        /// Repository GetAll AsNoTracking
+        /// </summary>
+        protected IQueryable<TEntity> Entities => Repository.GetAll().AsNoTracking();
+
         #region Permission Name
 
-        protected virtual string NodePermissionName => null;
+        protected abstract string NodePermissionName { get; }
 
         /// <summary>
         /// Get 权限
@@ -181,10 +187,7 @@
         /// <param name="permissionName">权限名</param>
         protected virtual void CheckPermission(string permissionName)
         {
-            if (!permissionName.IsNullOrEmpty())
-            {
-                PermissionChecker.Authorize(permissionName);
-            }
+            PermissionChecker.Authorize(permissionName);
         }
 
         /// <summary>
