@@ -1,12 +1,13 @@
-﻿namespace AbpLearning.Application.Users.Dto
+﻿namespace AbpLearning.Application.Authorization.Users.Dto
 {
     using System;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
+    using AbpLearning.Application.Base;
     using AbpLearning.Core.Authorization.Users;
 
     [AutoMapFrom(typeof(User))]
-    public class UserGetPagedOutput : EntityDto<long>
+    public class UserGetViewOutput : INullIdEntityDto
     {
         public string UserName { get; set; }
 
@@ -16,9 +17,6 @@
 
         public DateTime? LastLoginTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets the lockout enabled.
-        /// </summary>
-        public virtual bool IsLockoutEnabled { get; set; }
+        public string[] RoleNames { get; set; }
     }
 }

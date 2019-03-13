@@ -1,4 +1,4 @@
-namespace AbpLearning.Application.Users
+namespace AbpLearning.Application.Authorization.Users
 {
     using System.Collections.Generic;
     using System.Linq;

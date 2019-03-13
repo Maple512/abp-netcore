@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace AbpLearning.Application.Users.Dto
+namespace AbpLearning.Application.Authorization.Users.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ChangeUserLanguageDto
     {
         [Required]

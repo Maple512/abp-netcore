@@ -1,23 +1,16 @@
-namespace AbpLearning.Application.Users.Dto
+﻿namespace AbpLearning.Application.Authorization.Users.Dto
 {
     using System.ComponentModel.DataAnnotations;
     using Abp.Auditing;
     using Abp.Authorization.Users;
     using Abp.Runtime.Validation;
+    using Base;
 
-    public class CreateUserDto : IShouldNormalize
+    public class UserCreateInput : INullIdEntityDto, IShouldNormalize
     {
         [Required]
         [StringLength(AbpUserBase.MaxUserNameLength)]
         public string UserName { get; set; }
-
-        [Required]
-        [StringLength(AbpUserBase.MaxNameLength)]
-        public string Name { get; set; }
-
-        [Required]
-        [StringLength(AbpUserBase.MaxSurnameLength)]
-        public string Surname { get; set; }
 
         [Required]
         [EmailAddress]
