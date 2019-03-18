@@ -18,7 +18,7 @@
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
         where TCreateInput : INullIdEntityDto
-        where TUpdateInput : IEntityDto<TPrimaryKey>
+        where TUpdateInput : EntityDto<TPrimaryKey>
     {
     }
 

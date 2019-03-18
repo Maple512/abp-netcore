@@ -1,18 +1,15 @@
 ﻿namespace AbpLearning.Application.Organizations.Dto
 {
+    using Base;
+
     /// <summary>
-    /// Defines the <see cref="OrganizationMoveInput" />
+    /// Defines the <see cref="OrganizationUserGetPagedInput" />
     /// </summary>
-    public class OrganizationMoveInput
+    public class OrganizationUserGetPagedInput : PagedFilteringDtoBase
     {
         /// <summary>
         /// Gets or sets the OrganizationId
         /// </summary>
         public long OrganizationId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the OrganizationNewId
-        /// </summary>
-        public long? OrganizationParentId { get; set; }
     }
 }

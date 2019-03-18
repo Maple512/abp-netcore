@@ -5,19 +5,33 @@
     using Abp.Organizations;
     using Base;
 
+    /// <summary>
+    /// Defines the <see cref="OrganizationCreateInput" />
+    /// </summary>
     [AutoMapTo(typeof(OrganizationUnit))]
     public class OrganizationCreateInput : INullIdEntityDto
     {
-        [Required]
+        /// <summary>
+        /// Gets or sets the Code
+        /// </summary>
         [StringLength(95)]
-        public virtual string Code { get; set; }
+        public string Code { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ParentId
+        /// </summary>
+        public long? ParentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the TenantId
+        /// </summary>
+        public int? TenantId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DisplayName
+        /// </summary>
         [Required]
         [StringLength(128)]
-        public virtual string DisplayName { get; set; }
-
-        public virtual long? ParentId { get; set; }
-
-        public virtual int? TenantId { get; set; }
+        public string DisplayName { get; set; }
     }
 }

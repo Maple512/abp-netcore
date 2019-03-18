@@ -23,6 +23,8 @@
 
         public const string System = Pages + ".System";
 
+        public const string Organization = System + ".Organization";
+
         public const string AuditLog = System + ".AuditLog";
 
         public const string Tenant = System + ".Tenant";

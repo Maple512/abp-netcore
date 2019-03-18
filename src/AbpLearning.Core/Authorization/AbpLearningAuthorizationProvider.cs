@@ -37,6 +37,12 @@ namespace AbpLearning.Core.Authorization
 
             var auditlog = system.CreateChildPermission(AbpLearningPermissions.AuditLog, L("AuditLog"), L("AuditLog Description"));
 
+            var organization = system.CreateChildPermission(AbpLearningPermissions.Organization, L("Organization"), L("Organization Description"));
+            organization.CreateChildPermission(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Query, L("Organization Query"), L("Organization Query Description"));
+            organization.CreateChildPermission(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Create, L("Organization Create"), L("Organization Create Description"));
+            organization.CreateChildPermission(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Update, L("Organization Update"), L("Organization Update Description"));
+            organization.CreateChildPermission(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Delete, L("Organization Delete"), L("Organization Delete Description"));
+
             #endregion
         }
 
