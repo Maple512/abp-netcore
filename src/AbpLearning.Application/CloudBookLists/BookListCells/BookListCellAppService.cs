@@ -3,8 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Abp.Application.Services;
-    using Abp.AutoMapper;
-    using Application.CloudBookLists.BookCells.Model;
+    using Application.CloudBookLists.BookCells.Dto;
     using Core.CloudBookLists.BookListCells;
     using Core.CloudBookLists.BookListCells.DomainService;
 
@@ -32,9 +31,9 @@
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        public async Task BatchInsertAsync(IEnumerable<BookListCellEditModel> cells)
+        public async Task BatchInsertAsync(IEnumerable<BookListCellUpdateInput> cells)
         {
-            var entities = cells.MapTo<List<BookListCell>>();
+            var entities = ObjectMapper.Map<List<BookListCell>>(cells);
             await _bookListCell.BatchCreateAsync(entities);
         }
     }

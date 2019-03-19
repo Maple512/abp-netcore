@@ -53,7 +53,7 @@
 
             var g = Graphics.FromImage(img);
 
-            g.Clear(Color.White);// 背景设为白色  
+            g.Clear(Color.White); // 背景设为白色  
 
             // 在随机位置画背景点  
             for (var i = 0; i < 100; i++)
@@ -65,16 +65,16 @@
             // 验证码绘制在g中  
             for (var i = 0; i < code.Length; i++)
             {
-                var cindex = random.Next(7);// 随机颜色索引值  
-                var findex = random.Next(5);// 随机字体索引值  
-                var f = new Font(fonts[findex], 15, FontStyle.Bold);// 字体  
+                var cindex = random.Next(7); // 随机颜色索引值  
+                var findex = random.Next(5); // 随机字体索引值  
+                var f = new Font(fonts[findex], 15, FontStyle.Bold); // 字体  
                 Brush b = new SolidBrush(c[cindex]);// 颜色  
                 var ii = 4;
-                if ((i + 1) % 2 == 0)// 控制验证码不在同一高度  
+                if ((i + 1) % 2 == 0) // 控制验证码不在同一高度  
                 {
                     ii = 2;
                 }
-                g.DrawString(code.Substring(i, 1), f, b, 3 + (i * 12), ii);// 绘制一个验证字符  
+                g.DrawString(code.Substring(i, 1), f, b, 3 + (i * 12), ii); // 绘制一个验证字符  
             }
             var ms = new MemoryStream();
             img.Save(ms, ImageFormat.Png);// 将此图像以Png图像文件的格式保存到流中  
@@ -116,23 +116,23 @@
             var baseCodes = @"a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
                                 A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".Split(',');
 
-            int temp = -1;// 记录上次的随机数，避免重复
+            int temp = -1; // 记录上次的随机数，避免重复
 
             var rand = new Random();
             for (var i = 0; i < length; i++)
             {
                 if (temp != -1)
                 {
-                    rand = new Random(i * temp * unchecked((int)DateTime.Now.Ticks));//初始化随机类  
+                    rand = new Random(i * temp * unchecked((int)DateTime.Now.Ticks)); //初始化随机类  
                 }
-                int t = rand.Next(baseCodes.Length);//获取随机数  
+                int t = rand.Next(baseCodes.Length); //获取随机数  
                 if (temp != -1 && temp == t)
                 {
-                    return GetRandomForLetter(length);// 如果获取的随机数重复，则递归调用
+                    return GetRandomForLetter(length); // 如果获取的随机数重复，则递归调用
                 }
-                temp = t;// 把本次产生的随机数记录起来
+                temp = t; // 把本次产生的随机数记录起来
 
-                resultCode += baseCodes[t];// 随机数的位数加一
+                resultCode += baseCodes[t]; // 随机数的位数加一
             }
 
             return resultCode;

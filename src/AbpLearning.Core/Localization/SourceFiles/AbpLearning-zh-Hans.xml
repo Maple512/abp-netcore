@@ -20,8 +20,8 @@
 
     <!--租户-->
     <text name="CreateNewTenant" value="创建新租户" />
-    <text name="Tenant" value="租户" />
-    <text name="Tenants" value="租户" />
+    <!--<text name="Tenant" value="租户" />
+    <text name="Tenants" value="租户" />-->
     <text name="AdminEmailAddress" value="管理员邮箱" />
     <text name="Register" value="注册" />
     <text name="Back" value="返回" />
@@ -169,7 +169,7 @@
     <text name="Reading" value="正在读取数据..." />
     <text name="DataIsNotExistedByDeletedFailed" value="删除失败，数据不存在" />
     <text name="DataIsNotExistedByEditFailed" value="更新失败，数据不存在" />
-    <text name="NotFoundData" value="未找到相关数据，请稍后重试" />
+    <text name="NotFoundData" value="未找到相关数据" />
     <text name="DataIsAlreadyExistedByCreatedFailed" value="数据已存在" />
 
     <!--file-->

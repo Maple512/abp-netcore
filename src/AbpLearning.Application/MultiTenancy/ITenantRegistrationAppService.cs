@@ -1,5 +1,6 @@
 namespace AbpLearning.Application.MultiTenancy
 {
+    using AbpLearning.Application.MultiTenancy.Dto;
     using AbpLearning.MultiTenancy.Dto;
     using System.Threading.Tasks;
 
@@ -10,6 +11,6 @@ namespace AbpLearning.Application.MultiTenancy
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantDto> RegisterTenantAsync(CreateTenantDto input);
+        Task<TenantUpdateInput> RegisterTenantAsync(TenantCreateInput input);
     }
 }

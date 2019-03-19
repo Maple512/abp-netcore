@@ -1,10 +1,11 @@
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using AbpLearning.MultiTenancy.Dto;
-
 namespace AbpLearning.Application.MultiTenancy
 {
-    public interface ITenantAppService : IAsyncCrudAppService<TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>
+    using Abp.Application.Services;
+    using AbpLearning.Application.Base;
+    using AbpLearning.MultiTenancy.Dto;
+    using Dto;
+
+    public interface ITenantAppService : ICrudAsyncAppService<int, TenantGetViewOutput, TenantGetPagedOutput, TenantGetPagedInput, TenantGetUpdateOutput, TenantCreateInput, TenantUpdateInput>, IApplicationService
     {
     }
 }

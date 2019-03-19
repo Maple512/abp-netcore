@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using Abp.Collections.Extensions;
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using Abp.Json;
@@ -35,11 +34,12 @@
 
         public const int BookUrlMaxLength = 64;
 
-        public Book(string name, string author, string coverImgUrl = null, string intro = null, string url = null, int? tenantId = null)
+        public Book(string name, string author, string tagJson = null, string coverImgUrl = null, string intro = null, string url = null, int? tenantId = null)
         {
             CoverImgUrl = coverImgUrl;
             Name = name;
             Author = author;
+            TagJson = tagJson;
             Intro = intro;
             Url = url;
             TenantId = tenantId;
@@ -82,29 +82,22 @@
         /// <summary>
         /// tag's
         /// </summary>
-        public List<string> Tags => TagJSON.FromJsonString<List<string>>();
+        public IEnumerable<string> Tags => TagJson.FromJsonString<IEnumerable<string>>();
 
         /// <summary>
         /// tag JSON string
         /// </summary>
-        public string TagJSON { get; private set; }
+        public string TagJson { get; private set; }
 
         public int? TenantId { get; set; }
 
         /// <summary>
-        /// add/remove tag's for entity
+        /// reset tags(remove or add)
         /// </summary>
         /// <param name="tags"></param>
-        public void AddOrRemoveTags(IEnumerable<string> tags)
+        public void ResetTags(IEnumerable<string> tags)
         {
-            if (tags.Count() == 0)
-            {
-                return;
-            }
-
-            tags = tags.OrderBy(m => m).Distinct();
-
-            TagJSON = tags.ToJsonString();
+            TagJson = tags.Distinct().ToJsonString();
         }
     }
 }

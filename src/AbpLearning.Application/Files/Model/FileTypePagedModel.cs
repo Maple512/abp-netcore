@@ -1,11 +1,9 @@
 ﻿namespace AbpLearning.Application.Files.Model
 {
     using System.Collections.Generic;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.Files;
+    using Abp.Application.Services.Dto;
 
-    [AutoMapFrom(typeof(FileType))]
-    public class FileTypePagedModel
+    public class FileTypePagedModel : EntityDto
     {
         /// <summary>
         /// 文件类型名

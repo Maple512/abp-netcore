@@ -1,6 +1,5 @@
 ﻿namespace AbpLearning.Application.AuditLogs
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
@@ -11,24 +10,44 @@
     using Abp.Extensions;
     using Abp.Linq.Extensions;
     using AbpLearning.Application.AuditLogs.Model;
+    using AbpLearning.Common.Extensions;
     using AbpLearning.Core;
     using AbpLearning.Core.Authorization.Users;
     using Microsoft.EntityFrameworkCore;
-    using AbpLearning.Common.Extensions;
 
+    /// <summary>
+    /// Defines the <see cref="AuditLogAppService" />
+    /// </summary>
     [DisableAuditing]
     [AbpAuthorize(AbpLearningPermissions.AuditLog)]
     public class AuditLogAppService : AbpLearningAppServiceBase, IAuditLogAppService
     {
+        /// <summary>
+        /// Defines the _auditLog
+        /// </summary>
         private readonly IRepository<AuditLog, long> _auditLog;
+
+        /// <summary>
+        /// Defines the _user
+        /// </summary>
         private readonly IRepository<User, long> _user;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuditLogAppService"/> class.
+        /// </summary>
+        /// <param name="auditLog">The auditLog<see cref="IRepository{AuditLog, long}"/></param>
+        /// <param name="user">The user<see cref="IRepository{User, long}"/></param>
         public AuditLogAppService(IRepository<AuditLog, long> auditLog, IRepository<User, long> user)
         {
             _auditLog = auditLog;
             _user = user;
         }
 
+        /// <summary>
+        /// The GetPaged
+        /// </summary>
+        /// <param name="model">The model<see cref="AuditLogPagedFilteringModel"/></param>
+        /// <returns>The <see cref="Task{PagedResultDto{AuditLogPagedModel}}"/></returns>
         public async Task<PagedResultDto<AuditLogPagedModel>> GetPaged(AuditLogPagedFilteringModel model)
         {
             var query = CreateAuditLogQuery(model);

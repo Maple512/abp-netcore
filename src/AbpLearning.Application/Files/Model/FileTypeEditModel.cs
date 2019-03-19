@@ -2,10 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Abp.AutoMapper;
-    using AbpLearning.Core.Files;
 
-    [AutoMapTo(typeof(FileType))]
     public class FileTypeEditModel
     {
         /// <summary>

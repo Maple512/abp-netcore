@@ -2,7 +2,7 @@ namespace AbpLearning.Core.Authorization.Roles
 {
     using System.ComponentModel.DataAnnotations;
     using Abp.Authorization.Roles;
-    using AbpLearning.Core.Authorization.Users;
+    using Users;
 
     public class Role : AbpRole<User>
     {

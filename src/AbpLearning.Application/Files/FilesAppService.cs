@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
+    using Abp.Application.Services;
     using Abp.Application.Services.Dto;
-    using Abp.AutoMapper;
     using Abp.Extensions;
     using Abp.Json;
     using Abp.Linq.Extensions;
@@ -15,7 +15,7 @@
     using AbpLearning.Core.Files.DomainService;
     using Microsoft.EntityFrameworkCore;
 
-    public class FilesAppService : IFilesAppService
+    public class FilesAppService : ApplicationService, IFilesAppService
     {
         private readonly IFileTypeDomainService _fileType;
         private readonly IUploadFileDomainService _uploadFile;
@@ -49,14 +49,14 @@
 
             var entityList = query.OrderBy(filter.Sorting).PageBy(filter);
 
-            var pagedModels = entityList.MapTo<List<FileTypePagedModel>>();
+            var pagedModels = ObjectMapper.Map<List<FileTypePagedModel>>(entityList);
 
             return new PagedResultDto<FileTypePagedModel>(count, pagedModels);
         }
 
         public async Task CreateOrUpdateAsync(FileTypeEditModel editModel)
         {
-            var entity = editModel.MapTo<FileType>();
+            var entity = ObjectMapper.Map<FileType>(editModel);
 
             entity.ExtensionJSON = editModel.Extensions.ToJsonString();
 
@@ -71,7 +71,7 @@
         {
             var list = await _fileType.GetAll().ToListAsync();
 
-            return list.MapTo<List<FileTypeViewModel>>();
+            return ObjectMapper.Map<List<FileTypeViewModel>>(list);
         }
 
         #endregion
@@ -93,22 +93,22 @@
         {
             var query = _uploadFile.GetAll()
                 .WhereIf(!filter.Name.IsNullOrWhiteSpace(), m => m.Name.Contains(filter.Name))
-                .WhereIf(filter.FileType.HasValue, m => m.FileType == filter.FileType)
+                .WhereIf(filter.FileType.HasValue, m => m.FileType == (filter.FileType == -1 ? null : filter.FileType))
                 .WhereIf(filter.StartTime.HasValue, m => m.CreationTime >= filter.StartTime)
                 .WhereIf(filter.EndTime.HasValue, m => m.CreationTime <= filter.EndTime);
 
             var count = await query.CountAsync();
 
-            var entityList = query.OrderBy(filter.Sorting).PageBy(filter).Include(m=>m.TypeName);
+            var entityList = query.OrderBy(filter.Sorting).PageBy(filter).Include(m => m.TypeName);
 
-            var pagedModels = entityList.MapTo<List<UploadFilePagedModel>>();
+            var pagedModels = ObjectMapper.Map<List<UploadFilePagedModel>>(entityList);
 
             return new PagedResultDto<UploadFilePagedModel>(count, pagedModels);
         }
 
         public async Task InsertForUploadFileAsync(UploadFileEditModel editModel)
         {
-            var entity = editModel.MapTo<UploadFile>();
+            var entity = ObjectMapper.Map<UploadFile>(editModel);
 
             await _uploadFile.InsertAsync(entity);
         }

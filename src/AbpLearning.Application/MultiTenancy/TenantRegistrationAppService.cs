@@ -1,18 +1,19 @@
-using Abp.AutoMapper;
-using Abp.Extensions;
-using Abp.MultiTenancy;
-using Abp.Runtime.Security;
-using AbpLearning.Core.Authorization.Roles;
-using AbpLearning.Core.Authorization.Users;
-using AbpLearning.Core.Editions;
-using AbpLearning.Core.MultiTenancy;
-using AbpLearning.MultiTenancy.Dto;
-using Microsoft.AspNetCore.Identity;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace AbpLearning.Application.MultiTenancy
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.AutoMapper;
+    using Abp.Extensions;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Security;
+    using AbpLearning.Application.MultiTenancy.Dto;
+    using AbpLearning.Core.Authorization.Roles;
+    using AbpLearning.Core.Authorization.Users;
+    using AbpLearning.Core.Editions;
+    using AbpLearning.Core.MultiTenancy;
+    using AbpLearning.MultiTenancy.Dto;
+    using Microsoft.AspNetCore.Identity;
+
     public class TenantRegistrationAppService : AbpLearningAppServiceBase, ITenantRegistrationAppService
     {
         private readonly EditionManager _editionManager;
@@ -38,7 +39,7 @@ namespace AbpLearning.Application.MultiTenancy
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<TenantDto> RegisterTenantAsync(CreateTenantDto input)
+        public async Task<TenantUpdateInput> RegisterTenantAsync(TenantCreateInput input)
         {
             //创建租户信息
             Tenant tenant = new Tenant(input.TenancyName, input.TenancyName)
@@ -87,10 +88,10 @@ namespace AbpLearning.Application.MultiTenancy
 
 
             }
-            return tenant.MapTo<TenantDto>();
+            return tenant.MapTo<TenantUpdateInput>();
 
 
- 
+
 
         }
 

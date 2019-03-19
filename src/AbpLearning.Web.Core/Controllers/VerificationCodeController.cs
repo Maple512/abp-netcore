@@ -39,11 +39,7 @@
                 return null;
             }
 
-            // 是否启用
-            if (false)
-            {
-                return null;
-            }
+            // TODO:是否启用
 
             var imgStream = _codeHelper.Create(out var code);
 

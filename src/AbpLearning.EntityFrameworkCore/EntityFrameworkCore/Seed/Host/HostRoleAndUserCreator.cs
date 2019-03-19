@@ -5,12 +5,12 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
     using Abp.Authorization.Roles;
     using Abp.Authorization.Users;
     using Abp.MultiTenancy;
+    using AbpLearning.Core.CloudBookLists;
+    using AbpLearning.Core.Files;
     using Core;
     using Core.Authorization;
     using Core.Authorization.Roles;
     using Core.Authorization.Users;
-    using Core.CloudBookLists.BookLists.Authorization;
-    using Core.CloudBookLists.Books.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
@@ -57,9 +57,10 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
             var permissions = PermissionFinder
                 .GetAllPermissions(
                     new AbpLearningAuthorizationProvider(),
-                    new BookAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
-                    new BookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
+                    new CloudBookListAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled),
+                    new FileAuthorizationProvider(AbpLearningConsts.MultiTenancyEnabled))
                 .Where(p => p.MultiTenancySides.HasFlag(MultiTenancySides.Host) && !grantedPermissions.Contains(p.Name))
+                .OrderBy(m => m.Name)
                 .ToList();
 
             if (permissions.Any())
@@ -86,8 +87,6 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
                 {
                     TenantId = null,
                     UserName = AbpUserBase.AdminUserName,
-                    Name = "admin",
-                    Surname = "admin",
                     EmailAddress = "admin@52abp.com",
                     IsEmailConfirmed = true,
                     IsActive = true
