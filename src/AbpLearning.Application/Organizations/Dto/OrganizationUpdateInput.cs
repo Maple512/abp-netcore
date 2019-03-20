@@ -4,9 +4,9 @@
     using Abp.Application.Services.Dto;
 
     /// <summary>
-    /// Defines the <see cref="OrganizationGetUpdateInput" />
+    /// Defines the <see cref="OrganizationUpdateInput" />
     /// </summary>
-    public class OrganizationGetUpdateInput : EntityDto<long>
+    public class OrganizationUpdateInput : EntityDto<long>
     {
         /// <summary>
         /// Gets or sets the Code

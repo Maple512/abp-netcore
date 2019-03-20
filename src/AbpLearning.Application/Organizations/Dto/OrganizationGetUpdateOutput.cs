@@ -1,12 +1,11 @@
 ﻿namespace AbpLearning.Application.Organizations.Dto
 {
-    using System.Collections.Generic;
     using Abp.Application.Services.Dto;
+    using Abp.AutoMapper;
+    using Abp.Organizations;
 
-    /// <summary>
-    /// Defines the <see cref="OrganizationGetTreeOutput" />
-    /// </summary>
-    public class OrganizationGetTreeOutput : EntityDto<long>
+    [AutoMapFrom(typeof(OrganizationUnit))]
+    public class OrganizationGetUpdateOutput : EntityDto<long>
     {
         /// <summary>
         /// Gets or sets the Code
@@ -22,10 +21,5 @@
         /// Gets or sets the DisplayName
         /// </summary>
         public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the MemberCount
-        /// </summary>
-        public int MemberCount { get; set; }
     }
 }

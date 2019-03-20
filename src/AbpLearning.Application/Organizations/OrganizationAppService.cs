@@ -1,6 +1,8 @@
 ﻿namespace AbpLearning.Application.Organizations
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
@@ -12,7 +14,6 @@
     using AbpLearning.Core;
     using Dto;
     using Microsoft.EntityFrameworkCore;
-    using System.Linq.Dynamic.Core;
     using Common.Extensions;
 
     /// <summary>
@@ -76,7 +77,7 @@
         /// <summary>
         /// The GetTreeAsync
         /// </summary>
-        /// <returns>The <see cref="Task{ListResultDto{OrganizationGetTreeOutput}}"/></returns>
+        /// <returns>The <see cref="ListResultDto{OrganizationGetTreeOutput}"/></returns>
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Query)]
         public async Task<ListResultDto<OrganizationGetTreeOutput>> GetTreeAsync()
         {
@@ -104,16 +105,33 @@
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Update)]
         public async Task MoveAsync(OrganizationMoveInput input)
         {
-            await _organizationUnitManager.MoveAsync(input.OrganizationId, input.OrganizationParentId);
+            await _organizationUnitManager.MoveAsync(input.OrganizationOldParentId, input.OrganizationNewParentId);
+        }
+
+        /// <summary>
+        /// The GetUpdateAsync
+        /// </summary>
+        /// <param name="input">The input<see cref="EntityDto{long}"/></param>
+        /// <returns>The <see cref="Task{OrganizationGetUpdateOutput}"/></returns>
+        public async Task<OrganizationGetUpdateOutput> GetUpdateAsync(EntityDto<long> input)
+        {
+            var entity = await _organizationUnitRepository.GetAsync(input.Id);
+
+            if (entity == null)
+            {
+                throw new UserFriendlyException(L("NotFoundData"));
+            }
+
+            return ObjectMapper.Map<OrganizationGetUpdateOutput>(entity);
         }
 
         /// <summary>
         /// The UpdateAsync
         /// </summary>
-        /// <param name="input">The input<see cref="OrganizationGetUpdateInput"/></param>
+        /// <param name="input">The input<see cref="OrganizationUpdateInput"/></param>
         /// <returns>The <see cref="Task"/></returns>
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Update)]
-        public async Task UpdateAsync(OrganizationGetUpdateInput input)
+        public async Task UpdateAsync(OrganizationUpdateInput input)
         {
             var entity = await _organizationUnitRepository.GetAsync(input.Id);
 
@@ -150,6 +168,11 @@
             }
         }
 
+        /// <summary>
+        /// The GetPagedForUser
+        /// </summary>
+        /// <param name="input">The input<see cref="OrganizationUserGetPagedInput"/></param>
+        /// <returns>The <see cref="Task{PagedResultDto{OrganizationUserGetPagedOutput}}"/></returns>
         public async Task<PagedResultDto<OrganizationUserGetPagedOutput>> GetPagedForUser(OrganizationUserGetPagedInput input)
         {
             var query = from userOrganization in _userOrganizationUnitRepository.GetAll().AsNoTracking()
@@ -163,14 +186,11 @@
                             UserName = user.UserName
                         };
 
-            var sql = query.ToSql();
-
             var count = await query.CountAsync();
 
             var result = await query.PageBy(input).OrderBy(input.Sorting).ToListAsync();
 
             return new PagedResultDto<OrganizationUserGetPagedOutput>(count, result);
-
         }
 
         #endregion

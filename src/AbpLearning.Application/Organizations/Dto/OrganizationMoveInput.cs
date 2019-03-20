@@ -8,11 +8,11 @@
         /// <summary>
         /// Gets or sets the OrganizationId
         /// </summary>
-        public long OrganizationId { get; set; }
+        public long OrganizationOldParentId { get; set; }
 
         /// <summary>
         /// Gets or sets the OrganizationNewId
         /// </summary>
-        public long? OrganizationParentId { get; set; }
+        public long? OrganizationNewParentId { get; set; }
     }
 }

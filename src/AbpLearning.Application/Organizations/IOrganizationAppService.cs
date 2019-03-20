@@ -16,6 +16,8 @@
         /// <returns>The <see cref="ListResultDto{OrganizationGetTreeOutput}"/></returns>
         Task<ListResultDto<OrganizationGetTreeOutput>> GetTreeAsync();
 
+        Task<OrganizationGetUpdateOutput> GetUpdateAsync(EntityDto<long> input);
+
         /// <summary>
         /// The CreateAsync
         /// </summary>
@@ -26,9 +28,9 @@
         /// <summary>
         /// The UpdateAsync
         /// </summary>
-        /// <param name="input">The input<see cref="OrganizationGetUpdateInput"/></param>
+        /// <param name="input">The input<see cref="OrganizationUpdateInput"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        Task UpdateAsync(OrganizationGetUpdateInput input);
+        Task UpdateAsync(OrganizationUpdateInput input);
 
         /// <summary>
         /// The DeleteAsync
