@@ -9,13 +9,6 @@
     public class OrganizationUpdateInput : EntityDto<long>
     {
         /// <summary>
-        /// Gets or sets the Code
-        /// </summary>
-        [Required]
-        [StringLength(95)]
-        public virtual string Code { get; set; }
-
-        /// <summary>
         /// Gets or sets the ParentId
         /// </summary>
         public virtual long? ParentId { get; set; }

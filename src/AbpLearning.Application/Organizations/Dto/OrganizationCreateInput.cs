@@ -12,12 +12,6 @@
     public class OrganizationCreateInput : INullIdEntityDto
     {
         /// <summary>
-        /// Gets or sets the Code
-        /// </summary>
-        [StringLength(95)]
-        public string Code { get; set; }
-
-        /// <summary>
         /// Gets or sets the ParentId
         /// </summary>
         public long? ParentId { get; set; }

@@ -8,10 +8,10 @@ namespace AbpLearning.Web.Host.Startup
     using Abp.AspNetCore.SignalR.Hubs;
     using Abp.Castle.Logging.Log4Net;
     using Abp.Extensions;
-    using AbpLearning.Application;
     using AbpLearning.Core.Identity;
-    using AbpLearning.Web.Core;
+    using Application;
     using Castle.Facilities.Logging;
+    using Core;
     using Core.Configuration;
     using Filter;
     using LogDashboard;

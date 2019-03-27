@@ -1,6 +1,5 @@
 ﻿namespace AbpLearning.Application.Organizations
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Dynamic.Core;
     using System.Threading.Tasks;
@@ -8,13 +7,14 @@
     using Abp.Authorization;
     using Abp.Authorization.Users;
     using Abp.Domain.Repositories;
+    using Abp.Extensions;
     using Abp.Linq.Extensions;
     using Abp.Organizations;
     using Abp.UI;
-    using AbpLearning.Core;
+    using Base;
+    using Core;
     using Dto;
     using Microsoft.EntityFrameworkCore;
-    using Common.Extensions;
 
     /// <summary>
     /// Defines the <see cref="OrganizationAppService" />
@@ -58,6 +58,7 @@
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Create)]
         public async Task CreateAsync(OrganizationCreateInput input)
         {
+            input.TenantId = AbpSession.TenantId;
             var organization = ObjectMapper.Map<OrganizationUnit>(input);
 
             await _organizationUnitManager.CreateAsync(organization);
@@ -66,7 +67,7 @@
         /// <summary>
         /// The DeleteAsync
         /// </summary>
-        /// <param name="input">The input<see cref="EntityDto{long}"/></param>
+        /// <param name="input">The input<see cref="EntityDto"/></param>
         /// <returns>The <see cref="Task"/></returns>
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Delete)]
         public async Task DeleteAsync(EntityDto<long> input)
@@ -75,15 +76,15 @@
         }
 
         /// <summary>
-        /// The GetTreeAsync
+        /// The GetListAsync
         /// </summary>
         /// <returns>The <see cref="ListResultDto{OrganizationGetTreeOutput}"/></returns>
         [AbpAuthorize(AbpLearningPermissions.Organization + AbpLearningPermissions.Action.Query)]
-        public async Task<ListResultDto<OrganizationGetTreeOutput>> GetTreeAsync()
+        public async Task<ListResultDto<OrganizationGetListDto>> GetListAsync()
         {
             var query = from organization in _organizationUnitRepository.GetAll().AsNoTracking()
                         join organizationUser in _userOrganizationUnitRepository.GetAll().AsNoTracking() on organization.Id equals organizationUser.OrganizationUnitId into user
-                        select new OrganizationGetTreeOutput
+                        select new OrganizationGetListDto
                         {
                             Id = organization.Id,
                             ParentId = organization.ParentId,
@@ -94,7 +95,7 @@
 
             var items = await query.ToListAsync();
 
-            return new ListResultDto<OrganizationGetTreeOutput>(items);
+            return new ListResultDto<OrganizationGetListDto>(items);
         }
 
         /// <summary>
@@ -111,9 +112,9 @@
         /// <summary>
         /// The GetUpdateAsync
         /// </summary>
-        /// <param name="input">The input<see cref="EntityDto{long}"/></param>
+        /// <param name="input">The input<see cref="EntityDto"/></param>
         /// <returns>The <see cref="Task{OrganizationGetUpdateOutput}"/></returns>
-        public async Task<OrganizationGetUpdateOutput> GetUpdateAsync(EntityDto<long> input)
+        public async Task<OrganizationGetUpdateDto> GetUpdateAsync(EntityDto<long> input)
         {
             var entity = await _organizationUnitRepository.GetAsync(input.Id);
 
@@ -122,7 +123,7 @@
                 throw new UserFriendlyException(L("NotFoundData"));
             }
 
-            return ObjectMapper.Map<OrganizationGetUpdateOutput>(entity);
+            return ObjectMapper.Map<OrganizationGetUpdateDto>(entity);
         }
 
         /// <summary>
@@ -142,8 +143,6 @@
 
             await _organizationUnitRepository.UpdateAsync(entity);
         }
-
-        #region Organization User
 
         /// <summary>
         /// The AddUser2OrganizationAsync
@@ -172,18 +171,21 @@
         /// The GetPagedForUser
         /// </summary>
         /// <param name="input">The input<see cref="OrganizationUserGetPagedInput"/></param>
-        /// <returns>The <see cref="Task{PagedResultDto{OrganizationUserGetPagedOutput}}"/></returns>
+        /// <returns>The <see cref="PagedResultDto{OrganizationUserGetPagedOutput}"/></returns>
         public async Task<PagedResultDto<OrganizationUserGetPagedOutput>> GetPagedForUser(OrganizationUserGetPagedInput input)
         {
             var query = from userOrganization in _userOrganizationUnitRepository.GetAll().AsNoTracking()
+                        join user in UserManager.Users.AsNoTracking().WhereIf(!input.FilterText.IsNullOrEmpty(),
+                                m => m.UserName.Contains(input.FilterText) || m.EmailAddress.Contains(input.FilterText))
+                            on userOrganization.UserId equals user.Id
                         join organization in _organizationUnitRepository.GetAll().AsNoTracking() on userOrganization.OrganizationUnitId equals organization.Id
-                        join user in UserManager.Users.AsNoTracking() on userOrganization.UserId equals user.Id
-                        where userOrganization.OrganizationUnitId == input.OrganizationId
+                        where organization.Id == input.OrganizationId
                         select new OrganizationUserGetPagedOutput
                         {
                             UserId = user.Id,
-                            CreationTime = userOrganization.CreationTime,
-                            UserName = user.UserName
+                            UserName = user.UserName,
+                            EmailAddress = user.EmailAddress,
+                            CreationTime = userOrganization.CreationTime
                         };
 
             var count = await query.CountAsync();
@@ -193,6 +195,48 @@
             return new PagedResultDto<OrganizationUserGetPagedOutput>(count, result);
         }
 
-        #endregion
+        /// <summary>
+        /// The GetAllForUser
+        /// </summary>
+        /// <param name="input">The input<see cref="PagedFilteringDtoBase"/></param>
+        /// <returns>The <see cref="PagedResultDto{OrganizationUserGetAllOutput}"/></returns>
+        public async Task<PagedResultDto<OrganizationUserGetAllOutput>> GetAllForUser(OrganizationUserGetAllInput input)
+        {
+            var query = UserManager.Users.AsNoTracking().WhereIf(!input.FilterText.IsNullOrEmpty(),
+                    m => m.UserName.Contains(input.FilterText) || m.EmailAddress.Contains(input.FilterText))
+                .Select(m => new OrganizationUserGetAllOutput
+                {
+                    UserId = m.Id,
+                    UserName = m.UserName,
+                    EmailAddress = m.EmailAddress,
+                });
+
+            var userOrganization = await _userOrganizationUnitRepository.GetAll().AsNoTracking()
+                .Select(m => new { m.UserId, m.OrganizationUnitId }).ToListAsync();
+
+            var organizationIds = userOrganization.Select(m => m.OrganizationUnitId).Distinct();
+
+            var organization = await _organizationUnitRepository.GetAll().AsNoTracking()
+                .WhereIf(!input.FilterText.IsNullOrWhiteSpace(), m => m.DisplayName.Contains(input.FilterText))
+                .Where(m => organizationIds.Contains(m.Id))
+                .Select(m => new { m.Id, m.DisplayName }).ToListAsync();
+
+            var count = await query.CountAsync();
+
+            var result = await query.PageBy(input).OrderBy(input.Sorting).ToListAsync();
+
+            foreach (var item in result)
+            {
+                var uo = userOrganization.Where(m => m.UserId == item.UserId).Select(m => m.OrganizationUnitId);
+
+                if (uo.Any())
+                {
+                    item.OrganizationNames = organization.Where(m => uo.Contains(m.Id)).OrderBy(m => m.DisplayName).ToList()
+                        .ConvertAll(m => m.DisplayName);
+                }
+            }
+
+            return new PagedResultDto<OrganizationUserGetAllOutput>(count, result);
+        }
     }
 }

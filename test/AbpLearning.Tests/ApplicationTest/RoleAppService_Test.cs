@@ -1,10 +1,10 @@
-﻿namespace AbpLearning.Tests.ApplicationTest.AuthorizationTest
+﻿namespace AbpLearning.Tests.ApplicationTest
 {
     using System.Linq;
     using System.Threading.Tasks;
     using Abp.Authorization;
-    using AbpLearning.Application.Authorization.Roles;
-    using AbpLearning.Application.Authorization.Roles.Dto;
+    using Application.Authorization.Roles;
+    using Application.Authorization.Roles.Dto;
     using Xunit;
 
     public class RoleAppService_Test : AbpLearningTestBase
@@ -33,7 +33,7 @@
         // [InlineData("TestRole4", "TestRole4_DisplayName", "4_discription", "NoPermissionName")]
         public async Task CreateAsync_Test(string name, string displayname, string description, params string[] grantedPerssionNames)
         {
-            var permissionName = _permissionManager.GetAllPermissions().FirstOrDefault().Name;
+            var permissionName = _permissionManager.GetAllPermissions().FirstOrDefault()?.Name;
             var roleInput = new RoleCreateInput()
             {
                 Name = name,

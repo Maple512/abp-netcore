@@ -5,13 +5,8 @@
     using Abp.Organizations;
 
     [AutoMapFrom(typeof(OrganizationUnit))]
-    public class OrganizationGetUpdateOutput : EntityDto<long>
+    public class OrganizationGetUpdateDto : EntityDto<long>
     {
-        /// <summary>
-        /// Gets or sets the Code
-        /// </summary>
-        public string Code { get; set; }
-
         /// <summary>
         /// Gets or sets the ParentId
         /// </summary>

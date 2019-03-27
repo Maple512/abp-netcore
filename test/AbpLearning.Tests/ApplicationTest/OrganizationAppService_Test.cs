@@ -28,7 +28,6 @@
             var input = new OrganizationCreateInput()
             {
                 DisplayName = displayName,
-                Code = code,
                 ParentId = parent,
                 TenantId = tenant
             };

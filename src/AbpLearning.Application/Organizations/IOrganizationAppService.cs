@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Abp.Application.Services;
     using Abp.Application.Services.Dto;
+    using Base;
     using Dto;
 
     /// <summary>
@@ -14,9 +15,14 @@
         /// The GetTreeAsync
         /// </summary>
         /// <returns>The <see cref="ListResultDto{OrganizationGetTreeOutput}"/></returns>
-        Task<ListResultDto<OrganizationGetTreeOutput>> GetTreeAsync();
+        Task<ListResultDto<OrganizationGetListDto>> GetListAsync();
 
-        Task<OrganizationGetUpdateOutput> GetUpdateAsync(EntityDto<long> input);
+        /// <summary>
+        /// The GetUpdateAsync
+        /// </summary>
+        /// <param name="input">The input<see cref="EntityDto"/></param>
+        /// <returns>The <see cref="Task{OrganizationGetUpdateOutput}"/></returns>
+        Task<OrganizationGetUpdateDto> GetUpdateAsync(EntityDto<long> input);
 
         /// <summary>
         /// The CreateAsync
@@ -46,11 +52,13 @@
         /// <returns>The <see cref="Task"/></returns>
         Task MoveAsync(OrganizationMoveInput input);
 
+        Task<PagedResultDto<OrganizationUserGetAllOutput>> GetAllForUser(OrganizationUserGetAllInput input);
+
         /// <summary>
         /// The GetPagedForUser
         /// </summary>
         /// <param name="input">The input<see cref="OrganizationUserGetPagedInput"/></param>
-        /// <returns>The <see cref="Task{PagedResultDto{OrganizationUserGetPagedOutput}}"/></returns>
+        /// <returns>The <see cref="PagedResultDto{OrganizationUserGetPagedOutput}"/></returns>
         Task<PagedResultDto<OrganizationUserGetPagedOutput>> GetPagedForUser(OrganizationUserGetPagedInput input);
 
         /// <summary>
@@ -66,5 +74,6 @@
         /// <param name="input">The input<see cref="OrganizationUserInput"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task RemoveUser2OrganizationAsync(OrganizationUserInput input);
+
     }
 }

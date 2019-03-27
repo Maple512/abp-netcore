@@ -7,7 +7,7 @@
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<OrganizationUnit, OrganizationGetTreeOutput>();
+            configuration.CreateMap<OrganizationUnit, OrganizationGetListDto>();
         }
     }
 }

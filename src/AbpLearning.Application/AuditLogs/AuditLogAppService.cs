@@ -35,8 +35,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditLogAppService"/> class.
         /// </summary>
-        /// <param name="auditLog">The auditLog<see cref="IRepository{AuditLog, long}"/></param>
-        /// <param name="user">The user<see cref="IRepository{User, long}"/></param>
+        /// <param name="auditLog">The auditLog<see cref="IRepository{AuditLog}"/></param>
+        /// <param name="user">The user<see cref="IRepository{User}"/></param>
         public AuditLogAppService(IRepository<AuditLog, long> auditLog, IRepository<User, long> user)
         {
             _auditLog = auditLog;
@@ -47,7 +47,7 @@
         /// The GetPaged
         /// </summary>
         /// <param name="model">The model<see cref="AuditLogPagedFilteringModel"/></param>
-        /// <returns>The <see cref="Task{PagedResultDto{AuditLogPagedModel}}"/></returns>
+        /// <returns>The <see cref="PagedResultDto{AuditLogPagedModel}"/></returns>
         public async Task<PagedResultDto<AuditLogPagedModel>> GetPaged(AuditLogPagedFilteringModel model)
         {
             var query = CreateAuditLogQuery(model);
@@ -69,26 +69,24 @@
         /// <returns></returns>
         private IQueryable<AuditLogPagedModel> CreateAuditLogQuery(AuditLogPagedFilteringModel model)
         {
-            IQueryable<AuditLogPagedModel> query;
-
-            query = from auditLog in _auditLog.GetAll().AsNoTracking()
-                    join user in _user.GetAll().AsNoTracking() on auditLog.UserId equals user.Id
+            var query = from auditLog in _auditLog.GetAll().AsNoTracking()
+                join user in _user.GetAll().AsNoTracking() on auditLog.UserId equals user.Id
                     into userJoin
-                    from joinedUser in userJoin.DefaultIfEmpty()
-                    select new AuditLogPagedModel
-                    {
-                        BrowserInfo = auditLog.BrowserInfo,
-                        ClientIPAddress = auditLog.ClientIpAddress,
-                        ClientName = auditLog.ClientName,
-                        CustomData = auditLog.CustomData,
-                        Exception = auditLog.Exception,
-                        ExecutionDuration = auditLog.ExecutionDuration,
-                        ExecutionTime = auditLog.ExecutionTime,
-                        MethodName = auditLog.MethodName,
-                        Parameters = auditLog.Parameters,
-                        ServiceName = auditLog.ServiceName,
-                        UserName = joinedUser.UserName
-                    };
+                from joinedUser in userJoin.DefaultIfEmpty()
+                select new AuditLogPagedModel
+                {
+                    BrowserInfo = auditLog.BrowserInfo,
+                    ClientIPAddress = auditLog.ClientIpAddress,
+                    ClientName = auditLog.ClientName,
+                    CustomData = auditLog.CustomData,
+                    Exception = auditLog.Exception,
+                    ExecutionDuration = auditLog.ExecutionDuration,
+                    ExecutionTime = auditLog.ExecutionTime,
+                    MethodName = auditLog.MethodName,
+                    Parameters = auditLog.Parameters,
+                    ServiceName = auditLog.ServiceName,
+                    UserName = joinedUser.UserName
+                };
 
             query = query
                 .WhereIf(model.StartDate.HasValue, item => item.ExecutionTime >= model.StartDate)

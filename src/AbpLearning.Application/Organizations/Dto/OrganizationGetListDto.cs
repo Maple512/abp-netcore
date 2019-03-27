@@ -1,12 +1,11 @@
 ﻿namespace AbpLearning.Application.Organizations.Dto
 {
-    using System.Collections.Generic;
     using Abp.Application.Services.Dto;
 
     /// <summary>
-    /// Defines the <see cref="OrganizationGetTreeOutput" />
+    /// Defines the <see cref="OrganizationGetListDto" />
     /// </summary>
-    public class OrganizationGetTreeOutput : EntityDto<long>
+    public class OrganizationGetListDto : EntityDto<long>
     {
         /// <summary>
         /// Gets or sets the Code

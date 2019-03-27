@@ -9,7 +9,7 @@
     public class OrganizationUserInput
     {
         /// <summary>
-        /// Gets or sets the UserId
+        /// Gets or sets the UserIds
         /// </summary>
         public List<long> UserIds { get; set; }
 
