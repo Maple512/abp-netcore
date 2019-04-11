@@ -11,8 +11,8 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AbpLearning.Application\AbpLearning.Application.csproj" />
-    <ProjectReference Include="..\..\src\AbpLearning.EntityFrameworkCore\AbpLearning.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\Application\AbpLearning.Application\AbpLearning.Application.csproj" />
+    <ProjectReference Include="..\..\src\Data\AbpLearning.EntityFrameworkCore\AbpLearning.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />

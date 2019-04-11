@@ -1,18 +1,17 @@
 using System;
-using Castle.MicroKernel.Registration;
-using NSubstitute;
 using Abp.AutoMapper;
+using Abp.Configuration.Startup;
 using Abp.Dependency;
 using Abp.Modules;
-using Abp.Configuration.Startup;
 using Abp.Net.Mail;
 using Abp.TestBase;
 using Abp.Zero.Configuration;
 using Abp.Zero.EntityFrameworkCore;
-using AbpLearning.EntityFrameworkCore;
-using AbpLearning.Tests.DependencyInjection;
 using AbpLearning.Application;
 using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
+using AbpLearning.Tests.DependencyInjection;
+using Castle.MicroKernel.Registration;
+using NSubstitute;
 
 namespace AbpLearning.Tests
 {

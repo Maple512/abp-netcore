@@ -7,7 +7,7 @@ namespace AbpLearning.Tests
     {
         public MultiTenantFactAttribute()
         {
-            if (!AbpLearningConsts.MultiTenancyEnabled)
+            if (!AbpLearningCoreConfig.MULTI_TENANCY_ENABLED)
             {
                 Skip = "MultiTenancy is disabled.";
             }
