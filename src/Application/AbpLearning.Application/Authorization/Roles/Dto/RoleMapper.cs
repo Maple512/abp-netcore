@@ -3,11 +3,11 @@
     using AbpLearning.Core.Authorization.Roles;
     using AutoMapper;
 
-    public class RoleMapper
+    public class RoleMapper : Profile
     {
-        public static void CreateMappings(IMapperConfigurationExpression configuration)
+        public RoleMapper()
         {
-            configuration.CreateMap<Role, RoleGetPagedOutput>()
+            CreateMap<Role, RoleGetPagedOutput>()
                 .ForMember(o => o.LastModificationTime,
                     option => option.MapFrom(m => m.LastModificationTime ?? m.CreationTime));
         }

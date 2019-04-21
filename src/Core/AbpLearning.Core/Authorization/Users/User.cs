@@ -13,7 +13,7 @@ namespace AbpLearning.Core.Authorization.Users
         /// <summary>
         /// 头像
         /// </summary>
-        public string Portrait { get; set; }
+        public string AvatarUrl { get; set; }
 
         [Obsolete("Name属性已经不在使用，请使用UserName")]
         [Required(AllowEmptyStrings = true)]

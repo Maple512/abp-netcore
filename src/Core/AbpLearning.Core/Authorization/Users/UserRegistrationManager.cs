@@ -37,7 +37,16 @@ namespace AbpLearning.Core.Authorization.Users
             AbpSession = NullAbpSession.Instance;
         }
 
-        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="plainPassword"></param>
+        /// <param name="avatarUrl"></param>
+        /// <param name="isEmailConfirmed"></param>
+        /// <returns></returns>
+        public async Task<User> RegisterAsync(string userName, string emailAddress, string plainPassword, bool isEmailConfirmed = false)
         {
             CheckForTenant();
 
@@ -46,11 +55,41 @@ namespace AbpLearning.Core.Authorization.Users
             var user = new User
             {
                 TenantId = tenant.Id,
-                Name = name,
-                Surname = surname,
+                UserName = userName,
                 EmailAddress = emailAddress,
                 IsActive = true,
+                IsEmailConfirmed = isEmailConfirmed,
+                Roles = new List<UserRole>()
+            };
+
+            user.SetNormalizedNames();
+
+            user.Password = _passwordHasher.HashPassword(user, plainPassword);
+
+            foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
+            {
+                user.Roles.Add(new UserRole(tenant.Id, user.Id, defaultRole.Id));
+            }
+
+            CheckErrors(await _userManager.CreateAsync(user));
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<User> RegisterExternalUserAsync(string userName, string emailAddress, string plainPassword, string avatarUrl, bool isEmailConfirmed = false)
+        {
+            CheckForTenant();
+
+            var tenant = await GetActiveTenantAsync();
+
+            var user = new User
+            {
+                TenantId = tenant.Id,
                 UserName = userName,
+                AvatarUrl = avatarUrl,
+                EmailAddress = emailAddress,
+                IsActive = true,
                 IsEmailConfirmed = isEmailConfirmed,
                 Roles = new List<UserRole>()
             };

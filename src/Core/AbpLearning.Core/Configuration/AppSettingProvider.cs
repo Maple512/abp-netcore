@@ -1,16 +1,13 @@
-using System.Collections.Generic;
-using Abp.Configuration;
-
 namespace AbpLearning.Core.Configuration
 {
-    public class AppSettingProvider : SettingProvider
+    using Abp.Configuration;
+    using Abp.Localization;
+
+    public abstract class AppSettingProvider : SettingProvider
     {
-        public override IEnumerable<SettingDefinition> GetSettingDefinitions(SettingDefinitionProviderContext context)
+        protected static ILocalizableString L(string name)
         {
-            return new[]
-            {
-                new SettingDefinition(AppSettingNames.UiTheme, "red", scopes: SettingScopes.Application | SettingScopes.Tenant | SettingScopes.User, isVisibleToClients: true)
-            };
+            return new LocalizableString(name, AbpLearningCoreConfig.LOCALIZATION_SOURCE_NAME);
         }
     }
 }

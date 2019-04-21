@@ -31,6 +31,9 @@
     <ProjectReference Include="..\..\Application\AbpLearning.Application\AbpLearning.Application.csproj" />
     <ProjectReference Include="..\..\Data\AbpLearning.EntityFrameworkCore\AbpLearning.EntityFrameworkCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\TokenAuth\OAuth\" />
+  </ItemGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

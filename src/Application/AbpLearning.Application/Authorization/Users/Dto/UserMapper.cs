@@ -3,11 +3,11 @@
     using AbpLearning.Core.Authorization.Users;
     using AutoMapper;
 
-    public class UserMapper
+    public class UserMapper: Profile
     {
-        public static void CreateMappings(IMapperConfigurationExpression configuration)
+        public UserMapper()
         {
-            configuration.CreateMap<UserCreateInput, User>();
+            CreateMap<UserCreateInput, User>();
         }
     }
 }

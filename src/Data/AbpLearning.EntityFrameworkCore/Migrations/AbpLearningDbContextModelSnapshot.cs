@@ -49,7 +49,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Editions","ABP");
+                    b.ToTable("Editions","Abp");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.FeatureSetting", b =>
@@ -77,7 +77,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features","ABP");
+                    b.ToTable("Features","Abp");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("FeatureSetting");
                 });
@@ -132,7 +132,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserId");
 
-                    b.ToTable("AuditLogs","ABP");
+                    b.ToTable("AuditLogs","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.PermissionSetting", b =>
@@ -160,7 +160,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Name");
 
-                    b.ToTable("Permissions","ABP");
+                    b.ToTable("Permissions","Abp");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("PermissionSetting");
                 });
@@ -190,7 +190,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "ClaimType");
 
-                    b.ToTable("RoleClaims","ABP");
+                    b.ToTable("RoleClaims","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserAccount", b =>
@@ -239,7 +239,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserName");
 
-                    b.ToTable("UserAccounts","ABP");
+                    b.ToTable("UserAccounts","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserClaim", b =>
@@ -267,7 +267,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "ClaimType");
 
-                    b.ToTable("UserClaims","ABP");
+                    b.ToTable("UserClaims","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserLogin", b =>
@@ -296,7 +296,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "LoginProvider", "ProviderKey");
 
-                    b.ToTable("UserLogins","ABP");
+                    b.ToTable("UserLogins","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserLoginAttempt", b =>
@@ -334,7 +334,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenancyName", "UserNameOrEmailAddress", "Result");
 
-                    b.ToTable("UserLoginAttempts","ABP");
+                    b.ToTable("UserLoginAttempts","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserOrganizationUnit", b =>
@@ -361,7 +361,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserId");
 
-                    b.ToTable("UserOrganizationUnits","ABP");
+                    b.ToTable("UserOrganizationUnits","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserRole", b =>
@@ -388,7 +388,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserId");
 
-                    b.ToTable("UserRoles","ABP");
+                    b.ToTable("UserRoles","Abp");
                 });
 
             modelBuilder.Entity("Abp.Authorization.Users.UserToken", b =>
@@ -418,7 +418,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserId");
 
-                    b.ToTable("UserTokens","ABP");
+                    b.ToTable("UserTokens","Abp");
                 });
 
             modelBuilder.Entity("Abp.BackgroundJobs.BackgroundJobInfo", b =>
@@ -453,7 +453,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("IsAbandoned", "NextTryTime");
 
-                    b.ToTable("BackgroundJobs","ABP");
+                    b.ToTable("BackgroundJobs","Abp");
                 });
 
             modelBuilder.Entity("Abp.Configuration.Setting", b =>
@@ -487,7 +487,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Name");
 
-                    b.ToTable("Settings","ABP");
+                    b.ToTable("Settings","Abp");
                 });
 
             modelBuilder.Entity("Abp.EntityHistory.EntityChange", b =>
@@ -516,7 +516,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("EntityTypeFullName", "EntityId");
 
-                    b.ToTable("EntityChanges","ABP");
+                    b.ToTable("EntityChanges","Abp");
                 });
 
             modelBuilder.Entity("Abp.EntityHistory.EntityChangeSet", b =>
@@ -557,7 +557,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "UserId");
 
-                    b.ToTable("EntityChangeSets","ABP");
+                    b.ToTable("EntityChangeSets","Abp");
                 });
 
             modelBuilder.Entity("Abp.EntityHistory.EntityPropertyChange", b =>
@@ -586,7 +586,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("EntityChangeId");
 
-                    b.ToTable("EntityPropertyChanges","ABP");
+                    b.ToTable("EntityPropertyChanges","Abp");
                 });
 
             modelBuilder.Entity("Abp.Localization.ApplicationLanguage", b =>
@@ -628,7 +628,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Name");
 
-                    b.ToTable("Languages","ABP");
+                    b.ToTable("Languages","Abp");
                 });
 
             modelBuilder.Entity("Abp.Localization.ApplicationLanguageText", b =>
@@ -667,7 +667,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Source", "LanguageName", "Key");
 
-                    b.ToTable("LanguageTexts","ABP");
+                    b.ToTable("LanguageTexts","Abp");
                 });
 
             modelBuilder.Entity("Abp.Notifications.NotificationInfo", b =>
@@ -711,7 +711,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications","ABP");
+                    b.ToTable("Notifications","Abp");
                 });
 
             modelBuilder.Entity("Abp.Notifications.NotificationSubscriptionInfo", b =>
@@ -745,7 +745,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "NotificationName", "EntityTypeName", "EntityId", "UserId");
 
-                    b.ToTable("NotificationSubscriptions","ABP");
+                    b.ToTable("NotificationSubscriptions","Abp");
                 });
 
             modelBuilder.Entity("Abp.Notifications.TenantNotificationInfo", b =>
@@ -784,7 +784,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("TenantNotifications","ABP");
+                    b.ToTable("TenantNotifications","Abp");
                 });
 
             modelBuilder.Entity("Abp.Notifications.UserNotificationInfo", b =>
@@ -806,7 +806,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("UserId", "State", "CreationTime");
 
-                    b.ToTable("UserNotifications","ABP");
+                    b.ToTable("UserNotifications","Abp");
                 });
 
             modelBuilder.Entity("Abp.Organizations.OrganizationUnit", b =>
@@ -847,7 +847,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Code");
 
-                    b.ToTable("OrganizationUnits","ABP");
+                    b.ToTable("OrganizationUnits","Abp");
                 });
 
             modelBuilder.Entity("AbpLearning.Core.Authorization.Roles.Role", b =>
@@ -905,7 +905,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "NormalizedName");
 
-                    b.ToTable("Roles","ABP");
+                    b.ToTable("Roles","Abp");
                 });
 
             modelBuilder.Entity("AbpLearning.Core.Authorization.Users.User", b =>
@@ -918,6 +918,8 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.Property<string>("AuthenticationSource")
                         .HasMaxLength(64);
+
+                    b.Property<string>("AvatarUrl");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -976,8 +978,6 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(32);
 
-                    b.Property<string>("Portrait");
-
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128);
 
@@ -999,7 +999,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "NormalizedUserName");
 
-                    b.ToTable("Users","ABP");
+                    b.ToTable("Users","Abp");
                 });
 
             modelBuilder.Entity("AbpLearning.Core.MultiTenancy.Tenant", b =>
@@ -1049,7 +1049,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenancyName");
 
-                    b.ToTable("Tenants","ABP");
+                    b.ToTable("Tenants","Abp");
                 });
 
             modelBuilder.Entity("Abp.Application.Features.EditionFeatureSetting", b =>
@@ -1060,7 +1060,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("EditionId", "Name");
 
-                    b.ToTable("Features","ABP");
+                    b.ToTable("Features","Abp");
 
                     b.HasDiscriminator().HasValue("EditionFeatureSetting");
                 });
@@ -1071,7 +1071,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("TenantId", "Name");
 
-                    b.ToTable("Features","ABP");
+                    b.ToTable("Features","Abp");
 
                     b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
@@ -1084,7 +1084,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Permissions","ABP");
+                    b.ToTable("Permissions","Abp");
 
                     b.HasDiscriminator().HasValue("RolePermissionSetting");
                 });
@@ -1097,7 +1097,7 @@ namespace AbpLearning.EntityFrameworkCore.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Permissions","ABP");
+                    b.ToTable("Permissions","Abp");
 
                     b.HasDiscriminator().HasValue("UserPermissionSetting");
                 });

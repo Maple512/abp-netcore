@@ -147,7 +147,7 @@
                     var childens = getchilden(cat, sources);
                     if (roots.Contains(cat))
                     {
-                        parentnode = default(TResult);
+                        parentnode = default;
                         level = 0;
                         Items.Add(item);
                         parentnode = item;
@@ -182,7 +182,7 @@
                     var childens = getchilden(cat, sources);
                     if (roots.Contains(cat))
                     {
-                        parentnode = default(TResult);
+                        parentnode = default;
                         level = 0;
                         Items.Add(item);
                         parentnode = item;

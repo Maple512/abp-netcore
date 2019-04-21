@@ -1,12 +1,13 @@
 ﻿namespace AbpLearning.Application.Authorization.Users.Dto
 {
     using System.ComponentModel.DataAnnotations;
+    using Abp.Application.Services.Dto;
     using Abp.Auditing;
     using Abp.Authorization.Users;
     using Abp.Runtime.Validation;
     using Base;
 
-    public class UserCreateInput : INullIdEntityDto, IShouldNormalize
+    public class UserCreateInput : NullableIdDto<long>, IShouldNormalize
     {
         [Required]
         [StringLength(AbpUserBase.MaxUserNameLength)]

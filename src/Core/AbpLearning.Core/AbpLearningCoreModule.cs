@@ -1,16 +1,17 @@
 namespace AbpLearning.Core
 {
+    using Abp.Configuration;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
     using Abp.Timing;
     using Abp.Zero;
     using Abp.Zero.Configuration;
-    using AbpLearning.Core.Authorization.Roles;
-    using AbpLearning.Core.Authorization.Users;
-    using AbpLearning.Core.Configuration;
-    using AbpLearning.Core.Localization;
-    using AbpLearning.Core.MultiTenancy;
-    using AbpLearning.Core.Timing;
+    using Authorization.Roles;
+    using Authorization.Users;
+    using Configuration.ApplicationScopes;
+    using Localization;
+    using MultiTenancy;
+    using Timing;
 
     [DependsOn(typeof(AbpZeroCoreModule))]
     public class AbpLearningCoreModule : AbpModule
@@ -24,6 +25,7 @@ namespace AbpLearning.Core
             Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
             Configuration.Modules.Zero().EntityTypes.User = typeof(User);
 
+            // Localization
             AbpLearningLocalizationConfigurer.Configure(Configuration.Localization);
 
             // Enable this line to create a multi-tenant application.
@@ -32,7 +34,7 @@ namespace AbpLearning.Core
             // Configure roles
             AppRoleConfig.Configure(Configuration.Modules.Zero().RoleManagement);
 
-            Configuration.Settings.Providers.Add<AppSettingProvider>();
+            Configuration.Settings.Providers.Add<ApplicationSettingProvider>();
         }
 
         public override void Initialize()
@@ -43,6 +45,8 @@ namespace AbpLearning.Core
         public override void PostInitialize()
         {
             IocManager.Resolve<AppTimes>().StartupTime = Clock.Now;
+
+            var settings = IocManager.Resolve<ISettingDefinitionManager>().GetAllSettingDefinitions();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace AbpLearning.Application.MultiTenancy.Dto
 {
-    using Base;
+    using Abp.Application.Services.Dto;
 
-    public class TenantGetViewOutput : INullIdEntityDto
+    public class TenantGetViewOutput : NullableIdDto
     {
         /// <summary>
         /// 租户名

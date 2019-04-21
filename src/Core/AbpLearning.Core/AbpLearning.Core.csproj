@@ -24,7 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\AllScopes\" />
-    <Folder Include="Configuration\ApplicationScopes\" />
     <Folder Include="Configuration\TenantScopes\" />
     <Folder Include="Configuration\UserScopes\" />
   </ItemGroup>

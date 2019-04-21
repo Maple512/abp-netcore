@@ -158,8 +158,7 @@
             }
 
             //Try to limit query result if available
-            var limitedInput = input as ILimitedResultRequest;
-            if (limitedInput != null)
+            if (input is ILimitedResultRequest limitedInput)
             {
                 return query.Take(limitedInput.MaxResultCount);
             }
@@ -187,7 +186,7 @@
         /// <param name="permissionName">权限名</param>
         protected virtual void CheckPermission(string permissionName)
         {
-            PermissionChecker.Authorize(permissionName);
+            // PermissionChecker.Authorize(permissionName);
         }
 
         /// <summary>

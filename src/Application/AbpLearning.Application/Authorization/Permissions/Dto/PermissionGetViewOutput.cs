@@ -1,11 +1,12 @@
 ﻿namespace AbpLearning.Application.Authorization.Permissions.Dto
 {
+    using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.AutoMapper;
     using Base;
 
     [AutoMapFrom(typeof(Permission))]
-    public class PermissionGetViewOutput : INullIdEntityDto
+    public class PermissionGetViewOutput : NullableIdDto
     {
         /// <summary>
         /// parent node name

@@ -8,7 +8,7 @@
 
     public class TenantAppService_Test : AbpLearningTestBase
     {
-        private ITenantAppService tenantAppService;
+        private readonly ITenantAppService tenantAppService;
 
         public TenantAppService_Test()
         {

@@ -1,13 +1,11 @@
 ﻿namespace AbpLearning.Application.Authorization.Permissions.Dto
 {
-    using Abp.Authorization;
     using AutoMapper;
 
-    public class PermissionMapper
+    public class PermissionMapper : Profile
     {
-        public static void CreateMappings(IMapperConfigurationExpression configuration)
+        public PermissionMapper()
         {
-
         }
     }
 }

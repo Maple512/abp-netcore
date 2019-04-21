@@ -23,6 +23,10 @@
 
         public const string Role = System + ".Role";
 
+        public const string Setting = System + ".Setting";
+
+        public const string Language = System + ".Language";
+
         #endregion
 
         #endregion

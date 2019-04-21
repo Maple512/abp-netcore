@@ -18,11 +18,11 @@
          EntityDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
          where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : struct
-        where TGetViewOutput : INullIdEntityDto
+        where TGetViewOutput : NullableIdDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : INullIdEntityDto
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
         protected CrudAsyncAppService(IRepository<TEntity, TPrimaryKey> repository) : base(repository)
@@ -41,11 +41,11 @@
          TGetUpdateInput, TGetViewInput, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>, NullableIdDto<TPrimaryKey>>
          where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : struct
-        where TGetViewOutput : INullIdEntityDto
+        where TGetViewOutput : NullableIdDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : INullIdEntityDto
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
         where TGetViewInput : NullableIdDto<TPrimaryKey>
@@ -67,11 +67,11 @@
          TGetUpdateInput, TGetViewInput, TUpdateOutput, TCreateOutput, TDeleteInput>
         where TEntity : class, IEntity<TPrimaryKey>
         where TPrimaryKey : struct
-        where TGetViewOutput : INullIdEntityDto
+        where TGetViewOutput : NullableIdDto<TPrimaryKey>
         where TGetPagedInput : IPagedResultRequest
         where TGetPagedOutput : IEntityDto<TPrimaryKey>
         where TGetUpdateOutput : IEntityDto<TPrimaryKey>
-        where TCreateInput : INullIdEntityDto
+        where TCreateInput : NullableIdDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetUpdateInput : IEntityDto<TPrimaryKey>
         where TGetViewInput : NullableIdDto<TPrimaryKey>

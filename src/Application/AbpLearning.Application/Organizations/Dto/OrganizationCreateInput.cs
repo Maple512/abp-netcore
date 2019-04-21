@@ -1,15 +1,15 @@
 ﻿namespace AbpLearning.Application.Organizations.Dto
 {
     using System.ComponentModel.DataAnnotations;
+    using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
     using Abp.Organizations;
-    using Base;
 
     /// <summary>
     /// Defines the <see cref="OrganizationCreateInput" />
     /// </summary>
     [AutoMapTo(typeof(OrganizationUnit))]
-    public class OrganizationCreateInput : INullIdEntityDto
+    public class OrganizationCreateInput : NullableIdDto<long>
     {
         /// <summary>
         /// Gets or sets the ParentId

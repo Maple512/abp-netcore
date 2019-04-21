@@ -34,13 +34,12 @@ namespace AbpLearning.Application.Authorization.Accounts
 
         public async Task<RegisterOutput> Register(RegisterInput input)
         {
+            // TODO:implement email confirmation.
             var user = await _userRegistrationManager.RegisterAsync(
-                input.Name,
-                input.Surname,
-                input.EmailAddress,
                 input.UserName,
+                input.EmailAddress,
                 input.Password,
-                true // Assumed email address is always confirmed. Change this if you want to implement email confirmation.
+                false
             );
 
             var isEmailConfirmationRequiredForLogin = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);

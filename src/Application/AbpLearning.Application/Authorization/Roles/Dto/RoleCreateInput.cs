@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using AbpLearning.Application.Base;
+    using Abp.Application.Services.Dto;
 
-    public class RoleCreateInput : INullIdEntityDto
+    public class RoleCreateInput : NullableIdDto
     {
         /// <summary>
         /// role nme(unique)

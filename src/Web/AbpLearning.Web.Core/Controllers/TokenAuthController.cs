@@ -138,13 +138,11 @@ namespace AbpLearning.Web.Core.Controllers
 
         private async Task<User> RegisterExternalUserAsync(ExternalAuthUserInfo externalUser)
         {
-            var user = await _userRegistrationManager.RegisterAsync(
-                externalUser.Name,
-                externalUser.Surname,
-                externalUser.EmailAddress,
+            var user = await _userRegistrationManager.RegisterExternalUserAsync(
+                externalUser.UserName,
                 externalUser.EmailAddress,
                 AbpLearning.Core.Authorization.Users.User.CreateRandomPassword(),
-                true
+                externalUser.AvatarUrl
             );
 
             user.Logins = new List<UserLogin>

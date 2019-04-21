@@ -1,8 +1,9 @@
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Abp.Configuration;
 using Abp.Localization;
 using Abp.Net.Mail;
+using AbpLearning.Core.Configuration.ApplicationScopes;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore.Seed.Host
 {

@@ -3,11 +3,11 @@
     using Abp.Organizations;
     using AutoMapper;
 
-    public class OrganizationMapper
+    public class OrganizationMapper: Profile
     {
-        public static void CreateMappings(IMapperConfigurationExpression configuration)
+        public OrganizationMapper()
         {
-            configuration.CreateMap<OrganizationUnit, OrganizationGetListDto>();
+            CreateMap<OrganizationUnit, OrganizationGetListDto>();
         }
     }
 }

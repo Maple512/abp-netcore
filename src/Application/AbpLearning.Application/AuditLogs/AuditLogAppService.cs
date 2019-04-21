@@ -9,7 +9,7 @@
     using Abp.Domain.Repositories;
     using Abp.Extensions;
     using Abp.Linq.Extensions;
-    using AbpLearning.Application.AuditLogs.Model;
+    using AbpLearning.Application.AuditLogs.Dto;
     using AbpLearning.Common.Extensions;
     using AbpLearning.Core;
     using AbpLearning.Core.Authorization.Users;
@@ -48,7 +48,7 @@
         /// </summary>
         /// <param name="model">The model<see cref="AuditLogPagedFilteringModel"/></param>
         /// <returns>The <see cref="PagedResultDto{AuditLogPagedModel}"/></returns>
-        public async Task<PagedResultDto<AuditLogPagedModel>> GetPaged(AuditLogPagedFilteringModel model)
+        public async Task<PagedResultDto<AuditLogGetPagedOutput>> GetPaged(AuditLogGetPagedInput model)
         {
             var query = CreateAuditLogQuery(model);
 
@@ -59,7 +59,7 @@
                 .PageBy(model)
                 .ToListAsync();
 
-            return new PagedResultDto<AuditLogPagedModel>(count, result);
+            return new PagedResultDto<AuditLogGetPagedOutput>(count, result);
         }
 
         /// <summary>
@@ -67,13 +67,13 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private IQueryable<AuditLogPagedModel> CreateAuditLogQuery(AuditLogPagedFilteringModel model)
+        private IQueryable<AuditLogGetPagedOutput> CreateAuditLogQuery(AuditLogGetPagedInput model)
         {
             var query = from auditLog in _auditLog.GetAll().AsNoTracking()
                 join user in _user.GetAll().AsNoTracking() on auditLog.UserId equals user.Id
                     into userJoin
                 from joinedUser in userJoin.DefaultIfEmpty()
-                select new AuditLogPagedModel
+                select new AuditLogGetPagedOutput
                 {
                     BrowserInfo = auditLog.BrowserInfo,
                     ClientIPAddress = auditLog.ClientIpAddress,

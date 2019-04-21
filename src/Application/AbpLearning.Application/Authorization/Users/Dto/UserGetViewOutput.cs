@@ -3,11 +3,10 @@
     using System;
     using Abp.Application.Services.Dto;
     using Abp.AutoMapper;
-    using AbpLearning.Application.Base;
     using AbpLearning.Core.Authorization.Users;
 
     [AutoMapFrom(typeof(User))]
-    public class UserGetViewOutput : INullIdEntityDto
+    public class UserGetViewOutput : NullableIdDto<long>
     {
         public string UserName { get; set; }
 

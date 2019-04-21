@@ -3,10 +3,6 @@ namespace AbpLearning.Application
     using Abp.AutoMapper;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
-    using AbpLearning.Application.Authorization.Permissions.Dto;
-    using AbpLearning.Application.Authorization.Roles.Dto;
-    using AbpLearning.Application.Authorization.Users.Dto;
-    using AbpLearning.Application.Organizations.Dto;
     using Core;
     using Core.Authorization;
 
@@ -21,27 +17,18 @@ namespace AbpLearning.Application
             Configuration.Authorization.Providers.Add<AbpLearningAuthorizationProvider>();
 
             // 自定义类型映射
-            Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration =>
-            {
-                RoleMapper.CreateMappings(configuration);
-
-                PermissionMapper.CreateMappings(configuration);
-
-                UserMapper.CreateMappings(configuration);
-
-                OrganizationMapper.CreateMappings(configuration);
-            });
+            Configuration.Modules.AbpAutoMapper().Configurators.Add(configuration => { });
         }
 
         public override void Initialize()
         {
-            var thisAssembly = typeof(AbpLearningApplicationModule).GetAssembly();
+            var assembly = typeof(AbpLearningApplicationModule).GetAssembly();
 
-            IocManager.RegisterAssemblyByConvention(thisAssembly);
+            IocManager.RegisterAssemblyByConvention(assembly);
 
             Configuration.Modules.AbpAutoMapper().Configurators.Add(
                 // Scan the assembly for classes which inherit from AutoMapper.Profile
-                cfg => cfg.AddProfiles(thisAssembly)
+                cfg => cfg.AddProfiles(assembly)
             );
         }
     }
