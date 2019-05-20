@@ -9,28 +9,40 @@ namespace AbpLearning.Core.Authorization
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
             // pages
-            var pages = context.CreatePermission(AbpLearningPermissions.Pages, L("Pages.Permission"), L("Pages.Permission.Description"));
+            var pages = context.CreatePermission(AbpLearningPermissions.Pages, L("Permission.Pages"), L("Permission.Pages.Description"));
 
-            #region system
+            SystemPermission(ref pages);
 
-            var system = pages.CreateChildPermission(AbpLearningPermissions.System, L("System.Permission"), L("System.Permission.Description"));
-
-            var user = system.CreateChildPermission(AbpLearningPermissions.User, L("User.Permission"), L("User.Permission.Description"));
-
-            var role = system.CreateChildPermission(AbpLearningPermissions.Role, L("Role.Permission"));
-
-            var tenant = system.CreateChildPermission(AbpLearningPermissions.Tenant, L("Tenant.Permission"), L("Tenant.Permission.Description"), multiTenancySides: MultiTenancySides.Host);
-
-            var auditlog = system.CreateChildPermission(AbpLearningPermissions.AuditLog, L("AuditLog.Permission"), L("AuditLog.Permission.Description"));
-
-            var organization = system.CreateChildPermission(AbpLearningPermissions.Organization, L("Organization.Permission"), L("Organization.Permission.Description"));
-
-            var setting = system.CreateChildPermission(AbpLearningPermissions.Setting, L("Setting.Permission"), L("Setting.Permission.Description"));
-
-            var language = system.CreateChildPermission(AbpLearningPermissions.Language, L("Language.Permission"), L("Language.Permission.Description"));
-
-            #endregion
+            PersonnelPermission(ref pages);
         }
+
+        #region Private Permission
+
+        private static void SystemPermission(ref Permission parent)
+        {
+            var system = parent.CreateChildPermission(AbpLearningPermissions.System, L("Permission.System"), L("Permission.System.Description"));
+
+            var auditlog = system.CreateChildPermission(AbpLearningPermissions.AuditLog, L("Permission.AuditLog"), L("Permission.AuditLog.Description"));
+
+            var setting = system.CreateChildPermission(AbpLearningPermissions.Setting, L("Permission.Setting.Permission"), L("Permission.Setting.Description"));
+
+            var language = system.CreateChildPermission(AbpLearningPermissions.Language, L("Permission.Language.Permission"), L("Permission.Language.Description"));
+        }
+
+        private static void PersonnelPermission(ref Permission parent)
+        {
+            var personnel = parent.CreateChildPermission(AbpLearningPermissions.Personnel, L("Permission.Personnel"), L("Permission.Personnel.Description"));
+
+            var user = personnel.CreateChildPermission(AbpLearningPermissions.User, L("Permission.User"), L("Permission.User.Description"));
+
+            var role = personnel.CreateChildPermission(AbpLearningPermissions.Role, L("Permission.Role"));
+
+            var tenant = personnel.CreateChildPermission(AbpLearningPermissions.Tenant, L("Permission.Tenant"), L("Permission.Tenant.Description"), multiTenancySides: MultiTenancySides.Host);
+
+            var organization = personnel.CreateChildPermission(AbpLearningPermissions.Organization, L("Permission.Organization"), L("Permission.Organization.Description"));
+        }
+
+        #endregion
 
         private static ILocalizableString L(string name)
         {

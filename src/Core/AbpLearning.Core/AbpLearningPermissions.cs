@@ -9,23 +9,31 @@
 
         public const string Pages = "Pages";
 
+        public const string Admin = Pages + ".Admin";
+
         #region System
 
-        public const string System = Pages + ".System";
-
-        public const string Organization = System + ".Organization";
-
-        public const string AuditLog = System + ".AuditLog";
-
-        public const string Tenant = System + ".Tenant";
-
-        public const string User = System + ".User";
-
-        public const string Role = System + ".Role";
+        public const string System = Admin + ".System";
 
         public const string Setting = System + ".Setting";
 
         public const string Language = System + ".Language";
+
+        public const string AuditLog = System + ".AuditLog";
+
+        #endregion
+
+        #region Personnel
+
+        public const string Personnel = Admin + ".Personnel";
+
+        public const string Organization = Personnel + ".Organization";
+
+        public const string Tenant = Personnel + ".Tenant";
+
+        public const string User = Personnel + ".User";
+
+        public const string Role = Personnel + ".Role";
 
         #endregion
 
