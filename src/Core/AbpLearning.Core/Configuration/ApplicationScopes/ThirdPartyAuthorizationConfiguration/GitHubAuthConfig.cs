@@ -3,38 +3,38 @@ namespace AbpLearning.Core.Configuration.ApplicationScopes.ThirdPartyAuthorizati
     public class GitHubAuthConfig
     {
         /// <summary>
-        /// 是否启用
+        /// GitHub授权是否启用
         /// </summary>
-        public const bool IS_ENABLED = true;
+        public const bool GITHUB_AUTH_IS_ENABLED = true;
 
         /// <summary>
-        /// 授权类型
+        /// GitHub授权类型
         /// </summary>
-        public const string AUTHORIZATION_TYPE = "Github";
+        public const string GITHUB_AUTH_AUTHORIZATION_TYPE = "Github";
 
         /// <summary>
-        /// Client Id
+        /// GitHub授权Client Id
         /// </summary>
-        public const string CLIENT_ID = "9381792e7265342f63e8";
+        public const string GITHUB_AUTH_CLIENT_ID = "9381792e7265342f63e8";
 
         /// <summary>
-        /// Client Secret
+        /// GitHub授权Client Secret
         /// </summary>
-        public const string CLIENT_SECRET = "9098720cabe90cdb78d83876214c532767728a64";
+        public const string GITHUB_AUTH_CLIENT_SECRET = "9098720cabe90cdb78d83876214c532767728a64";
 
         /// <summary>
-        /// 授权地址
+        /// GitHub授权地址
         /// </summary>
-        public const string AUTHORIZATIO_NENDPOINT = "https://github.com/login/oauth/authorize";
+        public const string GITHUB_AUTH_AUTHORIZE_URL = "https://github.com/login/oauth/authorize";
 
         /// <summary>
-        /// 获取Access Token
+        /// GitHub授权获取Access Token
         /// </summary>
-        public const string TOKEN_ENDPOINT = "https://github.com/login/oauth/access_token";
+        public const string GITHUB_AUTH_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
         /// <summary>
-        /// 获取用户信息地址
+        /// GitHub授权获取用户信息地址
         /// </summary>
-        public const string USERINFO_ENDPOINT = "https://api.github.com/user";
+        public const string GITHUB_AUTH_USERINFO_URL = "https://api.github.com/user";
     }
 }

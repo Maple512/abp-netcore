@@ -7,6 +7,6 @@
 
     public interface IAuditLogAppService: IApplicationService
     {
-        Task<PagedResultDto<AuditLogGetPagedOutput>> GetPaged(AuditLogGetPagedInput model);
+        Task<PagedResultDto<AuditLogGetPagedOutput>> GetPagedAsync(AuditLogGetPagedInput model);
     }
 }

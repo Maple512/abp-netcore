@@ -3,14 +3,16 @@ using System;
 using AbpLearning.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AbpLearning.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AbpLearningDbContext))]
-    partial class AbpLearningDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190510025512_Init_Migration")]
+    partial class Init_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

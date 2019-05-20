@@ -48,7 +48,7 @@
         /// </summary>
         /// <param name="model">The model<see cref="AuditLogPagedFilteringModel"/></param>
         /// <returns>The <see cref="PagedResultDto{AuditLogPagedModel}"/></returns>
-        public async Task<PagedResultDto<AuditLogGetPagedOutput>> GetPaged(AuditLogGetPagedInput model)
+        public async Task<PagedResultDto<AuditLogGetPagedOutput>> GetPagedAsync(AuditLogGetPagedInput model)
         {
             var query = CreateAuditLogQuery(model);
 

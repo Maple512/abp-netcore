@@ -41,10 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{76E616DE-00C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbpLearning.AndroidApp", "src\App\AbpLearning.AndroidApp\AbpLearning.AndroidApp.csproj", "{689E0AB1-7DC6-4C41-8A6D-726B46041274}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{461E6880-B20F-48E3-8C81-C9D76E671576}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "pythonwebhost", "src\Python\pythonwebhost\pythonwebhost.pyproj", "{22212B42-8E91-426C-B8B7-ED337A96349B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,10 +85,6 @@ Global
 		{689E0AB1-7DC6-4C41-8A6D-726B46041274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{689E0AB1-7DC6-4C41-8A6D-726B46041274}.Release|Any CPU.Build.0 = Release|Any CPU
 		{689E0AB1-7DC6-4C41-8A6D-726B46041274}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{22212B42-8E91-426C-B8B7-ED337A96349B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22212B42-8E91-426C-B8B7-ED337A96349B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22212B42-8E91-426C-B8B7-ED337A96349B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22212B42-8E91-426C-B8B7-ED337A96349B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,8 +104,6 @@ Global
 		{0D4C5D00-C144-4213-A007-4B8944113AB1} = {F10AA149-2626-486E-85BB-9CD5365F3016}
 		{76E616DE-00CF-4A2D-BC87-A894A40C7FBB} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{689E0AB1-7DC6-4C41-8A6D-726B46041274} = {76E616DE-00CF-4A2D-BC87-A894A40C7FBB}
-		{461E6880-B20F-48E3-8C81-C9D76E671576} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
-		{22212B42-8E91-426C-B8B7-ED337A96349B} = {461E6880-B20F-48E3-8C81-C9D76E671576}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A3245732-4FFD-4E8F-A18E-D936036444F0}

@@ -1,11 +1,5 @@
 namespace AbpLearning.Application.Languages
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Linq.Dynamic.Core;
-    using System.Threading.Tasks;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
     using Abp.Collections.Extensions;
@@ -15,6 +9,12 @@ namespace AbpLearning.Application.Languages
     using AbpLearning.Application.Languages.Dto;
     using AbpLearning.Common.Helper;
     using AbpLearning.Core;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Linq.Dynamic.Core;
+    using System.Threading.Tasks;
 
     [AbpAuthorize(AbpLearningPermissions.Language)]
     public class LanguageAppService : AbpLearningAppServiceBase, ILanguageAppService
@@ -65,12 +65,12 @@ namespace AbpLearning.Application.Languages
                 .Select(l => new LanguageTextGetPagedOutput
                 {
                     Key = l.Name,
-                    Value = _languageTextManager.GetStringOrNull(tenantId: AbpSession.TenantId, sourceName: sources.Name, culture: culture, key: l.Name),
+                    Value = _languageTextManager.GetStringOrNull(tenantId: AbpSession.TenantId, sourceName: sources.Name, culture: culture, key: l.Name, false),
                     ContrastValue = _languageTextManager.GetStringOrNull(tenantId: AbpSession.TenantId, sourceName: sources.Name, culture: contrastCulture, key: l.Name, false),
                 })
                 .AsQueryable();
 
-            if (input.TargetValueFilter == LanguageTextGetPagedInput.TargetValueFilterEnum.Empty)
+            if (input.LanguageTextFilterType == LanguageTextGetPagedInput.LanguageTextFilterTypeEnum.Empty)
             {
                 languageTexts = languageTexts.Where(l => l.Value.IsNullOrEmpty());
             }

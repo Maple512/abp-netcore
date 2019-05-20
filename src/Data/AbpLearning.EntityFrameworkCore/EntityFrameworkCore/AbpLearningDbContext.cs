@@ -17,8 +17,10 @@ namespace AbpLearning.EntityFrameworkCore.EntityFrameworkCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // 清除Abp的默认表前缀
-            modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>("", "Abp");
+            // 如果使用Mysql数据库，本地连接可以，但发布生产后，链接失败：这里需要注释掉，
+            // Unable to connect to any of the specified MySQL hosts.
+            // 清除Abp的默认表前缀 
+            // modelBuilder.ChangeAbpTablePrefix<Tenant, Role, User>("", "Abp");
 
             base.OnModelCreating(modelBuilder);
         }

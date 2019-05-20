@@ -4,6 +4,7 @@ namespace AbpLearning.Application.Languages.Dto
     using Abp.Extensions;
     using Abp.Localization;
     using AbpLearning.Application.Base;
+    using AbpLearning.Core;
 
     /// <summary>
     /// 语言文本分页 输入模型
@@ -13,14 +14,12 @@ namespace AbpLearning.Application.Languages.Dto
         /// <summary>
         /// 本地化
         /// </summary>
-        [Required]
         [MaxLength(ApplicationLanguageText.MaxSourceNameLength)]
         public string SourceName { get; set; }
 
         /// <summary>
         /// 语言
         /// </summary>
-        [Required]
         [StringLength(maximumLength:ApplicationLanguage.MaxNameLength)]
         public string LanguageName { get; set; }
 
@@ -33,7 +32,7 @@ namespace AbpLearning.Application.Languages.Dto
         /// <summary>
         /// 值过滤 类型
         /// </summary>
-        public TargetValueFilterEnum TargetValueFilter { get; set; }
+        public LanguageTextFilterTypeEnum LanguageTextFilterType { get; set; }
 
         public override void Normalize()
         {
@@ -41,12 +40,27 @@ namespace AbpLearning.Application.Languages.Dto
             {
                 Sorting = "Key ASC";
             }
+
+            if (SourceName.IsNullOrEmpty())
+            {
+                SourceName = AbpLearningCoreConfig.LOCALIZATION_SOURCE_NAME;
+            }
+
+            if (LanguageName.IsNullOrEmpty())
+            {
+                LanguageName = "zh-Hans";
+            }
+
+            if (ContrastLanguageName.IsNullOrEmpty())
+            {
+                ContrastLanguageName = "en";
+            }
         }
 
         /// <summary>
         /// 值过滤 类型
         /// </summary>
-        public enum TargetValueFilterEnum
+        public enum LanguageTextFilterTypeEnum
         {
             /// <summary>
             /// 全部
