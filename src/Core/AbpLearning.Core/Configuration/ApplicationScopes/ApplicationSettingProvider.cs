@@ -25,64 +25,51 @@ namespace AbpLearning.Core.Configuration.ApplicationScopes
         /// <returns></returns>
         private static IEnumerable<SettingDefinition> GetGitHubAuthSettings()
         {
-            var group = new SettingDefinitionGroup(ThirdPartyAuth.SETTING_NAME, L(ThirdPartyAuth.GITHUB_AUTH + ".Authorization.Type.DisplayName"));
+            var group = new SettingDefinitionGroup(ThirdPartyAuth.SETTING_NAME, L(ThirdPartyAuth.GITHUB_AUTH + ".Authorization.Type.dn"));
 
             return new[]
             {
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_IS_ENABLED),
-                    defaultValue: GitHubAuthConfig.GITHUB_AUTH_IS_ENABLED.ToString(),
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_IS_ENABLED)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthIsEnabled),
+                    defaultValue: GithubAuthConfig.GithubAuthIsEnabled.ToString(),
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthIsEnabled)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_IS_ENABLED)+".Description"),
+                    description:L(nameof(GithubAuthConfig.GithubAuthIsEnabled)+".d"),
                     isVisibleToClients:true
                     ),
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZATION_TYPE),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_AUTHORIZATION_TYPE,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZATION_TYPE)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthClientId),
+                    defaultValue:GithubAuthConfig.GithubAuthClientId,
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthClientId)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZATION_TYPE)+".Description"),
                     isVisibleToClients:true
                     ),
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_ID),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_CLIENT_ID,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_ID)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthClientSecret),
+                    defaultValue:GithubAuthConfig.GithubAuthClientSecret,
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthClientSecret)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_ID)+".Description"),
                     isVisibleToClients:true
                     ),
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_SECRET),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_CLIENT_SECRET,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_SECRET)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthAuthorizeUrl),
+                    defaultValue:GithubAuthConfig.GithubAuthAuthorizeUrl,
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthAuthorizeUrl)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_CLIENT_SECRET)+".Description"),
                     isVisibleToClients:true
                     ),
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZE_URL),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_AUTHORIZE_URL,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZE_URL)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthAccessTokenUrl),
+                    defaultValue:GithubAuthConfig.GithubAuthAccessTokenUrl,
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthAccessTokenUrl)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_AUTHORIZE_URL)+".Description"),
                     isVisibleToClients:true
                     ),
                 new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_ACCESS_TOKEN_URL),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_ACCESS_TOKEN_URL,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_ACCESS_TOKEN_URL)+".DisplayName"),
+                    name:nameof(GithubAuthConfig.GithubAuthUserinfoUrl),
+                    defaultValue:GithubAuthConfig.GithubAuthUserinfoUrl,
+                    displayName:L(nameof(GithubAuthConfig.GithubAuthUserinfoUrl)+".dn"),
                     group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_ACCESS_TOKEN_URL)+".Description"),
-                    isVisibleToClients:true
-                    ),
-                new SettingDefinition(
-                    name:nameof(GitHubAuthConfig.GITHUB_AUTH_USERINFO_URL),
-                    defaultValue:GitHubAuthConfig.GITHUB_AUTH_USERINFO_URL,
-                    displayName:L(nameof(GitHubAuthConfig.GITHUB_AUTH_USERINFO_URL)+".DisplayName"),
-                    group:group,
-                    description:L(nameof(GitHubAuthConfig.GITHUB_AUTH_USERINFO_URL)+".Description"),
                     isVisibleToClients:true
                     ),
             };

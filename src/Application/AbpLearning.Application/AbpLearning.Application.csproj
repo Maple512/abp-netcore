@@ -25,9 +25,6 @@
     <ProjectReference Include="..\..\..\tools\AbpLearning.Common\AbpLearning.Common.csproj" />
     <ProjectReference Include="..\..\Core\AbpLearning.Core\AbpLearning.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <SignAssembly>false</SignAssembly>
