@@ -1,1 +1,1 @@
-项目迁移至Gitee，github这边不在维护
+# Obsolet
